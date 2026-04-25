@@ -449,15 +449,18 @@ async function loadDailyTable(y,m){
   const tbl=document.getElementById('day-table');
   tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--dim)">Загружаю данные по дням...</td></tr>';
 
-  // Fetch each day
-  const dayData=[];
-  for(let d=1;d<=lastDay;d++){
-    const dd=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-    try{
-      const resp=await fetch(PROXY+'/bulk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({dateFrom:dd,dateTo:dd})});
-      const j=await resp.json();
-      dayData.push({d,data:j.data||{}});
-    }catch(e){dayData.push({d,data:{}});}
+  // ONE request for all days and all stores
+  let dayData={};
+  try{
+    const resp=await fetch(PROXY+'/daily',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({year:y,month:m+1})
+    });
+    const j=await resp.json();
+    if(j.ok) dayData=j.data;
+  }catch(e){
+    tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--red)">Ошибка загрузки: '+e.message+'</td></tr>';
+    return;
   }
 
   // Build table
@@ -465,17 +468,16 @@ async function loadDailyTable(y,m){
   const dPlan={}; ST.forEach(s=>{dPlan[s.id]=Math.round((PL[s.id]||0)/DM);});
   const totalDayPlan=ST.reduce((a,s)=>a+(dPlan[s.id]||0),0);
 
-  // Header
   let hdr='<thead><tr><th style="text-align:left">День</th>';
   ST.forEach(s=>{hdr+='<th>'+s.s+'</th>';});
   hdr+='<th>Итого</th><th>% плана</th></tr></thead>';
 
-  // Rows
   let rows='<tbody>';
   const storeTotals={};ST.forEach(s=>{storeTotals[s.id]=0;});
   let grandTotal=0;
 
-  dayData.forEach(({d,data})=>{
+  for(let d=1;d<=lastDay;d++){
+    const data=dayData[d]||{};
     const dow=new Date(y,m,d).getDay();
     const isWE=dow===0||dow===6;
     const dayTotal=ST.reduce((a,s)=>a+(data[s.id]||0),0);
@@ -485,7 +487,7 @@ async function loadDailyTable(y,m){
     ST.forEach(s=>{storeTotals[s.id]+=(data[s.id]||0);});
 
     rows+='<tr>';
-    rows+='<td style="'+(isWE?'color:var(--gold);opacity:.7':'')+'">'+d+' '+DAYS[dow]+'</td>';
+    rows+='<td style="'+(isWE?'color:var(--gold);opacity:.8':'')+'">'+d+' '+DAYS[dow]+'</td>';
     ST.forEach(s=>{
       const v=data[s.id]||0;
       const sp=dPlan[s.id]||0;
@@ -496,9 +498,8 @@ async function loadDailyTable(y,m){
     rows+='<td class="tot">'+fm(Math.round(dayTotal))+'</td>';
     rows+='<td class="'+pc+'">'+pct+'%</td>';
     rows+='</tr>';
-  });
+  }
 
-  // Summary row
   rows+='<tr class="sum-row"><td>Итого</td>';
   ST.forEach(s=>{
     const total=storeTotals[s.id];
