@@ -445,37 +445,33 @@ async function loadDailyTable(y,m){
   const PL=gpl(y,m),DM=sdm(y,m);
   const n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
   const lastDay=isCur?n.getDate():DM;
-  
   const tbl=document.getElementById('day-table');
-  tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--dim)">Загружаю данные по дням...</td></tr>';
-
-  // ONE request for all days and all stores
+  tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--dim)">Загружаю данные по дням... (~5 сек)</td></tr>';
   let dayData={};
   try{
     const resp=await fetch(PROXY+'/daily',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({year:y,month:m+1})
     });
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
     const j=await resp.json();
-    if(j.ok) dayData=j.data;
+    if(!j.ok) throw new Error('Worker error');
+    dayData=j.data||{};
   }catch(e){
-    tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--red)">Ошибка загрузки: '+e.message+'</td></tr>';
+    tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--red)">Ошибка: '+e.message+'. Попробуйте ещё раз.</td></tr>';
+    _dayLoaded=false;
     return;
   }
-
-  // Build table
   const DAYS=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
   const dPlan={}; ST.forEach(s=>{dPlan[s.id]=Math.round((PL[s.id]||0)/DM);});
   const totalDayPlan=ST.reduce((a,s)=>a+(dPlan[s.id]||0),0);
-
-  let hdr='<thead><tr><th style="text-align:left">День</th>';
+  let hdr='<thead><tr><th style="text-align:left;min-width:55px">День</th>';
   ST.forEach(s=>{hdr+='<th>'+s.s+'</th>';});
-  hdr+='<th>Итого</th><th>% плана</th></tr></thead>';
-
+  hdr+='<th>Итого</th><th>%</th></tr></thead>';
   let rows='<tbody>';
   const storeTotals={};ST.forEach(s=>{storeTotals[s.id]=0;});
   let grandTotal=0;
-
   for(let d=1;d<=lastDay;d++){
     const data=dayData[d]||{};
     const dow=new Date(y,m,d).getDay();
@@ -485,12 +481,10 @@ async function loadDailyTable(y,m){
     const pc=pct>=100?'pct-g':pct>=80?'pct-y':'pct-r';
     grandTotal+=dayTotal;
     ST.forEach(s=>{storeTotals[s.id]+=(data[s.id]||0);});
-
     rows+='<tr>';
-    rows+='<td style="'+(isWE?'color:var(--gold);opacity:.8':'')+'">'+d+' '+DAYS[dow]+'</td>';
+    rows+='<td style="'+(isWE?'color:var(--gold)':'')+';font-weight:'+(isWE?'600':'400')+'">'+d+' '+DAYS[dow]+'</td>';
     ST.forEach(s=>{
-      const v=data[s.id]||0;
-      const sp=dPlan[s.id]||0;
+      const v=data[s.id]||0,sp=dPlan[s.id]||0;
       const vp=sp>0?Math.round(v/sp*100):0;
       const vc=vp>=100?'g':vp>=80?'y':'r';
       rows+='<td class="'+(v>0?vc:'')+'">'+( v>0?fm(Math.round(v)):'—')+'</td>';
@@ -499,11 +493,9 @@ async function loadDailyTable(y,m){
     rows+='<td class="'+pc+'">'+pct+'%</td>';
     rows+='</tr>';
   }
-
   rows+='<tr class="sum-row"><td>Итого</td>';
   ST.forEach(s=>{
-    const total=storeTotals[s.id];
-    const plan=PL[s.id]||0;
+    const total=storeTotals[s.id],plan=PL[s.id]||0;
     const pct=plan>0?Math.round(total/plan*100):0;
     const pc=pct>=100?'pct-g':pct>=80?'pct-y':'pct-r';
     rows+='<td><span class="'+pc+'">'+fm(Math.round(total))+'</span><br><span style="font-size:9px;color:var(--dim)">'+pct+'%</span></td>';
@@ -513,7 +505,6 @@ async function loadDailyTable(y,m){
   const gPc=gPct>=100?'pct-g':gPct>=80?'pct-y':'pct-r';
   rows+='<td>'+fm(Math.round(grandTotal))+'</td><td class="'+gPc+'">'+gPct+'%</td>';
   rows+='</tr></tbody>';
-
   tbl.innerHTML=hdr+rows;
   _dayLoaded=true;
 }
@@ -532,7 +523,7 @@ function setupDayToggle(y,m){
       wrap.style.display='block';
       btn.className='day-btn active';
       btn.textContent='📅 Скрыть по дням';
-      if(!_dayLoaded)loadDailyTable(_archY,_archM);
+      if(!_dayLoaded)loadDailyTable(_archY,_archM); else if(document.getElementById('day-table').querySelector('td[colspan]'))loadDailyTable(_archY,_archM);
     }
   };
 }
