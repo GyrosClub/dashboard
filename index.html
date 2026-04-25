@@ -3,134 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gyros Club</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Gyros Club — План продаж</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#C9A84C;--gold-l:#E8C97A;--bg:#0D0D0D;--bg2:#141414;--bg3:#1C1C1C;--brd:rgba(201,168,76,.18);--txt:#F0EAD6;--dim:#8a8070;--grn:#4CAF7A;--red:#E05252;--ylw:#E0B952}
+:root{--gold:#C9A84C;--gold-l:#E8C97A;--bg:#0D0D0D;--bg2:#141414;--bg3:#1C1C1C;--border:rgba(201,168,76,0.18);--text:#F0EAD6;--dim:#8a8070;--green:#4CAF7A;--red:#E05252;--yellow:#E0B952}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--txt);font-family:Jost,sans-serif;min-height:100vh}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(201,168,76,.06),transparent 70%);pointer-events:none;z-index:0}
-.topbar{height:4px;background:repeating-linear-gradient(90deg,var(--gold) 0,var(--gold) 8px,transparent 8px,transparent 20px);opacity:.6}
-
-/* AUTH */
-.aw{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center}
-.ab{background:var(--bg2);border:1px solid var(--brd);padding:40px 36px;width:92%;max-width:360px;text-align:center}
-.ai{width:100%;background:var(--bg3);border:1px solid var(--brd);color:var(--txt);padding:12px;font-family:Jost,sans-serif;font-size:15px;outline:none;margin-bottom:10px;text-align:center;letter-spacing:.05em}
-.ai:focus{border-color:var(--gold)}
-.abtn{width:100%;background:var(--gold);color:#0D0D0D;border:none;padding:13px;font-family:Jost,sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;margin-top:4px}
-.abtn:hover{background:var(--gold-l)}
-.aerr{font-size:12px;color:var(--red);margin-top:10px;min-height:18px}
-.adev{font-size:10px;color:var(--dim);margin-top:18px;letter-spacing:.08em}
-
-/* LAYOUT */
-header{position:relative;z-index:1;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd);flex-wrap:wrap;gap:10px}
-.logo-w{display:flex;align-items:center;gap:12px}
-.logo-img{height:48px;object-fit:contain}
-.logo-dev{font-size:10px;color:var(--dim);letter-spacing:.1em;margin-top:3px}
+body{background:var(--bg);color:var(--text);font-family:Jost,sans-serif;min-height:100vh}
+/* LOGIN */
+#login-screen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{background:var(--bg2);border:1px solid var(--border);padding:40px 36px;width:100%;max-width:380px;text-align:center}
+.login-logo{margin-bottom:8px}
+.login-logo svg{height:36px;width:auto}
+.login-title{font-family:Cinzel,serif;font-size:22px;color:var(--gold);letter-spacing:.15em;margin-bottom:4px}
+.login-sub{font-size:11px;color:var(--dim);letter-spacing:.1em;margin-bottom:28px}
+.login-field{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:12px 14px;font-family:Jost,sans-serif;font-size:14px;outline:none;margin-bottom:12px;text-align:center;letter-spacing:.05em}
+.login-field:focus{border-color:var(--gold)}
+.login-btn{width:100%;background:var(--gold);color:#0D0D0D;border:none;padding:13px;font-family:Jost,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;margin-top:4px;transition:background .2s}
+.login-btn:hover{background:var(--gold-l)}
+.login-err{color:var(--red);font-size:12px;margin-top:10px;min-height:18px}
+/* MAIN */
+#main-screen{display:none}
+.top{height:4px;background:repeating-linear-gradient(90deg,var(--gold) 0,var(--gold) 8px,transparent 8px,transparent 20px);opacity:.6}
+header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px}
+.logo-area{display:flex;align-items:center;gap:14px}
+.logo-svg{height:40px;width:auto;flex-shrink:0}
+.logo-sub{font-size:10px;color:var(--dim);letter-spacing:.1em;margin-top:2px}
+.logo-author{font-size:9px;color:rgba(201,168,76,.5);letter-spacing:.08em;margin-top:1px}
 .hbtns{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.btn{border:none;cursor:pointer;font-family:Jost,sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:10px 18px;display:flex;align-items:center;gap:6px;transition:all .2s}
+.btn{border:none;cursor:pointer;font-family:Jost,sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:10px 18px;transition:all .2s;display:flex;align-items:center;gap:6px}
 .bg{background:var(--gold);color:#0D0D0D}.bg:hover{background:var(--gold-l)}.bg:disabled{opacity:.5;cursor:wait}
-.bo{background:transparent;color:var(--gold);border:1px solid var(--brd)}.bo:hover{border-color:var(--gold);background:rgba(201,168,76,.06)}
+.bo{background:transparent;color:var(--gold);border:1px solid var(--border)}.bo:hover{border-color:var(--gold)}
 .sp{width:12px;height:12px;border:2px solid rgba(0,0,0,.25);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;display:none}
 .sp.on{display:inline-block}
-main{position:relative;z-index:1;padding:18px 22px;max-width:1300px;margin:0 auto}
-
-/* PLAN MODAL */
-.mb{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
+main{padding:16px 20px;max-width:1300px;margin:0 auto}
+/* MODAL PLANS */
+.mb{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
 .mb.show{display:flex}
-.md{background:var(--bg2);border:1px solid var(--brd);padding:28px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto}
-.mt{font-family:Cinzel,serif;font-size:14px;color:var(--gold);margin-bottom:4px}
-.ms{font-size:12px;color:var(--dim);margin-bottom:16px}
+.md{background:var(--bg2);border:1px solid var(--border);padding:28px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
+.mt{font-family:Cinzel,serif;font-size:15px;color:var(--gold);letter-spacing:.1em;margin-bottom:4px}
+.ms{font-size:12px;color:var(--dim);margin-bottom:18px}
 .pr{display:flex;align-items:center;gap:8px;margin-bottom:9px}
-.pl{font-size:12px;color:var(--txt);flex:1}
-.pi{background:var(--bg3);border:1px solid var(--brd);color:var(--txt);padding:7px 10px;font-family:Jost,sans-serif;font-size:13px;outline:none;text-align:right;width:120px}
+.pl{font-size:12px;color:var(--text);flex:1}
+.pi{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:7px 10px;font-family:Jost,sans-serif;font-size:13px;outline:none;text-align:right;width:120px}
 .pi:focus{border-color:var(--gold)}
-.pd{font-size:10px;color:var(--dim);width:75px;text-align:right}
-
+.pd{font-size:10px;color:var(--dim);width:80px;text-align:right;flex-shrink:0}
 /* STATUS */
-.sb{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:10px 14px;background:var(--bg2);border:1px solid var(--brd);font-size:13px;color:var(--dim)}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--dim);flex-shrink:0}
-.dot.live{background:var(--grn);animation:pulse 2s infinite}.dot.e{background:var(--red)}.dot.ld{background:var(--ylw);animation:pulse .5s infinite}
-
+.sb{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:9px 14px;background:var(--bg2);border:1px solid var(--border);font-size:12px;color:var(--dim)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--dim);flex-shrink:0}
+.dot.live{background:var(--green);animation:pulse 2s infinite}.dot.e{background:var(--red)}.dot.ld{background:var(--yellow);animation:pulse .5s infinite}
 /* TABS */
-.tabs{display:flex;border-bottom:1px solid var(--brd);margin-bottom:18px;overflow-x:auto}
-.tab{padding:10px 20px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:Jost,sans-serif;font-weight:700;white-space:nowrap}
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:16px;overflow-x:auto}
+.tab{padding:10px 20px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:Jost,sans-serif;white-space:nowrap;font-weight:600;transition:all .2s}
 .tab.on{color:var(--gold);border-bottom-color:var(--gold)}
-
-/* TOP 4 CARDS */
-.top4{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
-.tc{background:var(--bg2);border:1px solid var(--brd);padding:18px 20px;position:relative;overflow:hidden}
-.tc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.tc.g::before{background:var(--grn)}.tc.r::before{background:var(--red)}.tc.y::before{background:var(--ylw)}.tc.n::before{background:var(--gold);opacity:.4}
-.tc-ico{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px}
-.tc-ico.g{background:rgba(76,175,122,.15)}.tc-ico.r{background:rgba(224,82,82,.15)}.tc-ico.y{background:rgba(224,185,82,.15)}.tc-ico.n{background:rgba(201,168,76,.1)}
-.tc-lbl{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:7px}
-.tc-val{font-size:24px;color:var(--txt);font-weight:700;line-height:1.1;margin-bottom:5px}
-.tc-val.g{color:var(--grn)}.tc-val.r{color:var(--red)}.tc-val.y{color:var(--ylw)}
-.tc-sub{font-size:12px;color:var(--dim)}
-.tc-pct{font-size:12px;font-weight:700;margin-top:7px}
-.tc-pct.g{color:var(--grn)}.tc-pct.r{color:var(--red)}.tc-pct.y{color:var(--ylw)}
-.tc-bar{height:4px;background:rgba(255,255,255,.07);margin-top:5px;overflow:hidden}
-.tc-bar-f{height:100%;min-width:2px;transition:width 1s}
-.tc-bar-f.g{background:var(--grn)}.tc-bar-f.r{background:var(--red)}.tc-bar-f.y{background:var(--ylw)}.tc-bar-f.n{background:var(--gold)}
-
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.card{background:var(--bg2);border:1px solid var(--border);padding:16px 20px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.card.g::before{background:var(--green)}.card.r::before{background:var(--red)}.card.y::before{background:var(--yellow)}.card.n::before{background:var(--gold);opacity:.4}
+.cl{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.cv{font-size:26px;color:var(--text);font-weight:700;letter-spacing:-.02em}.cs{font-size:11px;color:var(--dim);margin-top:3px}
 /* STRIP */
-.strip{background:var(--bg2);border:1px solid var(--brd);padding:13px 18px;margin-bottom:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:center}
+.strip{background:var(--bg2);border:1px solid var(--border);padding:14px 20px;margin-bottom:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:center}
 .tl{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:3px}
-.tv{font-size:17px;color:var(--gold);font-weight:700}.tv.s{font-size:13px;color:var(--dim);font-weight:400}
-.pbw{display:flex;flex-direction:column;gap:3px}.pbr{display:flex;justify-content:space-between}
-.pc{font-size:14px;font-weight:700}.pc.g{color:var(--grn)}.pc.y{color:var(--ylw)}.pc.r{color:var(--red)}
-.pbg{height:5px;background:rgba(255,255,255,.06);position:relative;overflow:hidden}
-.pbf{height:100%;min-width:2px;transition:width 1s}
-.pbf.g{background:linear-gradient(90deg,#2d7a52,var(--grn))}.pbf.y{background:linear-gradient(90deg,#9a7a20,var(--ylw))}.pbf.r{background:linear-gradient(90deg,#8a2020,var(--red))}
-.pbn{position:absolute;top:0;bottom:0;width:2px;background:rgba(255,255,255,.35)}
-
-/* OUTLET CARDS */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
-.oc{background:var(--bg2);border:1px solid var(--brd);padding:15px;transition:border-color .2s,transform .2s}
-.oc:hover{border-color:rgba(201,168,76,.4);transform:translateY(-1px)}
-.oc.ov{border-left:3px solid var(--grn)}.oc.tr{border-left:3px solid var(--ylw)}.oc.bh{border-left:3px solid var(--red)}
-.on2{font-size:12px;color:var(--txt);font-weight:700;margin-bottom:10px}
-.r3{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px}
+.tv{font-size:20px;color:var(--gold);font-weight:700}.tv.s{font-size:14px;color:var(--dim);font-weight:400}
+.pbw{display:flex;flex-direction:column;gap:4px}.pbr{display:flex;justify-content:space-between}
+.pc{font-size:16px;font-weight:700}.pc.g{color:var(--green)}.pc.y{color:var(--yellow)}.pc.r{color:var(--red)}
+.pbg{height:6px;background:rgba(255,255,255,.06);position:relative;overflow:hidden}
+.pbf{height:100%;transition:width 1.2s ease}
+.pbf.g{background:linear-gradient(90deg,#2d7a52,var(--green))}.pbf.y{background:linear-gradient(90deg,#9a7a20,var(--yellow))}.pbf.r{background:linear-gradient(90deg,#8a2020,var(--red))}
+.pbn{position:absolute;top:0;bottom:0;width:2px;background:rgba(255,255,255,.4)}
+/* STORE GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.oc{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--border);padding:16px;transition:border-color .2s,transform .15s}
+.oc:hover{transform:translateY(-2px)}
+.oc.ov{border-left-color:var(--green)}.oc.tr{border-left-color:var(--yellow)}.oc.bh{border-left-color:var(--red)}
+.on2{font-size:13px;color:var(--text);font-weight:600;margin-bottom:12px}
+.r3{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px}
 .blk{display:flex;flex-direction:column;gap:2px}
 .bl{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-.fv{font-size:16px;color:var(--txt);font-weight:700}.pv{font-size:13px;color:var(--dim)}.dv{font-size:12px;color:var(--dim)}
-.pb2{margin-bottom:7px}.p2r{display:flex;justify-content:space-between;margin-bottom:3px}
-.p2{font-size:12px;font-weight:700}.p2.g{color:var(--grn)}.p2.y{color:var(--ylw)}.p2.r{color:var(--red)}
-.pbd{font-size:11px;color:var(--dim)}
-.bdg{display:inline-flex;align-items:center;gap:2px;font-size:10px;padding:3px 7px}
-.bdg.g{background:rgba(76,175,122,.12);color:var(--grn)}.bdg.r{background:rgba(224,82,82,.12);color:var(--red)}.bdg.y{background:rgba(224,185,82,.12);color:var(--ylw)}
-.sh{font-size:9px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;margin-top:2px}
-
+.fv{font-size:18px;color:var(--text);font-weight:700}.pv{font-size:13px;color:var(--dim)}.dv{font-size:11px;color:var(--dim)}
+.pb2{margin-bottom:9px}.p2r{display:flex;justify-content:space-between;margin-bottom:4px}
+.p2{font-size:13px;font-weight:700}.p2.g{color:var(--green)}.p2.y{color:var(--yellow)}.p2.r{color:var(--red)}
+.pbd{font-size:10px;color:var(--dim)}
+.bdg{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:3px 7px}
+.bdg.g{background:rgba(76,175,122,.12);color:var(--green)}.bdg.r{background:rgba(224,82,82,.12);color:var(--red)}.bdg.y{background:rgba(224,185,82,.12);color:var(--yellow)}
+.sh{font-size:9px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;margin-top:4px}
 /* ARCHIVE */
 .ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
-.ac{background:var(--bg2);border:1px solid var(--brd);padding:14px;cursor:pointer;transition:border-color .2s,transform .2s}
-.ac:hover{border-color:var(--gold);transform:translateY(-1px)}
-.am{font-family:Cinzel,serif;font-size:11px;color:var(--gold);margin-bottom:6px}
-.at2{font-size:16px;color:var(--txt);font-weight:700}
-.ap{font-size:11px;margin-top:3px}.ap.g{color:var(--grn)}.ap.y{color:var(--ylw)}.ap.r{color:var(--red)}
-
+.ac{background:var(--bg2);border:1px solid var(--border);padding:14px;cursor:pointer;transition:border-color .2s,transform .15s}
+.ac:hover{border-color:var(--gold);transform:translateY(-2px)}
+.am{font-family:Cinzel,serif;font-size:12px;color:var(--gold);margin-bottom:6px}
+.at2{font-size:18px;color:var(--text);font-weight:700}
+.ap{font-size:11px;margin-top:3px}.ap.g{color:var(--green)}.ap.y{color:var(--yellow)}.ap.r{color:var(--red)}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-@media(max-width:800px){.strip{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}header,main{padding:12px 14px}}
-@media(max-width:480px){.top4{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.strip{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}header,main{padding:12px 14px}}
+@media(max-width:480px){.cards{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- AUTH -->
-<div class="aw" id="aw">
-  <div class="ab">
-    <img id="auth-logo" src="logo.png" style="height:52px;margin-bottom:20px;object-fit:contain" onerror="this.style.display='none'">
-    <div style="font-family:Cinzel,serif;font-size:13px;letter-spacing:.2em;color:var(--gold);margin-bottom:4px">ПЛАН ПРОДАЖ</div>
-    <div style="font-size:10px;color:var(--dim);letter-spacing:.1em;margin-bottom:26px">Введите данные для доступа</div>
-    <input class="ai" id="al" type="text" placeholder="Логин" autocomplete="off" autocapitalize="none">
-    <input class="ai" id="ap" type="password" placeholder="Пароль">
-    <button class="abtn" id="abtn">Войти</button>
-    <div class="aerr" id="aerr"></div>
-    <div class="adev">Разработал Хаджи С.С.</div>
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+        <text x="4" y="40" font-family="Georgia,serif" font-size="44" font-weight="900" fill="#E8241A" letter-spacing="2">GYROS CLUB</text>
+      </svg>
+    </div>
+    <div class="login-sub">ПЛАН ПРОДАЖ</div>
+    <input class="login-field" id="li" type="text" placeholder="Логин" autocomplete="off">
+    <input class="login-field" id="lp" type="password" placeholder="Пароль">
+    <button class="login-btn" id="lb">Войти</button>
+    <div class="login-err" id="le"></div>
   </div>
 </div>
+
+<!-- MAIN DASHBOARD -->
+<div id="main-screen">
+<div class="top"></div>
 
 <!-- PLAN MODAL -->
 <div class="mb" id="pm">
@@ -145,15 +136,19 @@ main{position:relative;z-index:1;padding:18px 22px;max-width:1300px;margin:0 aut
   </div>
 </div>
 
-<div class="topbar"></div>
 <header>
-  <div class="logo-w">
-    <img class="logo-img" src="logo.png" alt="Gyros Club" onerror="this.style.display='none'">
-    <div class="logo-dev">Разработал Хаджи С.С.</div>
+  <div class="logo-area">
+    <svg class="logo-svg" viewBox="0 0 260 50" xmlns="http://www.w3.org/2000/svg">
+      <text x="2" y="40" font-family="Georgia,serif" font-size="44" font-weight="900" fill="#E8241A" letter-spacing="2">GYROS CLUB</text>
+    </svg>
+    <div>
+      <div class="logo-sub">Выполнение плана продаж</div>
+      <div class="logo-author">Разработал Хаджи С.С.</div>
+    </div>
   </div>
   <div class="hbtns">
     <span id="ut" style="font-size:11px;color:var(--dim)"></span>
-    <button class="btn bo" id="pb">⚙ Планы</button>
+    <button class="btn bo" id="pb" style="font-size:10px">⚙ Планы</button>
     <button class="btn bg" id="rb"><div class="sp" id="sp"></div>↻ Обновить</button>
   </div>
 </header>
@@ -165,44 +160,72 @@ main{position:relative;z-index:1;padding:18px 22px;max-width:1300px;margin:0 aut
     <button class="tab" id="tm">Месяц</button>
     <button class="tab" id="ta">Архив</button>
   </div>
-  <div id="vt"><div class="top4" id="ct"></div><div class="strip" id="st2"></div><div class="sh">По точкам — сегодня</div><div class="grid" id="gt"></div></div>
-  <div id="vm" style="display:none"><div class="top4" id="cm"></div><div class="strip" id="sm"></div><div class="sh">По точкам — за месяц</div><div class="grid" id="gm"></div></div>
+
+  <div id="vt">
+    <div class="cards" id="ct"></div>
+    <div class="strip" id="st2"></div>
+    <div class="sh">По точкам — сегодня</div>
+    <div class="grid" id="gt"></div>
+  </div>
+  <div id="vm" style="display:none">
+    <div class="cards" id="cm"></div>
+    <div class="strip" id="sm"></div>
+    <div class="sh">По точкам — за месяц</div>
+    <div class="grid" id="gm"></div>
+  </div>
   <div id="va" style="display:none">
     <div class="sh">Архив (с апреля 2026)</div>
     <div class="ag" id="ag"></div>
-    <div id="ad" style="display:none;margin-top:14px">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-        <button class="btn bo" id="abk" style="font-size:9px">← Назад</button>
-        <span id="at3" style="font-family:Cinzel,serif;font-size:13px;color:var(--gold)"></span>
+    <div id="ad" style="display:none;margin-top:16px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <button class="btn bo" id="ab" style="font-size:9px">← Назад</button>
+        <span id="adt" style="font-family:Cinzel,serif;font-size:14px;color:var(--gold)"></span>
       </div>
-      <div class="top4" id="acd"></div>
+      <div class="cards" id="acd"></div>
       <div class="sh" style="margin-top:14px">По точкам</div>
       <div class="grid" id="agd"></div>
     </div>
   </div>
 </main>
+</div>
 
 <script>
-const PX='https://gyros-proxy.gyrosclub161.workers.dev';
-const LOGIN='GC26',PASS='gc2026/4';
-const ST=[{id:43606,n:'01. Gyros Club Ворошиловский 55',s:'Ворошиловский 55'},{id:48767,n:'02. Gyros Club Ленина 81/8',s:'Ленина 81/8'},{id:55956,n:'03. Gyros Club Стачки 207',s:'Стачки 207'},{id:57060,n:'04. Gyros Club Стачки 220',s:'Стачки 220'},{id:78987,n:'06. Gyros Club Аксай',s:'Аксай'},{id:95683,n:'07. Gyros Club Мануфактура',s:'Мануфактура'},{id:101199,n:'08. Gyros Club Зорге 19/162',s:'Зорге 19/162'}];
+const PROXY='https://gyros-proxy.gyrosclub161.workers.dev';
+const LOGIN='GC26', PASS='gc2026/4';
+const ST=[
+  {id:43606,n:'01. Gyros Club Ворошиловский 55',s:'Ворошиловский 55'},
+  {id:48767,n:'02. Gyros Club Ленина 81/8',s:'Ленина 81/8'},
+  {id:55956,n:'03. Gyros Club Стачки 207',s:'Стачки 207'},
+  {id:57060,n:'04. Gyros Club Стачки 220',s:'Стачки 220'},
+  {id:78987,n:'06. Gyros Club Аксай',s:'Аксай'},
+  {id:95683,n:'07. Gyros Club Мануфактура',s:'Мануфактура'},
+  {id:101199,n:'08. Gyros Club Зорге 19/162',s:'Зорге 19/162'}
+];
 const MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 const DP={43606:1020000,48767:1560000,55956:1020000,57060:1320000,78987:1100000,95683:1800000,101199:1440000};
 let TR={},MR={};
 
-function chkAuth(){return sessionStorage.getItem('gc_a')==='1';}
-function initAuth(){
-  if(chkAuth()){document.getElementById('aw').style.display='none';load();return;}
-  document.getElementById('abtn').addEventListener('click',doAuth);
-  document.getElementById('ap').addEventListener('keydown',e=>{if(e.key==='Enter')doAuth();});
+// AUTH
+function chkAuth(){return sessionStorage.getItem('gc_auth')==='1';}
+function doLogin(){
+  const l=document.getElementById('li').value.trim();
+  const p=document.getElementById('lp').value;
+  if(l===LOGIN&&p===PASS){
+    sessionStorage.setItem('gc_auth','1');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('main-screen').style.display='block';
+    load();
+  } else {
+    document.getElementById('le').textContent='Неверный логин или пароль';
+    document.getElementById('lp').value='';
+  }
 }
-function doAuth(){
-  const l=document.getElementById('al').value.trim();
-  const p=document.getElementById('ap').value;
-  if(l===LOGIN&&p===PASS){sessionStorage.setItem('gc_a','1');document.getElementById('aw').style.display='none';load();}
-  else{document.getElementById('aerr').textContent='Неверный логин или пароль';document.getElementById('ap').value='';}
-}
+document.getElementById('lb').addEventListener('click',doLogin);
+document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('li').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('lp').focus();});
+if(chkAuth()){document.getElementById('login-screen').style.display='none';document.getElementById('main-screen').style.display='block';}
 
+// UTILS
 function gpk(y,m){return'gcp_'+y+'_'+m;}
 function gpl(y,m){try{const s=JSON.parse(localStorage.getItem(gpk(y,m))||'{}');if(Object.keys(s).length)return s;}catch(e){}return{...DP};}
 function sdm(y,m){return new Date(y,m+1,0).getDate();}
@@ -212,90 +235,80 @@ function fd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')
 function col(p){return p>=100?'g':p>=80?'y':'r';}
 function ss(c,x){document.getElementById('sd').className='dot '+(c==='g'?'live':c==='r'?'e':'ld');document.getElementById('st').textContent=x;}
 
-async function fr(df,dt){
-  const r={};
-  for(const s of ST){
-    try{
-      const x=await fetch(PX+'/api/kpi/dashboard/get-data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({dateFrom:df,dateTo:dt,metricCodes:['REV_GROSS'],storeIds:[s.id],dataType:'DATA_TOTAL'})});
-      const d=await x.json();r[s.id]=d?.data?.REV_GROSS||0;
-    }catch(e){r[s.id]=0;}
-  }
-  return r;
+// FETCH - bulk endpoint, one login for all stores
+async function fbulk(df,dt){
+  const resp=await fetch(PROXY+'/bulk',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({dateFrom:df,dateTo:dt})
+  });
+  const d=await resp.json();
+  if(!d.ok) throw new Error('Bulk fetch failed');
+  return d.data;
 }
 
 async function load(){
+  if(!chkAuth())return;
   const b=document.getElementById('rb'),sp=document.getElementById('sp');
-  b.disabled=true;sp.classList.add('on');ss('y','Загружаю данные из iiko...');
+  b.disabled=true;sp.classList.add('on');
+  ss('y','Загружаю данные из iiko...');
   try{
     const n=new Date(),td=fd(n),ms=fd(new Date(n.getFullYear(),n.getMonth(),1));
-    [TR,MR]=await Promise.all([fr(td,td),fr(ms,td)]);
+    [TR,MR]=await Promise.all([fbulk(td,td),fbulk(ms,td)]);
     rT(n);rM(n);
-    ss('g','Данные актуальны');
+    ss('g','Данные актуальны — '+n.toLocaleDateString('ru-RU')+' '+ft(n));
     document.getElementById('ut').textContent=n.toLocaleDateString('ru-RU')+' '+ft(n);
     chkPlan(n);
   }catch(e){ss('r','Ошибка: '+e.message);}
   b.disabled=false;sp.classList.remove('on');
 }
 
-function chkPlan(n){
-  const y=n.getFullYear(),m=n.getMonth(),d=n.getDate();
-  if(d>=1&&d<=10&&!localStorage.getItem(gpk(y,m)))setTimeout(()=>openPM(true),800);
-}
+function chkPlan(n){const y=n.getFullYear(),m=n.getMonth(),d=n.getDate();if(d>=1&&d<=10&&!localStorage.getItem(gpk(y,m)))setTimeout(()=>openPM(true),900);}
 
-function mkTop4(el,cards){
-  document.getElementById(el).innerHTML=cards.map(c=>
-    '<div class="tc '+c.c+'">'+
-    '<div class="tc-ico '+c.c+'">'+c.ico+'</div>'+
-    '<div class="tc-lbl">'+c.lbl+'</div>'+
-    '<div class="tc-val '+(c.vc||'')+'">'+c.val+'</div>'+
-    '<div class="tc-sub">'+c.sub+'</div>'+
-    (c.pct!==undefined?'<div class="tc-pct '+c.c+'">'+c.pct+'%</div><div class="tc-bar"><div class="tc-bar-f '+c.c+'" style="width:'+Math.min(c.pct,100)+'%"></div></div>':'')
-    +'</div>').join('');
-}
+function mkCards(el,items){document.getElementById(el).innerHTML=items.map(x=>'<div class="card '+x.c+'"><div class="cl">'+x.l+'</div><div class="cv">'+x.v+'</div><div class="cs">'+x.s+'</div></div>').join('');}
 
-function mkStrip(el,tf,td,te,pct,c,dpct,dlbl){
+function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
   document.getElementById(el).innerHTML=
     '<div><div class="tl">Факт</div><div class="tv">'+fm(tf)+' ₽</div></div>'+
-    '<div><div class="tl">'+dlbl+'</div><div class="tv s">'+fm(td)+' ₽</div></div>'+
+    '<div><div class="tl">'+plabel+'</div><div class="tv s">'+fm(plan)+' ₽</div></div>'+
     '<div><div class="tl">Ожидалось</div><div class="tv s">'+fm(te)+' ₽</div></div>'+
     '<div class="pbw"><div class="pbr"><span class="pc '+c+'">'+pct+'%</span><span style="font-size:10px;color:var(--dim)">'+dpct+'</span></div>'+
-    '<div class="pbg"><div class="pbf '+c+'" style="width:'+Math.min(pct,100)+'%"></div></div></div>';
+    '<div class="pbg"><div class="pbf '+c+'" style="width:'+Math.min(pct,100)+'%"></div><div class="pbn" style="left:'+dpct.match(/\d+/)?.[0]+'%"></div></div></div>';
 }
 
 function mkGrid(el,data,PL,DM,isDay,n){
   const el2=isDay?(n.getHours()*60+n.getMinutes())/(24*60):1;
   const day=isDay?0:n.getDate();
+  const dp=isDay?Math.round(el2*100):Math.round(day/DM*100);
   document.getElementById(el).innerHTML=[...ST].sort((a,b)=>{
     const fa=data[a.id]||0,fb=data[b.id]||0;
     const ea=(PL[a.id]||0)/DM*(isDay?el2:day),eb=(PL[b.id]||0)/DM*(isDay?el2:day);
     return(eb>0?fb/eb:0)-(ea>0?fa/ea:0);
   }).map(s=>{
     const f=data[s.id]||0,pl=PL[s.id]||0,dv=pl/DM;
-    const e=Math.round(dv*(isDay?el2:day)),pt=e>0?Math.round(f/e*100):0;
-    const c2=col(pt),cl=pt>=100?'ov':pt>=80?'tr':'bh',df=Math.round(f-e);
-    const dp=isDay?Math.round(el2*100):Math.round(day/DM*100);
+    const e=Math.round(dv*(isDay?el2:day));
+    const pt=e>0?Math.round(f/e*100):0,c2=col(pt),cl=pt>=100?'ov':pt>=80?'tr':'bh',df=Math.round(f-e);
     return '<div class="oc '+cl+'"><div class="on2">'+s.n+'</div>'+
       '<div class="r3">'+
-      '<div class="blk"><div class="bl">Факт</div><div class="fv">'+fm(f)+' ₽</div></div>'+
-      '<div class="blk"><div class="bl">Ожидалось</div><div class="pv">'+fm(e)+' ₽</div></div>'+
-      '<div class="blk"><div class="bl">'+(isDay?'В день':'Мес. план')+'</div><div class="dv">'+fm(isDay?Math.round(dv):pl)+' ₽</div></div></div>'+
-      '<div class="pb2"><div class="p2r"><span class="p2 '+c2+'">'+pt+'%</span><span class="pbd">'+(isDay?ft(n)+' • '+dp+'% дня':day+' из '+DM+' дней')+'</span></div>'+
+        '<div class="blk"><div class="bl">Факт</div><div class="fv">'+fm(f)+' ₽</div></div>'+
+        '<div class="blk"><div class="bl">Ожидалось</div><div class="pv">'+fm(e)+' ₽</div></div>'+
+        '<div class="blk"><div class="bl">'+(isDay?'В день':'Мес. план')+'</div><div class="dv">'+fm(isDay?Math.round(dv):pl)+' ₽</div></div>'+
+      '</div>'+
+      '<div class="pb2"><div class="p2r"><span class="p2 '+c2+'">'+pt+'%</span><span class="pbd">'+(isDay?ft(n)+' • '+dp+'% дня':day+' из '+DM+' дн.')+'</span></div>'+
       '<div class="pbg"><div class="pbf '+c2+'" style="width:'+Math.min(pt,100)+'%"></div><div class="pbn" style="left:'+dp+'%"></div></div></div>'+
       '<div class="bdg '+c2+'">'+(df>=0?'▲':'▼')+' '+fm(Math.abs(df))+' ₽ '+(df>=0?'опережение':'отставание')+'</div></div>';
   }).join('');
 }
 
 function rT(n){
-  const el2=(n.getHours()*60+n.getMinutes())/(24*60),dp=Math.round(el2*100);
+  const el=(n.getHours()*60+n.getMinutes())/(24*60),dp=Math.round(el*100);
   const y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m);
   let tf=0,te=0,td=0;
-  ST.forEach(s=>{tf+=TR[s.id]||0;td+=PL[s.id]/DM;te+=PL[s.id]/DM*el2;});
+  ST.forEach(s=>{tf+=TR[s.id]||0;const dv=PL[s.id]/DM;te+=dv*el;td+=dv;});
   const p=te>0?Math.round(tf/te*100):0,c=col(p);
-  mkTop4('ct',[
-    {c,ico:'📈',lbl:'Факт сегодня (все точки)',val:fm(tf)+' ₽',sub:'Ожидалось к '+ft(n)+': '+fm(Math.round(te))+' ₽',pct:p},
-    {c,ico:'🎯',lbl:'Выполнение плана',val:p+'%',vc:c,sub:p>=100?'✓ Опережаем план':p>=80?'На верном пути':'Отстаём от плана'},
-    {c:'n',ico:'📅',lbl:'Дневной план суммарно',val:fm(Math.round(td))+' ₽',sub:dp+'% дня прошло',pct:dp},
-    {c:'n',ico:'⏱',lbl:'Сводка за сегодня',val:fm(tf)+' ₽',sub:'План: '+fm(Math.round(td))+'₽ / Ожид.: '+fm(Math.round(te))+' ₽'}
+  mkCards('ct',[
+    {l:'Факт сегодня (все точки)',v:fm(tf)+' ₽',s:'Ожидалось к '+ft(n)+': '+fm(Math.round(te))+' ₽',c},
+    {l:'Выполнение плана',v:p+'%',s:p>=100?'✓ Опережаем план':p>=80?'На верном пути':'Отстаём от плана',c},
+    {l:'Дневной план суммарно',v:fm(Math.round(td))+' ₽',s:dp+'% дня прошло',c:'n'}
   ]);
   mkStrip('st2',tf,Math.round(td),Math.round(te),p,c,dp+'% дня','Дневной план');
   mkGrid('gt',TR,PL,DM,true,n);
@@ -306,21 +319,22 @@ function rM(n){
   let tf=0,tp=0,te=0;
   ST.forEach(s=>{tf+=MR[s.id]||0;tp+=PL[s.id]||0;te+=(PL[s.id]||0)/DM*day;});
   const p=te>0?Math.round(tf/te*100):0,c=col(p),rem=DM-day,nd=rem>0?Math.round((tp-tf)/rem):0;
-  mkTop4('cm',[
-    {c,ico:'📈',lbl:'Факт за '+day+' дней',val:fm(tf)+' ₽',sub:'Ожидалось: '+fm(Math.round(te))+' ₽',pct:p},
-    {c,ico:'🎯',lbl:'Выполнение месяца',val:p+'%',vc:c,sub:p>=100?'✓ Опережаем':p>=80?'Близко к плану':'Отстаём'},
-    {c:'n',ico:'📅',lbl:'Нужно в день (ост. '+rem+' дн.)',val:fm(nd)+' ₽',sub:'До конца: '+fm(Math.round(tp-tf))+' ₽'},
-    {c:'n',ico:'📊',lbl:'Месячный план',val:fm(tp)+' ₽',sub:day+' из '+DM+' дней',pct:dp}
+  mkCards('cm',[
+    {l:'Факт за '+day+' дней',v:fm(tf)+' ₽',s:'Ожидалось: '+fm(Math.round(te))+' ₽',c},
+    {l:'Выполнение месяца',v:p+'%',s:p>=100?'✓ Опережаем план':p>=80?'Близко к плану':'Отстаём',c},
+    {l:'Нужно в день (осталось '+rem+' дн.)',v:fm(nd)+' ₽',s:'До конца месяца: '+fm(Math.round(tp-tf))+' ₽',c:'n'}
   ]);
   mkStrip('sm',tf,tp,Math.round(te),p,c,dp+'% месяца','Месячный план');
   mkGrid('gm',MR,PL,DM,false,n);
 }
 
 function rArch(){
-  const n=new Date(),items=[];let y=2026,m=3;
+  const n=new Date(),items=[];
+  let y=2026,m=3;
   while(y<n.getFullYear()||(y===n.getFullYear()&&m<=n.getMonth())){
     const k='gca_'+y+'_'+m,s=localStorage.getItem(k);
-    let tf=0,pct=0;if(s){try{const d=JSON.parse(s);tf=d.tf;pct=d.pct;}catch(e){}}
+    let tf=0,pct=0;
+    if(s){try{const d=JSON.parse(s);tf=d.tf;pct=d.pct;}catch(e){}}
     const isCur=y===n.getFullYear()&&m===n.getMonth();
     items.unshift({y,m,name:MN[m]+' '+y,tf,pct,isCur,has:!!s});
     m++;if(m>11){m=0;y++;}
@@ -329,15 +343,15 @@ function rArch(){
     '<div class="ac" data-y="'+i.y+'" data-m="'+i.m+'">'+
     '<div class="am">'+i.name+(i.isCur?' ●':'')+'</div>'+
     (i.tf?'<div class="at2">'+fm(i.tf)+' ₽</div><div class="ap '+col(i.pct)+'">'+i.pct+'% плана</div>':
-    '<div style="font-size:11px;color:var(--dim)">'+(i.isCur?'Нажмите Обновить':'Нет данных')+'</div>')
-    +'</div>').join('');
+     '<div style="font-size:12px;color:var(--dim)">'+(i.isCur?'Нажмите Обновить':'Нет данных')+'</div>')+
+    '</div>').join('');
   document.querySelectorAll('.ac').forEach(c=>c.addEventListener('click',()=>openArch(+c.dataset.y,+c.dataset.m)));
 }
 
 async function openArch(y,m){
   document.getElementById('ag').style.display='none';
   document.getElementById('ad').style.display='block';
-  document.getElementById('at3').textContent=MN[m]+' '+y;
+  document.getElementById('adt').textContent=MN[m]+' '+y;
   const n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
   const PL=gpl(y,m),DM=sdm(y,m),day=isCur?n.getDate():DM;
   let R={};
@@ -346,24 +360,24 @@ async function openArch(y,m){
     const k='gca_'+y+'_'+m,s=localStorage.getItem(k);
     if(s){try{R=JSON.parse(s).R;}catch(e){}}
     else{
-      ss('y','Загружаю архив '+MN[m]+'...');
+      ss('y','Загружаю архив '+MN[m]+' '+y+'...');
       const df=y+'-'+String(m+1).padStart(2,'0')+'-01',dt=y+'-'+String(m+1).padStart(2,'0')+'-'+String(DM).padStart(2,'0');
-      R=await fr(df,dt);
-      let tf2=0,tp2=0;ST.forEach(s2=>{tf2+=R[s2.id]||0;tp2+=PL[s2.id]||0;});
-      localStorage.setItem(k,JSON.stringify({R,tf:tf2,pct:tp2>0?Math.round(tf2/tp2*100):0}));
+      R=await fbulk(df,dt);
+      let tf=0,tp=0;ST.forEach(s2=>{tf+=R[s2.id]||0;tp+=PL[s2.id]||0;});
+      const pct=tp>0?Math.round(tf/tp*100):0;
+      localStorage.setItem(k,JSON.stringify({R,tf,pct}));
       ss('g','Данные актуальны');
     }
   }
-  let tf=0,tp=0,te=0;ST.forEach(s=>{tf+=R[s.id]||0;tp+=PL[s.id]||0;te+=(PL[s.id]||0)/DM*day;});
-  const p=te>0?Math.round(tf/te*100):0,c=col(p),dp=Math.round(day/DM*100);
-  const fn={getDate:()=>day,getFullYear:()=>y,getMonth:()=>m,getHours:()=>23,getMinutes:()=>59};
-  mkTop4('acd',[
-    {c,ico:'📈',lbl:'Факт за '+day+' дней',val:fm(tf)+' ₽',sub:'Ожидалось: '+fm(Math.round(te))+' ₽',pct:p},
-    {c,ico:'🎯',lbl:'Выполнение',val:p+'%',vc:c,sub:p>=100?'✓ Опережаем':p>=80?'Близко':'Отстаём'},
-    {c:'n',ico:'📅',lbl:'Месячный план',val:fm(tp)+' ₽',sub:day+' из '+DM+' дней',pct:dp},
-    {c:'n',ico:'📊',lbl:'Итог',val:fm(tf)+' ₽',sub:'Выполнение: '+p+'%'}
+  let tf=0,tp=0,te=0;
+  ST.forEach(s=>{tf+=R[s.id]||0;tp+=PL[s.id]||0;te+=(PL[s.id]||0)/DM*day;});
+  const p=te>0?Math.round(tf/te*100):0,c=col(p);
+  mkCards('acd',[
+    {l:'Факт за '+day+' дней',v:fm(tf)+' ₽',s:'Ожидалось: '+fm(Math.round(te))+' ₽',c},
+    {l:'Выполнение',v:p+'%',s:p>=100?'✓ Опережаем':p>=80?'Близко':'Отстаём',c},
+    {l:'Месячный план',v:fm(tp)+' ₽',s:day+' из '+DM+' дней',c:'n'}
   ]);
-  mkGrid('agd',R,PL,DM,false,fn);
+  mkGrid('agd',R,PL,DM,false,{getDate:()=>day,getFullYear:()=>y,getMonth:()=>m,getHours:()=>23,getMinutes:()=>59});
 }
 
 function showTab(t){
@@ -377,10 +391,9 @@ function showTab(t){
 function openPM(nm){
   const n=new Date(),y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m);
   document.getElementById('pmt').textContent=(nm?'Новый месяц! ':'')+'Планы на '+MN[m]+' '+y;
-  document.getElementById('pms').textContent=nm?'Введите план для каждой точки:':'Редактировать планы:';
+  document.getElementById('pms').textContent=nm?'Введите план для каждой точки на '+MN[m]+':':'Редактировать планы:';
   document.getElementById('pil').innerHTML=ST.map(s=>
-    '<div class="pr"><div class="pl">'+s.s+'</div>'+
-    '<input type="number" class="pi" id="pi'+s.id+'" value="'+(PL[s.id]||'')+'" placeholder="0">'+
+    '<div class="pr"><div class="pl">'+s.s+'</div><input type="number" class="pi" id="pi'+s.id+'" value="'+(PL[s.id]||'')+'" placeholder="0">'+
     '<div class="pd" id="pd'+s.id+'">'+((PL[s.id]||0)?fm(Math.round((PL[s.id]||0)/DM))+'/д':'')+'</div></div>'
   ).join('');
   ST.forEach(s=>{document.getElementById('pi'+s.id).addEventListener('input',()=>{
@@ -394,7 +407,8 @@ function savePl(){
   const n=new Date(),y=n.getFullYear(),m=n.getMonth(),pl={};
   ST.forEach(s=>{pl[s.id]=parseFloat(document.getElementById('pi'+s.id).value)||0;});
   localStorage.setItem(gpk(y,m),JSON.stringify(pl));
-  closePM();if(Object.keys(TR).length){rT(n);rM(n);}
+  closePM();
+  if(Object.keys(TR).length){rT(n);rM(n);}
 }
 
 document.getElementById('rb').addEventListener('click',load);
@@ -404,8 +418,9 @@ document.getElementById('pcb').addEventListener('click',closePM);
 document.getElementById('tt').addEventListener('click',()=>showTab('t'));
 document.getElementById('tm').addEventListener('click',()=>showTab('m'));
 document.getElementById('ta').addEventListener('click',()=>showTab('a'));
-document.getElementById('abk').addEventListener('click',()=>{document.getElementById('ag').style.display='grid';document.getElementById('ad').style.display='none';});
-initAuth();
+document.getElementById('ab').addEventListener('click',()=>{document.getElementById('ag').style.display='grid';document.getElementById('ad').style.display='none';});
+
+if(chkAuth())load();
 </script>
 </body>
 </html>
