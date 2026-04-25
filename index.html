@@ -99,6 +99,23 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.strip{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}header,main{padding:12px 14px}.cv{font-size:20px}.tv{font-size:16px}.fv{font-size:15px}}
 @media(max-width:480px){.cards{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr}.cv{font-size:16px}.tv{font-size:14px}.tv.s{font-size:12px}.fv{font-size:13px}.pv{font-size:11px}.pc{font-size:12px}.p2{font-size:11px}.on2{font-size:11px}.logo-svg{height:22px !important}.btn{padding:7px 10px;font-size:9px}}
+
+/* DAILY TABLE */
+.dt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:14px}
+.dt{width:100%;border-collapse:collapse;font-size:11px;min-width:700px}
+.dt th{padding:7px 8px;text-align:right;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);white-space:nowrap;font-weight:500;background:var(--bg)}
+.dt th:first-child{text-align:left;position:sticky;left:0;background:var(--bg);z-index:2}
+.dt td{padding:6px 8px;text-align:right;border-bottom:1px solid rgba(255,255,255,.04);white-space:nowrap;font-size:11px;color:var(--dim)}
+.dt td:first-child{text-align:left;position:sticky;left:0;background:var(--bg2);z-index:1;color:var(--text);font-weight:500;min-width:70px}
+.dt tr:hover td{background:rgba(201,168,76,.04)}
+.dt tr:hover td:first-child{background:rgba(201,168,76,.08)}
+.dt .tot{font-weight:700;color:var(--text)}
+.dt .g{color:var(--green)}.dt .y{color:var(--yellow)}.dt .r{color:var(--red)}
+.dt .sum-row td{border-top:1px solid var(--border);background:var(--bg3) !important;font-weight:700;color:var(--text)}
+.dt .pct-g{color:var(--green)}.dt .pct-y{color:var(--yellow)}.dt .pct-r{color:var(--red)}
+.day-btn{background:transparent;border:1px solid var(--border);color:var(--gold);font-family:Jost,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:all .2s;margin-top:14px}
+.day-btn:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.day-btn.active{background:rgba(201,168,76,.12);border-color:var(--gold)}
 </style>
 </head>
 <body>
@@ -184,6 +201,13 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
       <div class="cards" id="acd"></div>
       <div class="sh" style="margin-top:14px">По точкам</div>
       <div class="grid" id="agd"></div>
+      <div style="margin-top:16px">
+        <button class="day-btn" id="day-toggle-btn">📅 По дням</button>
+      </div>
+      <div id="day-table-wrap" style="display:none">
+        <div class="sh" style="margin-top:16px">По дням месяца</div>
+        <div class="dt-wrap"><table class="dt" id="day-table"></table></div>
+      </div>
     </div>
   </div>
 </main>
@@ -378,6 +402,7 @@ async function openArch(y,m){
     {l:'Месячный план',v:fm(tp)+' ₽',s:day+' из '+DM+' дней',c:'n'}
   ]);
   mkGrid('agd',R,PL,DM,false,{getDate:()=>day,getFullYear:()=>y,getMonth:()=>m,getHours:()=>23,getMinutes:()=>59});
+  setupDayToggle(y,m);
 }
 
 function showTab(t){
@@ -411,6 +436,105 @@ function savePl(){
   if(Object.keys(TR).length){rT(n);rM(n);}
 }
 
+
+
+// DAILY TABLE
+let _archY=0,_archM=0,_dayLoaded=false;
+
+async function loadDailyTable(y,m){
+  const PL=gpl(y,m),DM=sdm(y,m);
+  const n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
+  const lastDay=isCur?n.getDate():DM;
+  
+  const tbl=document.getElementById('day-table');
+  tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--dim)">Загружаю данные по дням...</td></tr>';
+
+  // Fetch each day
+  const dayData=[];
+  for(let d=1;d<=lastDay;d++){
+    const dd=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    try{
+      const resp=await fetch(PROXY+'/bulk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({dateFrom:dd,dateTo:dd})});
+      const j=await resp.json();
+      dayData.push({d,data:j.data||{}});
+    }catch(e){dayData.push({d,data:{}});}
+  }
+
+  // Build table
+  const DAYS=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+  const dPlan={}; ST.forEach(s=>{dPlan[s.id]=Math.round((PL[s.id]||0)/DM);});
+  const totalDayPlan=ST.reduce((a,s)=>a+(dPlan[s.id]||0),0);
+
+  // Header
+  let hdr='<thead><tr><th style="text-align:left">День</th>';
+  ST.forEach(s=>{hdr+='<th>'+s.s+'</th>';});
+  hdr+='<th>Итого</th><th>% плана</th></tr></thead>';
+
+  // Rows
+  let rows='<tbody>';
+  const storeTotals={};ST.forEach(s=>{storeTotals[s.id]=0;});
+  let grandTotal=0;
+
+  dayData.forEach(({d,data})=>{
+    const dow=new Date(y,m,d).getDay();
+    const isWE=dow===0||dow===6;
+    const dayTotal=ST.reduce((a,s)=>a+(data[s.id]||0),0);
+    const pct=totalDayPlan>0?Math.round(dayTotal/totalDayPlan*100):0;
+    const pc=pct>=100?'pct-g':pct>=80?'pct-y':'pct-r';
+    grandTotal+=dayTotal;
+    ST.forEach(s=>{storeTotals[s.id]+=(data[s.id]||0);});
+
+    rows+='<tr>';
+    rows+='<td style="'+(isWE?'color:var(--gold);opacity:.7':'')+'">'+d+' '+DAYS[dow]+'</td>';
+    ST.forEach(s=>{
+      const v=data[s.id]||0;
+      const sp=dPlan[s.id]||0;
+      const vp=sp>0?Math.round(v/sp*100):0;
+      const vc=vp>=100?'g':vp>=80?'y':'r';
+      rows+='<td class="'+(v>0?vc:'')+'">'+( v>0?fm(Math.round(v)):'—')+'</td>';
+    });
+    rows+='<td class="tot">'+fm(Math.round(dayTotal))+'</td>';
+    rows+='<td class="'+pc+'">'+pct+'%</td>';
+    rows+='</tr>';
+  });
+
+  // Summary row
+  rows+='<tr class="sum-row"><td>Итого</td>';
+  ST.forEach(s=>{
+    const total=storeTotals[s.id];
+    const plan=PL[s.id]||0;
+    const pct=plan>0?Math.round(total/plan*100):0;
+    const pc=pct>=100?'pct-g':pct>=80?'pct-y':'pct-r';
+    rows+='<td><span class="'+pc+'">'+fm(Math.round(total))+'</span><br><span style="font-size:9px;color:var(--dim)">'+pct+'%</span></td>';
+  });
+  const gPlan=ST.reduce((a,s)=>a+(PL[s.id]||0),0);
+  const gPct=gPlan>0?Math.round(grandTotal/gPlan*100):0;
+  const gPc=gPct>=100?'pct-g':gPct>=80?'pct-y':'pct-r';
+  rows+='<td>'+fm(Math.round(grandTotal))+'</td><td class="'+gPc+'">'+gPct+'%</td>';
+  rows+='</tr></tbody>';
+
+  tbl.innerHTML=hdr+rows;
+  _dayLoaded=true;
+}
+
+function setupDayToggle(y,m){
+  _archY=y;_archM=m;_dayLoaded=false;
+  const btn=document.getElementById('day-toggle-btn');
+  const wrap=document.getElementById('day-table-wrap');
+  if(!btn||!wrap)return;
+  btn.className='day-btn';
+  wrap.style.display='none';
+  btn.onclick=()=>{
+    const open=wrap.style.display==='block';
+    if(open){wrap.style.display='none';btn.className='day-btn';btn.textContent='📅 По дням';}
+    else{
+      wrap.style.display='block';
+      btn.className='day-btn active';
+      btn.textContent='📅 Скрыть по дням';
+      if(!_dayLoaded)loadDailyTable(_archY,_archM);
+    }
+  };
+}
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',()=>openPM(false));
 document.getElementById('psb').addEventListener('click',savePl);
