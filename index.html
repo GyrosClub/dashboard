@@ -83,10 +83,8 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
 .at2{font-size:18px;color:var(--text);font-weight:700}
 .ap{font-size:11px;margin-top:3px}.ap.g{color:var(--green)}.ap.y{color:var(--yellow)}.ap.r{color:var(--red)}
 /* DAILY TABLE */
-.day-btn{background:transparent;border:1px solid var(--border);color:var(--gold);font-family:Jost,sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:all .2s;margin-top:16px;display:inline-block}
-.day-btn:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
-.day-btn.active{background:rgba(201,168,76,.12);border-color:var(--gold)}
-.dt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:14px;border:1px solid var(--border)}
+
+
 .dt{width:100%;border-collapse:collapse;font-size:11px;min-width:600px}
 .dt th{padding:8px 10px;text-align:right;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);white-space:nowrap;font-weight:500;background:var(--bg3)}
 .dt th:first-child{text-align:left;position:sticky;left:0;background:var(--bg3);z-index:2;min-width:60px}
@@ -142,7 +140,7 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
     </svg>
     <div>
       <div class="logo-sub">Выполнение плана продаж</div>
-      <div class="logo-author">Разработал Хаджи С.С.</div>
+      <div class="logo-author">Created by Khadzhi S.S.</div>
     </div>
   </div>
   <div class="hbtns">
@@ -352,11 +350,7 @@ async function openArch(y,m){
   document.getElementById('ad').style.display='block';
   document.getElementById('adt').textContent=MN[m]+' '+y;
   // Reset daily table
-  _archY=y;_archM=m;_dayLoaded=false;
-  document.getElementById('dwrap').style.display='none';
-  document.getElementById('dbt').textContent='📅 По дням';
-  document.getElementById('dbt').className='day-btn';
-  document.getElementById('dtbl').innerHTML='';
+  
 
   const n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
   const PL=gpl(y,m),DM=sdm(y,m),day=isCur?n.getDate():DM;
