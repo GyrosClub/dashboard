@@ -182,10 +182,7 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
       <div class="cards" id="acd"></div>
       <div class="sh" style="margin-top:14px">По точкам</div>
       <div class="grid" id="agd"></div>
-      <button class="day-btn" id="dbt">📅 По дням</button>
-      <div id="dwrap" style="display:none">
-        <div class="sh" style="margin-top:16px">По дням месяца</div>
-        <div class="dt-wrap"><table class="dt" id="dtbl"></table></div>
+      
       </div>
     </div>
   </div>
@@ -389,117 +386,6 @@ async function openArch(y,m){
   mkGrid('agd',R,PL,DM,false,{getDate:()=>day,getFullYear:()=>y,getMonth:()=>m,getHours:()=>23,getMinutes:()=>59});
 }
 
-// DAILY TABLE
-async function loadDailyTable(){
-  const y=_archY,m=_archM;
-  const PL=gpl(y,m),DM=sdm(y,m);
-  const n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
-  const lastDay=isCur?n.getDate():DM;
-  const tbl=document.getElementById('dtbl');
-  tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--dim)">Загружаю по дням (~3 сек)...</td></tr>';
-  let dayData={};
-  try{
-    const resp=await fetch(PROXY+'/daily',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({year:y,month:m+1})
-    });
-    if(!resp.ok) throw new Error('HTTP '+resp.status);
-    const j=await resp.json();
-    if(!j.ok) throw new Error('Worker error');
-    dayData=j.data||{};
-  }catch(e){
-    tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--red)">Ошибка: '+e.message+'</td></tr>';
-    _dayLoaded=false;
-    return;
-  }
-  const DAYS=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
-  const dPlan={};ST.forEach(s=>{dPlan[s.id]=Math.round((PL[s.id]||0)/DM);});
-  const totalDayPlan=ST.reduce((a,s)=>a+(dPlan[s.id]||0),0);
-  let hdr='<thead><tr><th>День</th>';
-  ST.forEach(s=>{hdr+='<th>'+s.s+'</th>';});
-  hdr+='<th>Итого</th><th>%</th></tr></thead><tbody>';
-  const storeTotals={};ST.forEach(s=>{storeTotals[s.id]=0;});
-  let grandTotal=0;
-  for(let d=1;d<=lastDay;d++){
-    const data=dayData[d]||{};
-    const dow=new Date(y,m,d).getDay();
-    const isWE=dow===0||dow===6;
-    const dayTotal=ST.reduce((a,s)=>a+(data[s.id]||0),0);
-    const pct=totalDayPlan>0?Math.round(dayTotal/totalDayPlan*100):0;
-    const pc=pct>=100?'pct-g':pct>=80?'pct-y':'pct-r';
-    grandTotal+=dayTotal;
-    ST.forEach(s=>{storeTotals[s.id]+=(data[s.id]||0);});
-    hdr+='<tr>';
-    hdr+='<td class="'+(isWE?'we':'')+'">'+d+' '+DAYS[dow]+'</td>';
-    ST.forEach(s=>{
-      const v=data[s.id]||0,sp=dPlan[s.id]||0;
-      const vp=sp>0?Math.round(v/sp*100):0;
-      const vc=vp>=100?'g':vp>=80?'y':'r';
-      hdr+='<td class="'+(v>0?vc:'')+'">'+( v>0?fm(Math.round(v)):'—')+'</td>';
-    });
-    hdr+='<td class="tot">'+fm(Math.round(dayTotal))+'</td><td class="'+pc+'">'+pct+'%</td></tr>';
-  }
-  hdr+='<tr class="sum-row"><td>Итого</td>';
-  ST.forEach(s=>{
-    const total=storeTotals[s.id],plan=PL[s.id]||0;
-    const pct=plan>0?Math.round(total/plan*100):0;
-    const pc=pct>=100?'pct-g':pct>=80?'pct-y':'pct-r';
-    hdr+='<td><span class="'+pc+'">'+fm(Math.round(total))+'</span> <span style="font-size:9px;color:var(--dim)">'+pct+'%</span></td>';
-  });
-  const gPlan=ST.reduce((a,s)=>a+(PL[s.id]||0),0);
-  const gPct=gPlan>0?Math.round(grandTotal/gPlan*100):0;
-  hdr+='<td>'+fm(Math.round(grandTotal))+'</td><td class="'+(gPct>=100?'pct-g':gPct>=80?'pct-y':'pct-r')+'">'+gPct+'%</td></tr></tbody>';
-  tbl.innerHTML=hdr;
-  _dayLoaded=true;
-}
-
-// Tab «По дням» toggle
-document.getElementById('dbt').addEventListener('click',function(){
-  const wrap=document.getElementById('dwrap');
-  const open=wrap.style.display==='block';
-  if(open){
-    wrap.style.display='none';
-    this.textContent='📅 По дням';
-    this.className='day-btn';
-  } else {
-    wrap.style.display='block';
-    this.textContent='📅 Скрыть по дням';
-    this.className='day-btn active';
-    if(!_dayLoaded) loadDailyTable();
-  }
-});
-
-function showTab(t){
-  ['t','m','a'].forEach(x=>{
-    document.getElementById('v'+x).style.display=x===t?'block':'none';
-    document.getElementById('t'+x).classList.toggle('on',x===t);
-  });
-  if(t==='a')rArch();
-}
-
-function openPM(nm){
-  const n=new Date(),y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m);
-  document.getElementById('pmt').textContent=(nm?'Новый месяц! ':'')+'Планы на '+MN[m]+' '+y;
-  document.getElementById('pms').textContent=nm?'Введите план для каждой точки:':'Редактировать планы:';
-  document.getElementById('pil').innerHTML=ST.map(s=>
-    '<div class="pr"><div class="pl">'+s.n.substring(4)+'</div><input type="number" class="pi" id="pi'+s.id+'" value="'+(PL[s.id]||'')+'" placeholder="0">'+
-    '<div class="pd" id="pd'+s.id+'">'+((PL[s.id]||0)?fm(Math.round((PL[s.id]||0)/DM))+'/д':'')+'</div></div>'
-  ).join('');
-  ST.forEach(s=>{document.getElementById('pi'+s.id).addEventListener('input',()=>{
-    const v=parseFloat(document.getElementById('pi'+s.id).value)||0;
-    document.getElementById('pd'+s.id).textContent=v?fm(Math.round(v/DM))+'/д':'';
-  });});
-  document.getElementById('pm').classList.add('show');
-}
-function closePM(){document.getElementById('pm').classList.remove('show');}
-function savePl(){
-  const n=new Date(),y=n.getFullYear(),m=n.getMonth(),pl={};
-  ST.forEach(s=>{pl[s.id]=parseFloat(document.getElementById('pi'+s.id).value)||0;});
-  localStorage.setItem(gpk(y,m),JSON.stringify(pl));
-  closePM();
-  if(Object.keys(TR).length){rT(n);rM(n);}
-}
 
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',()=>openPM(false));
