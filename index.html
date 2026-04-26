@@ -95,6 +95,22 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.strip{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}header,main{padding:10px 12px}.cv{font-size:18px}.tv{font-size:14px}}
 @media(max-width:480px){.cards{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}.cv{font-size:16px}.tv{font-size:13px}.tv.s{font-size:11px}.fv{font-size:13px}.lsvg{height:22px}}
+
+.dt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:12px}
+.dt{width:100%;border-collapse:collapse;font-size:12px}
+.dt th{padding:7px 10px;text-align:left;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);background:var(--bg);font-weight:500}
+.dt th:last-child,.dt td:last-child{text-align:right}
+.dt th:nth-child(2),.dt td:nth-child(2){text-align:right}
+.dt td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--dim)}
+.dt td:first-child{color:var(--text);font-weight:500}
+.dt tr:hover td{background:rgba(201,168,76,.03)}
+.dt .best td{background:rgba(76,175,122,.07)!important}
+.dt .best td:first-child{color:var(--green)}
+.dt .g{color:var(--green)}.dt .y{color:var(--yellow)}.dt .r{color:var(--red)}
+.dt .tot-row td{border-top:2px solid var(--border);background:var(--bg3)!important;font-weight:700;color:var(--text)}
+.dsh-btn{background:transparent;border:1px solid var(--border);color:var(--gold);font-family:Jost,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;margin-top:14px;transition:all .2s;display:inline-block}
+.dsh-btn:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.dsh-btn.on{border-color:var(--gold);background:rgba(201,168,76,.1)}
 </style>
 </head>
 <body>
@@ -180,6 +196,11 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
       <div class="cards" id="acd"></div>
       <div class="sh" style="margin-top:12px">По точкам</div>
       <div class="grid" id="agd"></div>
+      <button class="dsh-btn" id="dsh-btn" style="margin-top:16px">&#128197; По дням (итого)</button>
+      <div id="dsh-wrap" style="display:none;margin-top:12px">
+        <div class="sh">Итого по дням месяца</div>
+        <div class="dt-wrap"><table class="dt" id="dsh-tbl"></table></div>
+      </div>
     </div>
   </div>
 </main>
@@ -363,6 +384,10 @@ async function openArch(y,m){
   document.getElementById('ag').style.display='none';
   document.getElementById('ad').style.display='block';
   document.getElementById('adt').textContent=MN[m]+' '+y;
+  _aY=y;_aM=m;_dshLoaded=false;
+  var dshW=document.getElementById('dsh-wrap');var dshB=document.getElementById('dsh-btn');
+  if(dshW){dshW.style.display='none';}
+  if(dshB){dshB.textContent='📅 По дням (итого)';dshB.classList.remove('on');}
   var n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
   var PL=gpl(y,m),DM=sdm(y,m),day=isCur?n.getDate():DM;
   var R={};
@@ -431,6 +456,82 @@ function savePl(){
   if(Object.keys(TR).length){rT(n);rM(n);}
 }
 
+
+var _aY=2026,_aM=3,_dshLoaded=false;
+
+async function loadDaySummary(y,m){
+  var tbl=document.getElementById('dsh-tbl');
+  var PL=gpl(y,m),DM=sdm(y,m);
+  var n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
+  var lastDay=isCur?n.getDate():DM;
+  var totDayPlan=ST.reduce(function(a,s){return a+(PL[s.id]||0)/DM;},0);
+  totDayPlan=Math.round(totDayPlan);
+
+  tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--dim)">Загрузка...</td></tr>';
+
+  var dayData={};
+  try{
+    var resp=await fetch(PX+'/daily',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({year:y,month:m+1})});
+    if(!resp.ok)throw new Error('HTTP '+resp.status);
+    var j=await resp.json();
+    if(!j.ok)throw new Error('Worker error');
+    dayData=j.data||{};
+  }catch(ex){
+    tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--red)">Ошибка: '+ex.message+'</td></tr>';
+    return;
+  }
+
+  var WD=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+  var rows=[],bestVal=0,bestIdx=-1,grandTotal=0;
+
+  for(var d=1;d<=lastDay;d++){
+    var dd=dayData[d]||{};
+    var dt=ST.reduce(function(a,s){return a+(+dd[s.id]||0);},0);
+    dt=Math.round(dt);
+    grandTotal+=dt;
+    rows.push({d:d,dow:new Date(y,m,d).getDay(),dt:dt});
+    if(dt>bestVal){bestVal=dt;bestIdx=rows.length-1;}
+  }
+
+  var html='<thead><tr><th>День</th><th>Выручка</th><th>% плана</th></tr></thead><tbody>';
+  rows.forEach(function(row,i){
+    var pct=totDayPlan>0?Math.round(row.dt/totDayPlan*100):0;
+    var pc=pct>=100?'g':pct>=80?'y':'r';
+    var we=row.dow===0||row.dow===6;
+    var isBest=i===bestIdx&&row.dt>0;
+    var dayLabel=(isBest?'🏆 ':'')+row.d+' '+WD[row.dow];
+    html+='<tr class="'+(isBest?'best':'')+'">'+
+      '<td style="'+(we&&!isBest?'color:var(--gold);opacity:.8':'')+'">'+dayLabel+'</td>'+
+      '<td>'+(row.dt>0?fm(row.dt)+' ₽':'—')+'</td>'+
+      '<td class="'+(row.dt>0?pc:'')+'">'+( row.dt>0?pct+'%':'—')+'</td>'+
+      '</tr>';
+  });
+
+  var gPct=totDayPlan>0&&lastDay>0?Math.round((grandTotal/lastDay)/totDayPlan*100):0;
+  var gPc=gPct>=100?'g':gPct>=80?'y':'r';
+  html+='<tr class="tot-row">'+
+    '<td>Итого / средн.</td>'+
+    '<td>'+fm(grandTotal)+' ₽</td>'+
+    '<td class="'+gPc+'">'+gPct+'% ср.</td>'+
+    '</tr></tbody>';
+  tbl.innerHTML=html;
+  _dshLoaded=true;
+}
+
+document.getElementById('dsh-btn').addEventListener('click',function(){
+  var wrap=document.getElementById('dsh-wrap');
+  var open=wrap.style.display==='block';
+  if(open){
+    wrap.style.display='none';
+    this.textContent='📅 По дням (итого)';
+    this.classList.remove('on');
+  }else{
+    wrap.style.display='block';
+    this.textContent='📅 Скрыть по дням';
+    this.classList.add('on');
+    if(!_dshLoaded)loadDaySummary(_aY,_aM);
+  }
+});
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',function(){openPM(false);});
 document.getElementById('psb').addEventListener('click',savePl);
