@@ -9,24 +9,18 @@
 :root{--gold:#C9A84C;--gold-l:#E8C97A;--bg:#0D0D0D;--bg2:#141414;--bg3:#1C1C1C;--border:rgba(201,168,76,0.18);--text:#F0EAD6;--dim:#8a8070;--green:#4CAF7A;--red:#E05252;--yellow:#E0B952}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:Jost,sans-serif;min-height:100vh}
-/* LOGIN */
 #login-screen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
 .login-box{background:var(--bg2);border:1px solid var(--border);padding:40px 36px;width:100%;max-width:380px;text-align:center}
-.login-logo{margin-bottom:8px}
-.login-logo svg{height:36px;width:auto}
-.login-title{font-family:Cinzel,serif;font-size:22px;color:var(--gold);letter-spacing:.15em;margin-bottom:4px}
-.login-sub{font-size:11px;color:var(--dim);letter-spacing:.1em;margin-bottom:28px}
+.login-sub{font-size:11px;color:var(--dim);letter-spacing:.2em;margin-bottom:28px;text-transform:uppercase}
 .login-field{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:12px 14px;font-family:Jost,sans-serif;font-size:14px;outline:none;margin-bottom:12px;text-align:center;letter-spacing:.05em}
 .login-field:focus{border-color:var(--gold)}
-.login-btn{width:100%;background:var(--gold);color:#0D0D0D;border:none;padding:13px;font-family:Jost,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;margin-top:4px;transition:background .2s}
+.login-btn{width:100%;background:var(--gold);color:#0D0D0D;border:none;padding:13px;font-family:Jost,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .2s}
 .login-btn:hover{background:var(--gold-l)}
 .login-err{color:var(--red);font-size:12px;margin-top:10px;min-height:18px}
-/* MAIN */
 #main-screen{display:none}
 .top{height:4px;background:repeating-linear-gradient(90deg,var(--gold) 0,var(--gold) 8px,transparent 8px,transparent 20px);opacity:.6}
 header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px}
 .logo-area{display:flex;align-items:center;gap:14px}
-.logo-svg{height:40px;width:auto;flex-shrink:0}
 .logo-sub{font-size:10px;color:var(--dim);letter-spacing:.1em;margin-top:2px}
 .logo-author{font-size:9px;color:rgba(201,168,76,.5);letter-spacing:.08em;margin-top:1px}
 .hbtns{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -36,7 +30,6 @@ header{padding:14px 20px;display:flex;align-items:center;justify-content:space-b
 .sp{width:12px;height:12px;border:2px solid rgba(0,0,0,.25);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;display:none}
 .sp.on{display:inline-block}
 main{padding:16px 20px;max-width:1300px;margin:0 auto}
-/* MODAL PLANS */
 .mb{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
 .mb.show{display:flex}
 .md{background:var(--bg2);border:1px solid var(--border);padding:28px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
@@ -47,22 +40,18 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
 .pi{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:7px 10px;font-family:Jost,sans-serif;font-size:13px;outline:none;text-align:right;width:120px}
 .pi:focus{border-color:var(--gold)}
 .pd{font-size:10px;color:var(--dim);width:80px;text-align:right;flex-shrink:0}
-/* STATUS */
 .sb{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:9px 14px;background:var(--bg2);border:1px solid var(--border);font-size:12px;color:var(--dim)}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--dim);flex-shrink:0}
 .dot.live{background:var(--green);animation:pulse 2s infinite}.dot.e{background:var(--red)}.dot.ld{background:var(--yellow);animation:pulse .5s infinite}
-/* TABS */
 .tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:16px;overflow-x:auto}
-.tab{padding:10px 20px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:Jost,sans-serif;white-space:nowrap;font-weight:600;transition:all .2s}
+.tab{padding:10px 20px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:Jost,sans-serif;white-space:nowrap;font-weight:600}
 .tab.on{color:var(--gold);border-bottom-color:var(--gold)}
-/* CARDS */
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
 .card{background:var(--bg2);border:1px solid var(--border);padding:16px 20px;position:relative;overflow:hidden}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
 .card.g::before{background:var(--green)}.card.r::before{background:var(--red)}.card.y::before{background:var(--yellow)}.card.n::before{background:var(--gold);opacity:.4}
 .cl{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
-.cv{font-size:26px;color:var(--text);font-weight:700;letter-spacing:-.02em}.cs{font-size:11px;color:var(--dim);margin-top:3px}
-/* STRIP */
+.cv{font-size:26px;color:var(--text);font-weight:700}.cs{font-size:11px;color:var(--dim);margin-top:3px}
 .strip{background:var(--bg2);border:1px solid var(--border);padding:14px 20px;margin-bottom:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:center}
 .tl{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:3px}
 .tv{font-size:20px;color:var(--gold);font-weight:700}.tv.s{font-size:14px;color:var(--dim);font-weight:400}
@@ -72,7 +61,6 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
 .pbf{height:100%;transition:width 1.2s ease}
 .pbf.g{background:linear-gradient(90deg,#2d7a52,var(--green))}.pbf.y{background:linear-gradient(90deg,#9a7a20,var(--yellow))}.pbf.r{background:linear-gradient(90deg,#8a2020,var(--red))}
 .pbn{position:absolute;top:0;bottom:0;width:2px;background:rgba(255,255,255,.4)}
-/* STORE GRID */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
 .oc{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--border);padding:16px;transition:border-color .2s,transform .15s}
 .oc:hover{transform:translateY(-2px)}
@@ -88,47 +76,43 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
 .bdg{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:3px 7px}
 .bdg.g{background:rgba(76,175,122,.12);color:var(--green)}.bdg.r{background:rgba(224,82,82,.12);color:var(--red)}.bdg.y{background:rgba(224,185,82,.12);color:var(--yellow)}
 .sh{font-size:9px;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;margin-top:4px}
-/* ARCHIVE */
 .ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
 .ac{background:var(--bg2);border:1px solid var(--border);padding:14px;cursor:pointer;transition:border-color .2s,transform .15s}
 .ac:hover{border-color:var(--gold);transform:translateY(-2px)}
 .am{font-family:Cinzel,serif;font-size:12px;color:var(--gold);margin-bottom:6px}
 .at2{font-size:18px;color:var(--text);font-weight:700}
 .ap{font-size:11px;margin-top:3px}.ap.g{color:var(--green)}.ap.y{color:var(--yellow)}.ap.r{color:var(--red)}
+/* DAILY TABLE */
+.day-btn{background:transparent;border:1px solid var(--border);color:var(--gold);font-family:Jost,sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:all .2s;margin-top:16px;display:inline-block}
+.day-btn:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.day-btn.active{background:rgba(201,168,76,.12);border-color:var(--gold)}
+.dt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:14px;border:1px solid var(--border)}
+.dt{width:100%;border-collapse:collapse;font-size:11px;min-width:600px}
+.dt th{padding:8px 10px;text-align:right;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);white-space:nowrap;font-weight:500;background:var(--bg3)}
+.dt th:first-child{text-align:left;position:sticky;left:0;background:var(--bg3);z-index:2;min-width:60px}
+.dt td{padding:7px 10px;text-align:right;border-bottom:1px solid rgba(255,255,255,.03);color:var(--dim);font-size:11px}
+.dt td:first-child{text-align:left;position:sticky;left:0;background:var(--bg2);z-index:1;color:var(--text);font-weight:500}
+.dt tr:hover td{background:rgba(201,168,76,.03)}.dt tr:hover td:first-child{background:rgba(201,168,76,.06)}
+.dt .tot{font-weight:700;color:var(--text)}
+.dt .g{color:var(--green)}.dt .y{color:var(--yellow)}.dt .r{color:var(--red)}
+.dt .sum-row td{border-top:2px solid var(--border);background:var(--bg3) !important;font-weight:700;color:var(--text);font-size:12px}
+.dt .sum-row td:first-child{background:var(--bg3) !important}
+.pct-g{color:var(--green)}.pct-y{color:var(--yellow)}.pct-r{color:var(--red)}
+.we{color:var(--gold) !important;opacity:.85}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.strip{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}header,main{padding:12px 14px}.cv{font-size:20px}.tv{font-size:16px}.fv{font-size:15px}}
-@media(max-width:480px){.cards{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr}.cv{font-size:16px}.tv{font-size:14px}.tv.s{font-size:12px}.fv{font-size:13px}.pv{font-size:11px}.pc{font-size:12px}.p2{font-size:11px}.on2{font-size:11px}.logo-svg{height:22px !important}.btn{padding:7px 10px;font-size:9px}}
-
-/* DAILY TABLE */
-.dt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:14px}
-.dt{width:100%;border-collapse:collapse;font-size:11px;min-width:700px}
-.dt th{padding:7px 8px;text-align:right;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);white-space:nowrap;font-weight:500;background:var(--bg)}
-.dt th:first-child{text-align:left;position:sticky;left:0;background:var(--bg);z-index:2}
-.dt td{padding:6px 8px;text-align:right;border-bottom:1px solid rgba(255,255,255,.04);white-space:nowrap;font-size:11px;color:var(--dim)}
-.dt td:first-child{text-align:left;position:sticky;left:0;background:var(--bg2);z-index:1;color:var(--text);font-weight:500;min-width:70px}
-.dt tr:hover td{background:rgba(201,168,76,.04)}
-.dt tr:hover td:first-child{background:rgba(201,168,76,.08)}
-.dt .tot{font-weight:700;color:var(--text)}
-.dt .g{color:var(--green)}.dt .y{color:var(--yellow)}.dt .r{color:var(--red)}
-.dt .sum-row td{border-top:1px solid var(--border);background:var(--bg3) !important;font-weight:700;color:var(--text)}
-.dt .pct-g{color:var(--green)}.dt .pct-y{color:var(--yellow)}.dt .pct-r{color:var(--red)}
-.day-btn{background:transparent;border:1px solid var(--border);color:var(--gold);font-family:Jost,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:all .2s;margin-top:14px}
-.day-btn:hover{border-color:var(--gold);background:rgba(201,168,76,.08)}
-.day-btn.active{background:rgba(201,168,76,.12);border-color:var(--gold)}
+@media(max-width:480px){.cards{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr}.cv{font-size:16px}.tv{font-size:14px}.tv.s{font-size:12px}.fv{font-size:13px}.pc{font-size:12px}.p2{font-size:11px}.btn{padding:7px 10px;font-size:9px}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
 <div id="login-screen">
   <div class="login-box">
-    <div class="login-logo">
-      <svg viewBox="0 0 340 52" style="height:34px;width:auto;max-width:280px" xmlns="http://www.w3.org/2000/svg">
-        <text x="4" y="40" font-family="Georgia,serif" font-size="40" font-weight="900" fill="#E8241A" letter-spacing="3">GYROS CLUB</text>
-      </svg>
-    </div>
-    <div class="login-sub">ПЛАН ПРОДАЖ</div>
+    <svg viewBox="0 0 340 52" style="height:30px;width:auto;max-width:260px;margin-bottom:8px" xmlns="http://www.w3.org/2000/svg">
+      <text x="4" y="40" font-family="Georgia,serif" font-size="40" font-weight="900" fill="#E8241A" letter-spacing="3">GYROS CLUB</text>
+    </svg>
+    <div class="login-sub">План продаж</div>
     <input class="login-field" id="li" type="text" placeholder="Логин" autocomplete="off">
     <input class="login-field" id="lp" type="password" placeholder="Пароль">
     <button class="login-btn" id="lb">Войти</button>
@@ -136,11 +120,9 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
   </div>
 </div>
 
-<!-- MAIN DASHBOARD -->
 <div id="main-screen">
 <div class="top"></div>
 
-<!-- PLAN MODAL -->
 <div class="mb" id="pm">
   <div class="md">
     <div class="mt" id="pmt">Планы</div>
@@ -155,7 +137,7 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
 
 <header>
   <div class="logo-area">
-    <svg class="logo-svg" viewBox="0 0 340 52" style="height:34px;width:auto" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 340 52" style="height:32px;width:auto" xmlns="http://www.w3.org/2000/svg">
       <text x="2" y="40" font-family="Georgia,serif" font-size="40" font-weight="900" fill="#E8241A" letter-spacing="3">GYROS CLUB</text>
     </svg>
     <div>
@@ -177,7 +159,6 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
     <button class="tab" id="tm">Месяц</button>
     <button class="tab" id="ta">Архив</button>
   </div>
-
   <div id="vt">
     <div class="cards" id="ct"></div>
     <div class="strip" id="st2"></div>
@@ -201,12 +182,10 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
       <div class="cards" id="acd"></div>
       <div class="sh" style="margin-top:14px">По точкам</div>
       <div class="grid" id="agd"></div>
-      <div style="margin-top:16px">
-        <button class="day-btn" id="day-toggle-btn">📅 По дням</button>
-      </div>
-      <div id="day-table-wrap" style="display:none">
+      <button class="day-btn" id="dbt">📅 По дням</button>
+      <div id="dwrap" style="display:none">
         <div class="sh" style="margin-top:16px">По дням месяца</div>
-        <div class="dt-wrap"><table class="dt" id="day-table"></table></div>
+        <div class="dt-wrap"><table class="dt" id="dtbl"></table></div>
       </div>
     </div>
   </div>
@@ -215,26 +194,35 @@ main{padding:16px 20px;max-width:1300px;margin:0 auto}
 
 <script>
 const PROXY='https://gyros-proxy.gyrosclub161.workers.dev';
-const LOGIN='GC26', PASS='gc2026/4';
+const LG='GC26',PS='gc2026/4';
 const ST=[
-  {id:43606,n:'01. Gyros Club Ворошиловский 55',s:'Ворошиловский 55'},
+  {id:43606,n:'01. Gyros Club Ворошиловский 55',s:'Ворошиловский'},
   {id:48767,n:'02. Gyros Club Ленина 81/8',s:'Ленина 81/8'},
   {id:55956,n:'03. Gyros Club Стачки 207',s:'Стачки 207'},
   {id:57060,n:'04. Gyros Club Стачки 220',s:'Стачки 220'},
   {id:78987,n:'06. Gyros Club Аксай',s:'Аксай'},
-  {id:95683,n:'07. Gyros Club Мануфактура',s:'Мануфактура'},
-  {id:101199,n:'08. Gyros Club Зорге 19/162',s:'Зорге 19/162'}
+  {id:95683,n:'07. Gyros Club Мануфактура',s:'Мануфак.'},
+  {id:101199,n:'08. Gyros Club Зорге 19/162',s:'Зорге'}
 ];
 const MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 const DP={43606:1020000,48767:1560000,55956:1020000,57060:1320000,78987:1100000,95683:1800000,101199:1440000};
-let TR={},MR={};
+let TR={},MR={},_archY=0,_archM=0,_dayLoaded=false;
+
+function gpk(y,m){return'gcp_'+y+'_'+m;}
+function gpl(y,m){try{const s=JSON.parse(localStorage.getItem(gpk(y,m))||'{}');if(Object.keys(s).length)return s;}catch(e){}return{...DP};}
+function sdm(y,m){return new Date(y,m+1,0).getDate();}
+function fm(n){return Math.round(n).toLocaleString('ru-RU');}
+function ft(d){return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+function fd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function col(p){return p>=100?'g':p>=80?'y':'r';}
+function ss(c,x){document.getElementById('sd').className='dot '+(c==='g'?'live':c==='r'?'e':'ld');document.getElementById('st').textContent=x;}
 
 // AUTH
 function chkAuth(){return sessionStorage.getItem('gc_auth')==='1';}
 function doLogin(){
   const l=document.getElementById('li').value.trim();
   const p=document.getElementById('lp').value;
-  if(l===LOGIN&&p===PASS){
+  if(l===LG&&p===PS){
     sessionStorage.setItem('gc_auth','1');
     document.getElementById('login-screen').style.display='none';
     document.getElementById('main-screen').style.display='block';
@@ -249,25 +237,13 @@ document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')
 document.getElementById('li').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('lp').focus();});
 if(chkAuth()){document.getElementById('login-screen').style.display='none';document.getElementById('main-screen').style.display='block';}
 
-// UTILS
-function gpk(y,m){return'gcp_'+y+'_'+m;}
-function gpl(y,m){try{const s=JSON.parse(localStorage.getItem(gpk(y,m))||'{}');if(Object.keys(s).length)return s;}catch(e){}return{...DP};}
-function sdm(y,m){return new Date(y,m+1,0).getDate();}
-function fm(n){return Math.round(n).toLocaleString('ru-RU');}
-function ft(d){return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
-function fd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-function col(p){return p>=100?'g':p>=80?'y':'r';}
-function ss(c,x){document.getElementById('sd').className='dot '+(c==='g'?'live':c==='r'?'e':'ld');document.getElementById('st').textContent=x;}
-
-// FETCH - bulk endpoint, one login for all stores
+// FETCH
 async function fbulk(df,dt){
-  const resp=await fetch(PROXY+'/bulk',{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({dateFrom:df,dateTo:dt})
-  });
-  const d=await resp.json();
-  if(!d.ok) throw new Error('Bulk fetch failed');
-  return d.data;
+  const resp=await fetch(PROXY+'/bulk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({dateFrom:df,dateTo:dt})});
+  if(!resp.ok) throw new Error('HTTP '+resp.status);
+  const j=await resp.json();
+  if(!j.ok) throw new Error('Proxy error');
+  return j.data;
 }
 
 async function load(){
@@ -291,25 +267,26 @@ function chkPlan(n){const y=n.getFullYear(),m=n.getMonth(),d=n.getDate();if(d>=1
 function mkCards(el,items){document.getElementById(el).innerHTML=items.map(x=>'<div class="card '+x.c+'"><div class="cl">'+x.l+'</div><div class="cv">'+x.v+'</div><div class="cs">'+x.s+'</div></div>').join('');}
 
 function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
+  const dp=parseInt(dpct)||0;
   document.getElementById(el).innerHTML=
     '<div><div class="tl">Факт</div><div class="tv">'+fm(tf)+' ₽</div></div>'+
     '<div><div class="tl">'+plabel+'</div><div class="tv s">'+fm(plan)+' ₽</div></div>'+
     '<div><div class="tl">Ожидалось</div><div class="tv s">'+fm(te)+' ₽</div></div>'+
     '<div class="pbw"><div class="pbr"><span class="pc '+c+'">'+pct+'%</span><span style="font-size:10px;color:var(--dim)">'+dpct+'</span></div>'+
-    '<div class="pbg"><div class="pbf '+c+'" style="width:'+Math.min(pct,100)+'%"></div><div class="pbn" style="left:'+dpct.match(/\d+/)?.[0]+'%"></div></div></div>';
+    '<div class="pbg"><div class="pbf '+c+'" style="width:'+Math.min(pct,100)+'%"></div><div class="pbn" style="left:'+dp+'%"></div></div></div>';
 }
 
 function mkGrid(el,data,PL,DM,isDay,n){
-  const el2=isDay?(n.getHours()*60+n.getMinutes())/(24*60):1;
+  const elp=isDay?(n.getHours()*60+n.getMinutes())/(24*60):1;
   const day=isDay?0:n.getDate();
-  const dp=isDay?Math.round(el2*100):Math.round(day/DM*100);
+  const dp=isDay?Math.round(elp*100):Math.round(day/DM*100);
   document.getElementById(el).innerHTML=[...ST].sort((a,b)=>{
     const fa=data[a.id]||0,fb=data[b.id]||0;
-    const ea=(PL[a.id]||0)/DM*(isDay?el2:day),eb=(PL[b.id]||0)/DM*(isDay?el2:day);
+    const ea=(PL[a.id]||0)/DM*(isDay?elp:day),eb=(PL[b.id]||0)/DM*(isDay?elp:day);
     return(eb>0?fb/eb:0)-(ea>0?fa/ea:0);
   }).map(s=>{
     const f=data[s.id]||0,pl=PL[s.id]||0,dv=pl/DM;
-    const e=Math.round(dv*(isDay?el2:day));
+    const e=Math.round(dv*(isDay?elp:day));
     const pt=e>0?Math.round(f/e*100):0,c2=col(pt),cl=pt>=100?'ov':pt>=80?'tr':'bh',df=Math.round(f-e);
     return '<div class="oc '+cl+'"><div class="on2">'+s.n+'</div>'+
       '<div class="r3">'+
@@ -324,10 +301,10 @@ function mkGrid(el,data,PL,DM,isDay,n){
 }
 
 function rT(n){
-  const el=(n.getHours()*60+n.getMinutes())/(24*60),dp=Math.round(el*100);
+  const elp=(n.getHours()*60+n.getMinutes())/(24*60),dp=Math.round(elp*100);
   const y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m);
   let tf=0,te=0,td=0;
-  ST.forEach(s=>{tf+=TR[s.id]||0;const dv=PL[s.id]/DM;te+=dv*el;td+=dv;});
+  ST.forEach(s=>{tf+=TR[s.id]||0;const dv=PL[s.id]/DM;te+=dv*elp;td+=dv;});
   const p=te>0?Math.round(tf/te*100):0,c=col(p);
   mkCards('ct',[
     {l:'Факт сегодня (все точки)',v:fm(tf)+' ₽',s:'Ожидалось к '+ft(n)+': '+fm(Math.round(te))+' ₽',c},
@@ -346,12 +323,13 @@ function rM(n){
   mkCards('cm',[
     {l:'Факт за '+day+' дней',v:fm(tf)+' ₽',s:'Ожидалось: '+fm(Math.round(te))+' ₽',c},
     {l:'Выполнение месяца',v:p+'%',s:p>=100?'✓ Опережаем план':p>=80?'Близко к плану':'Отстаём',c},
-    {l:'Нужно в день (осталось '+rem+' дн.)',v:fm(nd)+' ₽',s:'До конца месяца: '+fm(Math.round(tp-tf))+' ₽',c:'n'}
+    {l:'Нужно в день (осталось '+rem+' дн.)',v:fm(nd)+' ₽',s:'До конца: '+fm(Math.round(tp-tf))+' ₽',c:'n'}
   ]);
   mkStrip('sm',tf,tp,Math.round(te),p,c,dp+'% месяца','Месячный план');
   mkGrid('gm',MR,PL,DM,false,n);
 }
 
+// ARCHIVE
 function rArch(){
   const n=new Date(),items=[];
   let y=2026,m=3;
@@ -360,7 +338,7 @@ function rArch(){
     let tf=0,pct=0;
     if(s){try{const d=JSON.parse(s);tf=d.tf;pct=d.pct;}catch(e){}}
     const isCur=y===n.getFullYear()&&m===n.getMonth();
-    items.unshift({y,m,name:MN[m]+' '+y,tf,pct,isCur,has:!!s});
+    items.unshift({y,m,name:MN[m]+' '+y,tf,pct,isCur});
     m++;if(m>11){m=0;y++;}
   }
   document.getElementById('ag').innerHTML=items.map(i=>
@@ -376,6 +354,13 @@ async function openArch(y,m){
   document.getElementById('ag').style.display='none';
   document.getElementById('ad').style.display='block';
   document.getElementById('adt').textContent=MN[m]+' '+y;
+  // Reset daily table
+  _archY=y;_archM=m;_dayLoaded=false;
+  document.getElementById('dwrap').style.display='none';
+  document.getElementById('dbt').textContent='📅 По дням';
+  document.getElementById('dbt').className='day-btn';
+  document.getElementById('dtbl').innerHTML='';
+
   const n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
   const PL=gpl(y,m),DM=sdm(y,m),day=isCur?n.getDate():DM;
   let R={};
@@ -402,8 +387,88 @@ async function openArch(y,m){
     {l:'Месячный план',v:fm(tp)+' ₽',s:day+' из '+DM+' дней',c:'n'}
   ]);
   mkGrid('agd',R,PL,DM,false,{getDate:()=>day,getFullYear:()=>y,getMonth:()=>m,getHours:()=>23,getMinutes:()=>59});
-  setupDayToggle(y,m);
 }
+
+// DAILY TABLE
+async function loadDailyTable(){
+  const y=_archY,m=_archM;
+  const PL=gpl(y,m),DM=sdm(y,m);
+  const n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
+  const lastDay=isCur?n.getDate():DM;
+  const tbl=document.getElementById('dtbl');
+  tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--dim)">Загружаю по дням (~3 сек)...</td></tr>';
+  let dayData={};
+  try{
+    const resp=await fetch(PROXY+'/daily',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({year:y,month:m+1})
+    });
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
+    const j=await resp.json();
+    if(!j.ok) throw new Error('Worker error');
+    dayData=j.data||{};
+  }catch(e){
+    tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--red)">Ошибка: '+e.message+'</td></tr>';
+    _dayLoaded=false;
+    return;
+  }
+  const DAYS=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+  const dPlan={};ST.forEach(s=>{dPlan[s.id]=Math.round((PL[s.id]||0)/DM);});
+  const totalDayPlan=ST.reduce((a,s)=>a+(dPlan[s.id]||0),0);
+  let hdr='<thead><tr><th>День</th>';
+  ST.forEach(s=>{hdr+='<th>'+s.s+'</th>';});
+  hdr+='<th>Итого</th><th>%</th></tr></thead><tbody>';
+  const storeTotals={};ST.forEach(s=>{storeTotals[s.id]=0;});
+  let grandTotal=0;
+  for(let d=1;d<=lastDay;d++){
+    const data=dayData[d]||{};
+    const dow=new Date(y,m,d).getDay();
+    const isWE=dow===0||dow===6;
+    const dayTotal=ST.reduce((a,s)=>a+(data[s.id]||0),0);
+    const pct=totalDayPlan>0?Math.round(dayTotal/totalDayPlan*100):0;
+    const pc=pct>=100?'pct-g':pct>=80?'pct-y':'pct-r';
+    grandTotal+=dayTotal;
+    ST.forEach(s=>{storeTotals[s.id]+=(data[s.id]||0);});
+    hdr+='<tr>';
+    hdr+='<td class="'+(isWE?'we':'')+'">'+d+' '+DAYS[dow]+'</td>';
+    ST.forEach(s=>{
+      const v=data[s.id]||0,sp=dPlan[s.id]||0;
+      const vp=sp>0?Math.round(v/sp*100):0;
+      const vc=vp>=100?'g':vp>=80?'y':'r';
+      hdr+='<td class="'+(v>0?vc:'')+'">'+( v>0?fm(Math.round(v)):'—')+'</td>';
+    });
+    hdr+='<td class="tot">'+fm(Math.round(dayTotal))+'</td><td class="'+pc+'">'+pct+'%</td></tr>';
+  }
+  hdr+='<tr class="sum-row"><td>Итого</td>';
+  ST.forEach(s=>{
+    const total=storeTotals[s.id],plan=PL[s.id]||0;
+    const pct=plan>0?Math.round(total/plan*100):0;
+    const pc=pct>=100?'pct-g':pct>=80?'pct-y':'pct-r';
+    hdr+='<td><span class="'+pc+'">'+fm(Math.round(total))+'</span> <span style="font-size:9px;color:var(--dim)">'+pct+'%</span></td>';
+  });
+  const gPlan=ST.reduce((a,s)=>a+(PL[s.id]||0),0);
+  const gPct=gPlan>0?Math.round(grandTotal/gPlan*100):0;
+  hdr+='<td>'+fm(Math.round(grandTotal))+'</td><td class="'+(gPct>=100?'pct-g':gPct>=80?'pct-y':'pct-r')+'">'+gPct+'%</td></tr></tbody>';
+  tbl.innerHTML=hdr;
+  _dayLoaded=true;
+}
+
+// Tab «По дням» toggle
+document.getElementById('dbt').addEventListener('click',function(){
+  const wrap=document.getElementById('dwrap');
+  const open=wrap.style.display==='block';
+  if(open){
+    wrap.style.display='none';
+    this.textContent='📅 По дням';
+    this.className='day-btn';
+  } else {
+    wrap.style.display='block';
+    this.textContent='📅 Скрыть по дням';
+    this.className='day-btn active';
+    if(!_dayLoaded) loadDailyTable();
+  }
+});
 
 function showTab(t){
   ['t','m','a'].forEach(x=>{
@@ -416,9 +481,9 @@ function showTab(t){
 function openPM(nm){
   const n=new Date(),y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m);
   document.getElementById('pmt').textContent=(nm?'Новый месяц! ':'')+'Планы на '+MN[m]+' '+y;
-  document.getElementById('pms').textContent=nm?'Введите план для каждой точки на '+MN[m]+':':'Редактировать планы:';
+  document.getElementById('pms').textContent=nm?'Введите план для каждой точки:':'Редактировать планы:';
   document.getElementById('pil').innerHTML=ST.map(s=>
-    '<div class="pr"><div class="pl">'+s.s+'</div><input type="number" class="pi" id="pi'+s.id+'" value="'+(PL[s.id]||'')+'" placeholder="0">'+
+    '<div class="pr"><div class="pl">'+s.n.substring(4)+'</div><input type="number" class="pi" id="pi'+s.id+'" value="'+(PL[s.id]||'')+'" placeholder="0">'+
     '<div class="pd" id="pd'+s.id+'">'+((PL[s.id]||0)?fm(Math.round((PL[s.id]||0)/DM))+'/д':'')+'</div></div>'
   ).join('');
   ST.forEach(s=>{document.getElementById('pi'+s.id).addEventListener('input',()=>{
@@ -436,97 +501,6 @@ function savePl(){
   if(Object.keys(TR).length){rT(n);rM(n);}
 }
 
-
-
-// DAILY TABLE
-let _archY=0,_archM=0,_dayLoaded=false;
-
-async function loadDailyTable(y,m){
-  const PL=gpl(y,m),DM=sdm(y,m);
-  const n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
-  const lastDay=isCur?n.getDate():DM;
-  const tbl=document.getElementById('day-table');
-  tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--dim)">Загружаю данные по дням... (~5 сек)</td></tr>';
-  let dayData={};
-  try{
-    const resp=await fetch(PROXY+'/daily',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({year:y,month:m+1})
-    });
-    if(!resp.ok) throw new Error('HTTP '+resp.status);
-    const j=await resp.json();
-    if(!j.ok) throw new Error('Worker error');
-    dayData=j.data||{};
-  }catch(e){
-    tbl.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--red)">Ошибка: '+e.message+'. Попробуйте ещё раз.</td></tr>';
-    _dayLoaded=false;
-    return;
-  }
-  const DAYS=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
-  const dPlan={}; ST.forEach(s=>{dPlan[s.id]=Math.round((PL[s.id]||0)/DM);});
-  const totalDayPlan=ST.reduce((a,s)=>a+(dPlan[s.id]||0),0);
-  let hdr='<thead><tr><th style="text-align:left;min-width:55px">День</th>';
-  ST.forEach(s=>{hdr+='<th>'+s.s+'</th>';});
-  hdr+='<th>Итого</th><th>%</th></tr></thead>';
-  let rows='<tbody>';
-  const storeTotals={};ST.forEach(s=>{storeTotals[s.id]=0;});
-  let grandTotal=0;
-  for(let d=1;d<=lastDay;d++){
-    const data=dayData[d]||{};
-    const dow=new Date(y,m,d).getDay();
-    const isWE=dow===0||dow===6;
-    const dayTotal=ST.reduce((a,s)=>a+(data[s.id]||0),0);
-    const pct=totalDayPlan>0?Math.round(dayTotal/totalDayPlan*100):0;
-    const pc=pct>=100?'pct-g':pct>=80?'pct-y':'pct-r';
-    grandTotal+=dayTotal;
-    ST.forEach(s=>{storeTotals[s.id]+=(data[s.id]||0);});
-    rows+='<tr>';
-    rows+='<td style="'+(isWE?'color:var(--gold)':'')+';font-weight:'+(isWE?'600':'400')+'">'+d+' '+DAYS[dow]+'</td>';
-    ST.forEach(s=>{
-      const v=data[s.id]||0,sp=dPlan[s.id]||0;
-      const vp=sp>0?Math.round(v/sp*100):0;
-      const vc=vp>=100?'g':vp>=80?'y':'r';
-      rows+='<td class="'+(v>0?vc:'')+'">'+( v>0?fm(Math.round(v)):'—')+'</td>';
-    });
-    rows+='<td class="tot">'+fm(Math.round(dayTotal))+'</td>';
-    rows+='<td class="'+pc+'">'+pct+'%</td>';
-    rows+='</tr>';
-  }
-  rows+='<tr class="sum-row"><td>Итого</td>';
-  ST.forEach(s=>{
-    const total=storeTotals[s.id],plan=PL[s.id]||0;
-    const pct=plan>0?Math.round(total/plan*100):0;
-    const pc=pct>=100?'pct-g':pct>=80?'pct-y':'pct-r';
-    rows+='<td><span class="'+pc+'">'+fm(Math.round(total))+'</span><br><span style="font-size:9px;color:var(--dim)">'+pct+'%</span></td>';
-  });
-  const gPlan=ST.reduce((a,s)=>a+(PL[s.id]||0),0);
-  const gPct=gPlan>0?Math.round(grandTotal/gPlan*100):0;
-  const gPc=gPct>=100?'pct-g':gPct>=80?'pct-y':'pct-r';
-  rows+='<td>'+fm(Math.round(grandTotal))+'</td><td class="'+gPc+'">'+gPct+'%</td>';
-  rows+='</tr></tbody>';
-  tbl.innerHTML=hdr+rows;
-  _dayLoaded=true;
-}
-
-function setupDayToggle(y,m){
-  _archY=y;_archM=m;_dayLoaded=false;
-  const btn=document.getElementById('day-toggle-btn');
-  const wrap=document.getElementById('day-table-wrap');
-  if(!btn||!wrap)return;
-  btn.className='day-btn';
-  wrap.style.display='none';
-  btn.onclick=()=>{
-    const open=wrap.style.display==='block';
-    if(open){wrap.style.display='none';btn.className='day-btn';btn.textContent='📅 По дням';}
-    else{
-      wrap.style.display='block';
-      btn.className='day-btn active';
-      btn.textContent='📅 Скрыть по дням';
-      if(!_dayLoaded)loadDailyTable(_archY,_archM); else if(document.getElementById('day-table').querySelector('td[colspan]'))loadDailyTable(_archY,_archM);
-    }
-  };
-}
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',()=>openPM(false));
 document.getElementById('psb').addEventListener('click',savePl);
@@ -534,9 +508,12 @@ document.getElementById('pcb').addEventListener('click',closePM);
 document.getElementById('tt').addEventListener('click',()=>showTab('t'));
 document.getElementById('tm').addEventListener('click',()=>showTab('m'));
 document.getElementById('ta').addEventListener('click',()=>showTab('a'));
-document.getElementById('ab').addEventListener('click',()=>{document.getElementById('ag').style.display='grid';document.getElementById('ad').style.display='none';});
+document.getElementById('ab').addEventListener('click',()=>{
+  document.getElementById('ag').style.display='grid';
+  document.getElementById('ad').style.display='none';
+});
 
-if(chkAuth())load();
+if(chkAuth()) load();
 </script>
 </body>
 </html>
