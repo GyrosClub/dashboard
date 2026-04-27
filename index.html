@@ -266,7 +266,7 @@ function rT(n){
   var el=(n.getHours()*60+n.getMinutes())/(24*60),dp=Math.round(el*100),y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m),tf=0,te=0,td=0;
   ST.forEach(function(s){tf+=TR[s.id]||0;var dv=PL[s.id]/DM;te+=dv*el;td+=dv;});
   var p=te>0?Math.round(tf/te*100):0,c=col(p);
-  mkCards('ct',[{l:'Факт сегодня (все точки)',v:fm(tf)+' ₽',s:'Ожидалось к '+ft(n)+': '+fm(Math.round(te))+' ₽',c:c},{l:'Выполнение плана',v:p+'%',s:p>=100?'✓ Опережаем план':p>=80?'На верном пути':'Отстаём от плана',c:c},{l:'Дневной план суммарно',v:fm(Math.round(td))+' ₽',s:dp+'% дня прошло',c:'n'}]);
+  mkCards('ct',[{l:'Факт сегодня (все точки)',v:fm(tf)+' ₽',s:'План на весь день: '+fm(Math.round(td))+' ₽',c:c},{l:'Выполнение от ожидаемого к '+ft(n),v:p+'%',s:p>=100?'✓ Опережаем':p>=80?'На верном пути':'Ожидалось '+fm(Math.round(te))+' ₽',c:c},{l:'Дневной план суммарно',v:fm(Math.round(td))+' ₽',s:ft(n)+' • прошло '+dp+'% дня',c:'n'}]);
   mkStrip('st2',tf,Math.round(td),Math.round(te),p,c,dp+'% дня','Дневной план');
   mkGrid('gt',TR,PL,DM,true,n);
 }
