@@ -95,6 +95,17 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.strip{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}header,main{padding:10px 12px}.cv{font-size:18px}.tv{font-size:14px}}
 @media(max-width:480px){.cards{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}.cv{font-size:16px}.tv{font-size:13px}.tv.s{font-size:11px}.fv{font-size:13px}.lsvg{height:22px}}
+
+.dbtn{background:transparent;border:1px solid var(--border);color:var(--gold);font-family:Jost,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;margin-top:14px;transition:all .2s;display:inline-block}
+.dbtn:hover,.dbtn.on{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.dtbl{width:100%;border-collapse:collapse;font-size:12px;min-width:300px}
+.dtbl th{padding:6px 10px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);text-align:right;font-weight:500}
+.dtbl th:first-child{text-align:left}
+.dtbl td{padding:5px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--dim);text-align:right}
+.dtbl td:first-child{text-align:left;color:var(--text);font-weight:500}
+.dtbl tr.best td{background:rgba(76,175,122,.07)}.dtbl tr.best td:first-child{color:var(--green)}
+.dtbl tr.sr td{border-top:2px solid var(--border);background:var(--bg3);font-weight:700;color:var(--text)}
+.dtbl .g{color:var(--green)}.dtbl .y{color:var(--yellow)}.dtbl .r{color:var(--red)}
 </style>
 </head>
 <body>
@@ -162,6 +173,13 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
       <div class="cards" id="acd"></div>
       <div class="sh" style="margin-top:12px">По точкам</div>
       <div class="grid" id="agd"></div>
+      <button class="dbtn" id="dbtn">&#128197; По дням</button>
+      <div id="dwrap" style="display:none;margin-top:12px">
+        <div class="sh">Итого по дням месяца</div>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+          <table class="dtbl" id="dtbl"></table>
+        </div>
+      </div>
     </div>
   </div>
 </main>
@@ -448,6 +466,10 @@ async function openArch(y,m){
   document.getElementById('ag').style.display='none';
   document.getElementById('ad').style.display='block';
   document.getElementById('adt').textContent=MN[m]+' '+y;
+  _aY=y;_aM=m;_dOk=false;
+  var dw=document.getElementById('dwrap'),db=document.getElementById('dbtn');
+  if(dw){dw.style.display='none';}
+  if(db){db.textContent='📅 По дням';db.classList.remove('on');}
   var n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
   var PL=gpl(y,m),DM=sdm(y,m),day=isCur?n.getDate():DM,R={};
   if(isCur){R=MR;}
@@ -514,6 +536,52 @@ function savePl(){
   if(Object.keys(TR).length){rT(n);rM(n);}
 }
 
+
+var _aY=2026,_aM=3,_dOk=false;
+
+async function loadDays(y,m){
+  var tbl=document.getElementById('dtbl'),PL=gpl(y,m),DM=sdm(y,m);
+  var n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth(),lastDay=isCur?n.getDate():DM;
+  var totPlan=Math.round(ST.reduce(function(a,s){return a+(PL[s.id]||0)/DM;},0));
+  tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--dim)">Загрузка...</td></tr>';
+  var WD=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+  var tasks=[];
+  for(var d=1;d<=lastDay;d++){
+    (function(day){
+      var dd=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+      tasks.push(fetch(PX+'/api/kpi/dashboard/get-data',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({dateFrom:dd,dateTo:dd,metricCodes:['REV_GROSS'],storeIds:[43606,48767,55956,57060,78987,95683,101199],dataType:'DATA_SUMMARY_BY_STORE'})
+      }).then(function(r){return r.json();}).then(function(j){
+        var sum=0;Object.values((j.data&&j.data.REV_GROSS)||{}).forEach(function(v){sum+=v;});
+        return{d:day,v:Math.round(sum)};
+      }).catch(function(){return{d:day,v:0};}));
+    })(d);
+  }
+  var results;
+  try{results=await Promise.all(tasks);}
+  catch(e){tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--red)">Ошибка: '+e.message+'</td></tr>';return;}
+  var bestVal=0,bestIdx=-1,grand=0;
+  results.forEach(function(r,i){if(r.v>bestVal){bestVal=r.v;bestIdx=i;}grand+=r.v;});
+  var h='<thead><tr><th style="text-align:left">День</th><th>Выручка</th><th>% плана</th></tr></thead><tbody>';
+  results.forEach(function(row,i){
+    var dow=new Date(y,m,row.d).getDay(),we=dow===0||dow===6;
+    var pct=totPlan>0?Math.round(row.v/totPlan*100):0,pc=col(pct),isBest=i===bestIdx&&row.v>0;
+    h+='<tr class="'+(isBest?'best':'')+'">'+
+      '<td style="'+(we&&!isBest?'color:var(--gold)':'')+'">'+( isBest?'🏆 ':'')+row.d+' '+WD[dow]+'</td>'+
+      '<td>'+(row.v>0?fm(row.v)+' ₽':'—')+'</td>'+
+      '<td class="'+(row.v>0?pc:'')+'">'+(row.v>0?pct+'%':'—')+'</td></tr>';
+  });
+  var gPct=totPlan>0&&lastDay>0?Math.round((grand/lastDay)/totPlan*100):0,gPc=col(gPct);
+  h+='<tr class="sr"><td>Среднее / Итого</td><td>'+fm(Math.round(grand/lastDay))+' / '+fm(grand)+' ₽</td><td class="'+gPc+'">'+gPct+'%</td></tr></tbody>';
+  tbl.innerHTML=h;_dOk=true;
+}
+
+document.getElementById('dbtn').addEventListener('click',function(){
+  var w=document.getElementById('dwrap'),open=w.style.display==='block';
+  if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}
+  else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');if(!_dOk)loadDays(_aY,_aM);}
+});
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',function(){openPM(false);});
 document.getElementById('psb').addEventListener('click',savePl);
