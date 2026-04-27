@@ -256,10 +256,36 @@ function mkGrid(el,data,PL,DM,isDay,n){
   var el2=isDay?(n.getHours()*60+n.getMinutes())/(24*60):1;
   var day=isDay?0:n.getDate();
   var dp=isDay?Math.round(el2*100):Math.round(day/DM*100);
-  var sorted=[].concat(ST).sort(function(a,b){var fa=data[a.id]||0,fb=data[b.id]||0,ea=(PL[a.id]||0)/DM*(isDay?el2:day),eb=(PL[b.id]||0)/DM*(isDay?el2:day);return(eb>0?fb/eb:0)-(ea>0?fa/ea:0);});
+  var sorted=[].concat(ST).sort(function(a,b){
+    var fa=data[a.id]||0,fb=data[b.id]||0;
+    var pa=PL[a.id]||0,pb=PL[b.id]||0;
+    if(isDay){return(pb>0?fb/pb:0)-(pa>0?fa/pa:0);}
+    var ea=pa/DM*day,eb=pb/DM*day;
+    return(eb>0?fb/eb:0)-(ea>0?fa/ea:0);
+  });
   document.getElementById(el).innerHTML=sorted.map(function(s){
-    var f=data[s.id]||0,pl=PL[s.id]||0,dv=pl/DM,e=Math.round(dv*(isDay?el2:day)),pt=e>0?Math.round(f/e*100):0,c2=col(pt),cl=pt>=100?'ov':pt>=80?'tr':'bh',df=Math.round(f-e);
-    return '<div class="oc '+cl+'"><div class="on2">'+s.n+'</div><div class="r3"><div class="blk"><div class="bl">Факт</div><div class="fv">'+fm(f)+' ₽</div></div><div class="blk"><div class="bl">Ожидалось</div><div class="pv">'+fm(e)+' ₽</div></div><div class="blk"><div class="bl">'+(isDay?'В день':'Мес. план')+'</div><div class="dv">'+fm(isDay?Math.round(dv):pl)+' ₽</div></div></div><div class="pb2"><div class="p2r"><span class="p2 '+c2+'">'+pt+'%</span><span class="pbd">'+(isDay?ft(n)+' • '+dp+'% дня':day+' из '+DM+' дн.')+'</span></div><div class="pbg"><div class="pbf '+c2+'" style="width:'+Math.min(pt,100)+'%"></div><div class="pbn" style="left:'+dp+'%"></div></div></div><div class="bdg '+c2+'">'+(df>=0?'▲':'▼')+' '+fm(Math.abs(df))+' ₽ '+(df>=0?'опережение':'отставание')+'</div></div>';
+    var f=data[s.id]||0,pl=PL[s.id]||0,dv=pl/DM;
+    var e=Math.round(dv*(isDay?el2:day));
+    var pt=isDay?(pl>0?Math.round(f/pl*100):0):(e>0?Math.round(f/e*100):0);
+    var c2=col(pt),cl=pt>=100?'ov':pt>=80?'tr':'bh';
+    var df=Math.round(f-e);
+    return '<div class="oc '+cl+'">'+
+      '<div class="on2">'+s.n+'</div>'+
+      '<div class="r3">'+
+        '<div class="blk"><div class="bl">Факт</div><div class="fv">'+fm(f)+' ₽</div></div>'+
+        '<div class="blk"><div class="bl">'+(isDay?'Ожидалось к '+ft(n):'Ожидалось')+'</div><div class="pv">'+fm(e)+' ₽</div></div>'+
+        '<div class="blk"><div class="bl">'+(isDay?'План дня':'Мес. план')+'</div><div class="dv">'+fm(isDay?Math.round(dv):pl)+' ₽</div></div>'+
+      '</div>'+
+      '<div class="pb2"><div class="p2r">'+
+        '<span class="p2 '+c2+'">'+pt+'% '+(isDay?'дня':'')+'</span>'+
+        '<span class="pbd">'+(isDay?ft(n)+' • '+dp+'% дня прошло':day+' из '+DM+' дн.')+'</span>'+
+      '</div>'+
+      '<div class="pbg">'+
+        '<div class="pbf '+c2+'" style="width:'+Math.min(pt,100)+'%"></div>'+
+        (isDay?'<div class="pbn" style="left:'+dp+'%"></div>':'')+
+      '</div></div>'+
+      '<div class="bdg '+(df>=0?c2:'r')+'">'+(df>=0?'▲':'▼')+' '+fm(Math.abs(df))+' ₽ '+(df>=0?'опережение':'отставание')+' от ожидаемого</div>'+
+    '</div>';
   }).join('');
 }
 function rT(n){
@@ -274,7 +300,7 @@ function rM(n){
   var day=n.getDate(),y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m),dp=Math.round(day/DM*100),tf=0,tp=0,te=0;
   ST.forEach(function(s){tf+=MR[s.id]||0;tp+=PL[s.id]||0;te+=(PL[s.id]||0)/DM*day;});
   var p=te>0?Math.round(tf/te*100):0,c=col(p),rem=DM-day,nd=rem>0?Math.round((tp-tf)/rem):0;
-  mkCards('cm',[{l:'Факт за '+day+' дней',v:fm(tf)+' ₽',s:'Ожидалось: '+fm(Math.round(te))+' ₽',c:c},{l:'Выполнение месяца',v:p+'%',s:p>=100?'✓ Опережаем план':p>=80?'Близко к плану':'Отстаём',c:c},{l:'Нужно в день (осталось '+rem+' дн.)',v:fm(nd)+' ₽',s:'До конца: '+fm(Math.round(tp-tf))+' ₽',c:'n'}]);
+  mkCards('cm',[{l:'Факт за '+day+' дней',v:fm(tf)+' ₽',s:'Ожидалось: '+fm(Math.round(te))+' ₽',c:c},{l:'Выполнение дневного плана',v:(td>0?Math.round(tf/td*100):0)+'%',s:p>=100?'✓ Опережаем план':p>=80?'Близко к плану':'Отстаём',c:c},{l:'Нужно в день (осталось '+rem+' дн.)',v:fm(nd)+' ₽',s:'До конца: '+fm(Math.round(tp-tf))+' ₽',c:'n'}]);
   mkStrip('sm',tf,tp,Math.round(te),p,c,dp+'% месяца','Месячный план');
   mkGrid('gm',MR,PL,DM,false,n);
 }
