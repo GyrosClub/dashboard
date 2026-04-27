@@ -82,11 +82,6 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .am{font-family:Cinzel,serif;font-size:11px;color:var(--gold);margin-bottom:5px}
 .at2{font-size:16px;color:var(--text);font-weight:700}
 .ap{font-size:10px;margin-top:2px}.ap.g{color:var(--green)}.ap.y{color:var(--yellow)}.ap.r{color:var(--red)}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-@media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.strip{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}header,main{padding:10px 12px}.cv{font-size:18px}.tv{font-size:14px}}
-@media(max-width:480px){.cards{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}.cv{font-size:16px}.tv{font-size:13px}.tv.s{font-size:11px}.fv{font-size:13px}.lsvg{height:22px}}
-
 .dt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:12px}
 .dt{width:100%;border-collapse:collapse;font-size:12px}
 .dt th{padding:7px 10px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);background:var(--bg);font-weight:500;text-align:right}
@@ -100,6 +95,10 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .dt .sr td{border-top:2px solid var(--border);background:var(--bg3)!important;font-weight:700;color:var(--text)}
 .dbtn{background:transparent;border:1px solid var(--border);color:var(--gold);font-family:Jost,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;margin-top:14px;transition:all .2s;display:inline-block}
 .dbtn:hover,.dbtn.on{border-color:var(--gold);background:rgba(201,168,76,.08)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.strip{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}header,main{padding:10px 12px}.cv{font-size:18px}.tv{font-size:14px}}
+@media(max-width:480px){.cards{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}.cv{font-size:16px}.tv{font-size:13px}.tv.s{font-size:11px}.fv{font-size:13px}.lsvg{height:22px}}
 </style>
 </head>
 <body>
@@ -174,7 +173,7 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
       <div class="cards" id="acd"></div>
       <div class="sh" style="margin-top:12px">По точкам</div>
       <div class="grid" id="agd"></div>
-      <button class="dbtn" id="dbtn">📅 По дням</button>
+      <button class="dbtn" id="dbtn">&#128197; По дням</button>
       <div id="dwrap" style="display:none;margin-top:12px">
         <div class="sh">Итого по дням</div>
         <div class="dt-wrap"><table class="dt" id="dtbl"></table></div>
@@ -197,20 +196,12 @@ var ST=[
 ];
 var MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 var DP={43606:1020000,48767:1560000,55956:1020000,57060:1320000,78987:1100000,95683:1800000,101199:1440000};
-var TR={},MR={};
+var TR={},MR={},_aY=2026,_aM=3,_dOk=false;
 function chk(){return sessionStorage.getItem('gc_a')==='1';}
 function doLogin(){
-  var l=document.getElementById('li').value.trim();
-  var p=document.getElementById('lp').value;
-  if(l===LG&&p===PW){
-    sessionStorage.setItem('gc_a','1');
-    document.getElementById('ls').style.display='none';
-    document.getElementById('ms').style.display='block';
-    load();
-  }else{
-    document.getElementById('lerr').textContent='Неверный логин или пароль';
-    document.getElementById('lp').value='';
-  }
+  var l=document.getElementById('li').value.trim(),p=document.getElementById('lp').value;
+  if(l===LG&&p===PW){sessionStorage.setItem('gc_a','1');document.getElementById('ls').style.display='none';document.getElementById('ms').style.display='block';load();}
+  else{document.getElementById('lerr').textContent='Неверный логин или пароль';document.getElementById('lp').value='';}
 }
 document.getElementById('lbtn').addEventListener('click',doLogin);
 document.getElementById('lp').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
@@ -226,9 +217,7 @@ function col(p){return p>=100?'g':p>=80?'y':'r';}
 function ss(c,x){document.getElementById('sd').className='dot '+(c==='g'?'live':c==='r'?'e':'ld');document.getElementById('st').textContent=x;}
 async function fbulk(df,dt){
   var r=await fetch(PX+'/bulk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({dateFrom:df,dateTo:dt})});
-  var d=await r.json();
-  if(!d.ok)throw new Error('proxy error');
-  return d.data;
+  var d=await r.json();if(!d.ok)throw new Error('proxy error');return d.data;
 }
 async function load(){
   if(!chk())return;
@@ -238,8 +227,7 @@ async function load(){
   try{
     var n=new Date(),td=fd(n),ms=fd(new Date(n.getFullYear(),n.getMonth(),1));
     var res=await Promise.all([fbulk(td,td),fbulk(ms,td)]);
-    TR=res[0];MR=res[1];
-    rT(n);rM(n);
+    TR=res[0];MR=res[1];rT(n);rM(n);
     ss('g','Данные актуальны — '+n.toLocaleDateString('ru-RU')+' '+ft(n));
     document.getElementById('ut').textContent=n.toLocaleDateString('ru-RU')+' '+ft(n);
     chkPlan(n);
@@ -247,7 +235,7 @@ async function load(){
   b.disabled=false;sp.classList.remove('on');
 }
 function chkPlan(n){var y=n.getFullYear(),m=n.getMonth(),d=n.getDate();if(d>=1&&d<=10&&!localStorage.getItem(gpk(y,m)))setTimeout(function(){openPM(true);},800);}
-function mkCards(el,items){document.getElementById(el).innerHTML=items.map(function(x){return '<div class="card '+x.c+'"><div class="cl">'+x.l+'</div><div class="cv">'+x.v+'</div><div class="cs">'+x.s+'</div></div>';}).join('');}
+function mkCards(el,items){document.getElementById(el).innerHTML=items.map(function(x){return'<div class="card '+x.c+'"><div class="cl">'+x.l+'</div><div class="cv">'+x.v+'</div><div class="cs">'+x.s+'</div></div>';}).join('');}
 function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
   var dp2=String(dpct).match(/d+/);dp2=dp2?dp2[0]:'0';
   document.getElementById(el).innerHTML='<div><div class="tl">Факт</div><div class="tv">'+fm(tf)+' ₽</div></div><div><div class="tl">'+plabel+'</div><div class="tv s">'+fm(plan)+' ₽</div></div><div><div class="tl">Ожидалось</div><div class="tv s">'+fm(te)+' ₽</div></div><div class="pbw"><div class="pbr"><span class="pc '+c+'">'+pct+'%</span><span style="font-size:9px;color:var(--dim)">'+dpct+'</span></div><div class="pbg"><div class="pbf '+c+'" style="width:'+Math.min(pct,100)+'%"></div><div class="pbn" style="left:'+dp2+'%"></div></div></div>';
@@ -257,42 +245,24 @@ function mkGrid(el,data,PL,DM,isDay,n){
   var day=isDay?0:n.getDate();
   var dp=isDay?Math.round(el2*100):Math.round(day/DM*100);
   var sorted=[].concat(ST).sort(function(a,b){
-    var fa=data[a.id]||0,fb=data[b.id]||0;
-    var pa=PL[a.id]||0,pb=PL[b.id]||0;
-    if(isDay){return(pb>0?fb/pb:0)-(pa>0?fa/pa:0);}
-    var ea=pa/DM*day,eb=pb/DM*day;
+    var fa=data[a.id]||0,fb=data[b.id]||0,ea=(PL[a.id]||0)/DM*(isDay?el2:day),eb=(PL[b.id]||0)/DM*(isDay?el2:day);
     return(eb>0?fb/eb:0)-(ea>0?fa/ea:0);
   });
   document.getElementById(el).innerHTML=sorted.map(function(s){
-    var f=data[s.id]||0,pl=PL[s.id]||0,dv=pl/DM;
-    var e=Math.round(dv*(isDay?el2:day));
-    var pt=isDay?(pl>0?Math.round(f/pl*100):0):(e>0?Math.round(f/e*100):0);
-    var c2=col(pt),cl=pt>=100?'ov':pt>=80?'tr':'bh';
-    var df=Math.round(f-e);
-    return '<div class="oc '+cl+'">'+
-      '<div class="on2">'+s.n+'</div>'+
-      '<div class="r3">'+
-        '<div class="blk"><div class="bl">Факт</div><div class="fv">'+fm(f)+' ₽</div></div>'+
-        '<div class="blk"><div class="bl">'+(isDay?'Ожидалось к '+ft(n):'Ожидалось')+'</div><div class="pv">'+fm(e)+' ₽</div></div>'+
-        '<div class="blk"><div class="bl">'+(isDay?'План дня':'Мес. план')+'</div><div class="dv">'+fm(isDay?Math.round(dv):pl)+' ₽</div></div>'+
-      '</div>'+
-      '<div class="pb2"><div class="p2r">'+
-        '<span class="p2 '+c2+'">'+pt+'% '+(isDay?'дня':'')+'</span>'+
-        '<span class="pbd">'+(isDay?ft(n)+' • '+dp+'% дня прошло':day+' из '+DM+' дн.')+'</span>'+
-      '</div>'+
-      '<div class="pbg">'+
-        '<div class="pbf '+c2+'" style="width:'+Math.min(pt,100)+'%"></div>'+
-        (isDay?'<div class="pbn" style="left:'+dp+'%"></div>':'')+
-      '</div></div>'+
-      '<div class="bdg '+(df>=0?c2:'r')+'">'+(df>=0?'▲':'▼')+' '+fm(Math.abs(df))+' ₽ '+(df>=0?'опережение':'отставание')+' от ожидаемого</div>'+
-    '</div>';
+    var f=data[s.id]||0,pl=PL[s.id]||0,dv=pl/DM,e=Math.round(dv*(isDay?el2:day));
+    var pt=e>0?Math.round(f/e*100):0,c2=col(pt),cl=pt>=100?'ov':pt>=80?'tr':'bh',df=Math.round(f-e);
+    return'<div class="oc '+cl+'"><div class="on2">'+s.n+'</div><div class="r3"><div class="blk"><div class="bl">Факт</div><div class="fv">'+fm(f)+' ₽</div></div><div class="blk"><div class="bl">Ожидалось</div><div class="pv">'+fm(e)+' ₽</div></div><div class="blk"><div class="bl">'+(isDay?'В день':'Мес. план')+'</div><div class="dv">'+fm(isDay?Math.round(dv):pl)+' ₽</div></div></div><div class="pb2"><div class="p2r"><span class="p2 '+c2+'">'+pt+'%</span><span class="pbd">'+(isDay?ft(n)+' • '+dp+'% дня':day+' из '+DM+' дн.')+'</span></div><div class="pbg"><div class="pbf '+c2+'" style="width:'+Math.min(pt,100)+'%"></div><div class="pbn" style="left:'+dp+'%"></div></div></div><div class="bdg '+c2+'">'+(df>=0?'▲':'▼')+' '+fm(Math.abs(df))+' ₽ '+(df>=0?'опережение':'отставание')+'</div></div>';
   }).join('');
 }
 function rT(n){
   var el=(n.getHours()*60+n.getMinutes())/(24*60),dp=Math.round(el*100),y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m),tf=0,te=0,td=0;
   ST.forEach(function(s){tf+=TR[s.id]||0;var dv=PL[s.id]/DM;te+=dv*el;td+=dv;});
   var p=te>0?Math.round(tf/te*100):0,c=col(p);
-  mkCards('ct',[{l:'Факт сегодня (все точки)',v:fm(tf)+' ₽',s:'План на весь день: '+fm(Math.round(td))+' ₽',c:c},{l:'Выполнение от ожидаемого к '+ft(n),v:p+'%',s:p>=100?'✓ Опережаем':p>=80?'На верном пути':'Ожидалось '+fm(Math.round(te))+' ₽',c:c},{l:'Дневной план суммарно',v:fm(Math.round(td))+' ₽',s:ft(n)+' • прошло '+dp+'% дня',c:'n'}]);
+  mkCards('ct',[
+    {l:'Факт сегодня (все точки)',v:fm(tf)+' ₽',s:'Ожидалось к '+ft(n)+': '+fm(Math.round(te))+' ₽',c:c},
+    {l:'Выполнение плана',v:p+'%',s:p>=100?'✓ Опережаем план':p>=80?'На верном пути':'Отстаём от плана',c:c},
+    {l:'Дневной план суммарно',v:fm(Math.round(td))+' ₽',s:dp+'% дня прошло',c:'n'}
+  ]);
   mkStrip('st2',tf,Math.round(td),Math.round(te),p,c,dp+'% дня','Дневной план');
   mkGrid('gt',TR,PL,DM,true,n);
 }
@@ -300,7 +270,11 @@ function rM(n){
   var day=n.getDate(),y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m),dp=Math.round(day/DM*100),tf=0,tp=0,te=0;
   ST.forEach(function(s){tf+=MR[s.id]||0;tp+=PL[s.id]||0;te+=(PL[s.id]||0)/DM*day;});
   var p=te>0?Math.round(tf/te*100):0,c=col(p),rem=DM-day,nd=rem>0?Math.round((tp-tf)/rem):0;
-  mkCards('cm',[{l:'Факт за '+day+' дней',v:fm(tf)+' ₽',s:'Ожидалось: '+fm(Math.round(te))+' ₽',c:c},{l:'Выполнение дневного плана',v:(td>0?Math.round(tf/td*100):0)+'%',s:p>=100?'✓ Опережаем план':p>=80?'Близко к плану':'Отстаём',c:c},{l:'Нужно в день (осталось '+rem+' дн.)',v:fm(nd)+' ₽',s:'До конца: '+fm(Math.round(tp-tf))+' ₽',c:'n'}]);
+  mkCards('cm',[
+    {l:'Факт за '+day+' дней',v:fm(tf)+' ₽',s:'Ожидалось: '+fm(Math.round(te))+' ₽',c:c},
+    {l:'Выполнение месяца',v:p+'%',s:p>=100?'✓ Опережаем план':p>=80?'Близко к плану':'Отстаём',c:c},
+    {l:'Нужно в день (осталось '+rem+' дн.)',v:fm(nd)+' ₽',s:'До конца: '+fm(Math.round(tp-tf))+' ₽',c:'n'}
+  ]);
   mkStrip('sm',tf,tp,Math.round(te),p,c,dp+'% месяца','Месячный план');
   mkGrid('gm',MR,PL,DM,false,n);
 }
@@ -314,7 +288,7 @@ function rArch(){
     m++;if(m>11){m=0;y++;}
   }
   document.getElementById('ag').innerHTML=items.map(function(i){
-    return '<div class="ac" data-y="'+i.y+'" data-m="'+i.m+'"><div class="am">'+i.name+(i.isCur?' ●':'')+'</div>'+(i.tf?'<div class="at2">'+fm(i.tf)+' ₽</div><div class="ap '+col(i.pct)+'">'+i.pct+'% плана</div>':'<div style="font-size:11px;color:var(--dim)">'+(i.isCur?'Обновите данные':'Нет данных')+'</div>')+'</div>';
+    return'<div class="ac" data-y="'+i.y+'" data-m="'+i.m+'"><div class="am">'+i.name+(i.isCur?' ●':'')+'</div>'+(i.tf?'<div class="at2">'+fm(i.tf)+' ₽</div><div class="ap '+col(i.pct)+'">'+i.pct+'% плана</div>':'<div style="font-size:11px;color:var(--dim)">'+(i.isCur?'Обновите данные':'Нет данных')+'</div>')+'</div>';
   }).join('');
   document.querySelectorAll('.ac').forEach(function(c){c.addEventListener('click',function(){openArch(+c.dataset.y,+c.dataset.m);});});
 }
@@ -343,17 +317,55 @@ async function openArch(y,m){
       }catch(e){ss('r','Ошибка: '+e.message);return;}
     }
   }
-  var tf=0,tp=0,te=0;ST.forEach(function(s){tf+=R[s.id]||0;tp+=PL[s.id]||0;te+=(PL[s.id]||0)/DM*day;});
+  var tf=0,tp=0,te=0;
+  ST.forEach(function(s){tf+=R[s.id]||0;tp+=PL[s.id]||0;te+=(PL[s.id]||0)/DM*day;});
   var p=te>0?Math.round(tf/te*100):0,c=col(p);
-  mkCards('acd',[{l:'Факт за '+day+' дней',v:fm(tf)+' ₽',s:'Ожидалось: '+fm(Math.round(te))+' ₽',c:c},{l:'Выполнение',v:p+'%',s:p>=100?'✓ Опережаем':p>=80?'Близко':'Отстаём',c:c},{l:'Месячный план',v:fm(tp)+' ₽',s:day+' из '+DM+' дней',c:'n'}]);
+  mkCards('acd',[
+    {l:'Факт за '+day+' дней',v:fm(tf)+' ₽',s:'Ожидалось: '+fm(Math.round(te))+' ₽',c:c},
+    {l:'Выполнение',v:p+'%',s:p>=100?'✓ Опережаем':p>=80?'Близко':'Отстаём',c:c},
+    {l:'Месячный план',v:fm(tp)+' ₽',s:day+' из '+DM+' дней',c:'n'}
+  ]);
   mkGrid('agd',R,PL,DM,false,{getDate:function(){return day;},getFullYear:function(){return y;},getMonth:function(){return m;},getHours:function(){return 23;},getMinutes:function(){return 59;}});
 }
+async function loadDays(y,m){
+  var tbl=document.getElementById('dtbl'),PL=gpl(y,m),DM=sdm(y,m);
+  var n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth(),lastDay=isCur?n.getDate():DM;
+  var totPlan=Math.round(ST.reduce(function(a,s){return a+(PL[s.id]||0)/DM;},0));
+  tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--dim)">Загрузка...</td></tr>';
+  var WD=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+  var tasks=[];
+  for(var d=1;d<=lastDay;d++){
+    (function(day){
+      var dd=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+      tasks.push(fetch(PX+'/api/kpi/dashboard/get-data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({dateFrom:dd,dateTo:dd,metricCodes:['REV_GROSS'],storeIds:[43606,48767,55956,57060,78987,95683,101199],dataType:'DATA_SUMMARY_BY_STORE'})}).then(function(r){return r.json();}).then(function(j){var sum=0;Object.values((j.data&&j.data.REV_GROSS)||{}).forEach(function(v){sum+=v;});return{d:day,v:Math.round(sum)};}).catch(function(){return{d:day,v:0};}));
+    })(d);
+  }
+  var results;
+  try{results=await Promise.all(tasks);}
+  catch(e){tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--red)">Ошибка: '+e.message+'</td></tr>';return;}
+  var bestVal=0,bestIdx=-1,grand=0;
+  results.forEach(function(r,i){if(r.v>bestVal){bestVal=r.v;bestIdx=i;}grand+=r.v;});
+  var h='<thead><tr><th style="text-align:left">День</th><th>Выручка</th><th>% плана</th></tr></thead><tbody>';
+  results.forEach(function(row,i){
+    var dow=new Date(y,m,row.d).getDay(),we=dow===0||dow===6;
+    var pct=totPlan>0?Math.round(row.v/totPlan*100):0,pc=col(pct),isBest=i===bestIdx&&row.v>0;
+    h+='<tr class="'+(isBest?'best':'')+'"><td style="'+(we&&!isBest?'color:var(--gold)':'')+'">'+( isBest?'🏆 ':'')+row.d+' '+WD[dow]+'</td><td>'+(row.v>0?fm(row.v)+' ₽':'—')+'</td><td class="'+(row.v>0?pc:'')+'">'+( row.v>0?pct+'%':'—')+'</td></tr>';
+  });
+  var gPct=totPlan>0&&lastDay>0?Math.round((grand/lastDay)/totPlan*100):0,gPc=col(gPct);
+  h+='<tr class="sr"><td>Среднее / Итого</td><td>'+fm(Math.round(grand/lastDay))+' / '+fm(grand)+' ₽</td><td class="'+gPc+'">'+gPct+'%</td></tr></tbody>';
+  tbl.innerHTML=h;_dOk=true;
+}
+document.getElementById('dbtn').addEventListener('click',function(){
+  var w=document.getElementById('dwrap'),open=w.style.display==='block';
+  if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}
+  else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');if(!_dOk)loadDays(_aY,_aM);}
+});
 function showTab(t){['t','m','a'].forEach(function(x){document.getElementById('v'+x).style.display=x===t?'block':'none';document.getElementById('t'+x).classList.toggle('on',x===t);});if(t==='a')rArch();}
 function openPM(nm){
   var n=new Date(),y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m);
   document.getElementById('pmt').textContent=(nm?'Новый месяц! ':'')+'Планы на '+MN[m]+' '+y;
   document.getElementById('pms').textContent=nm?'Введите план на '+MN[m]+':':'Редактировать планы:';
-  document.getElementById('pil').innerHTML=ST.map(function(s){return '<div class="pr"><div class="pl">'+s.s+'</div><input type="number" class="pi" id="pi'+s.id+'" value="'+(PL[s.id]||'')+'" placeholder="0"><div class="pd" id="pd'+s.id+'">'+((PL[s.id]||0)?fm(Math.round((PL[s.id]||0)/DM))+'/д':'')+'</div></div>';}).join('');
+  document.getElementById('pil').innerHTML=ST.map(function(s){return'<div class="pr"><div class="pl">'+s.s+'</div><input type="number" class="pi" id="pi'+s.id+'" value="'+(PL[s.id]||'')+'" placeholder="0"><div class="pd" id="pd'+s.id+'">'+((PL[s.id]||0)?fm(Math.round((PL[s.id]||0)/DM))+'/д':'')+'</div></div>';}).join('');
   ST.forEach(function(s){document.getElementById('pi'+s.id).addEventListener('input',function(){var v=parseFloat(document.getElementById('pi'+s.id).value)||0;document.getElementById('pd'+s.id).textContent=v?fm(Math.round(v/DM))+'/д':'';});});
   document.getElementById('pm').classList.add('show');
 }
@@ -364,69 +376,6 @@ function savePl(){
   document.getElementById('pm').classList.remove('show');
   if(Object.keys(TR).length){rT(n);rM(n);}
 }
-
-var UUID_MAP={
-  'd4b5274c-6f15-4fac-af46-e207ca22ddbf':43606,
-  'f04ea071-60ee-40bb-90c3-91691930df8b':48767,
-  '7ae4acbd-dfec-4181-b4b7-c73568d4024e':55956,
-  'b08641a7-571c-4343-8dcf-640b5a443f2f':57060,
-  '246f7d17-1780-4ccc-b9ee-a46770b15009':78987,
-  '1554dc1f-3c22-4022-b930-5a3db37913ec':95683,
-  '56411a14-8f9f-47a6-ae58-4e2ca3d9eb5d':101199
-};
-var _aY=2026,_aM=3,_dOk=false;
-
-async function loadDays(y,m){
-  var tbl=document.getElementById('dtbl');
-  var PL=gpl(y,m),DM=sdm(y,m);
-  var n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
-  var lastDay=isCur?n.getDate():DM;
-  var totPlan=Math.round(ST.reduce(function(a,s){return a+(PL[s.id]||0)/DM;},0));
-  tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--dim)">Загрузка...</td></tr>';
-  
-  var WD=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
-  var tasks=[];
-  for(var d=1;d<=lastDay;d++){
-    (function(day){
-      var dd=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
-      tasks.push(
-        fetch(PX+'/api/kpi/dashboard/get-data',{
-          method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({dateFrom:dd,dateTo:dd,metricCodes:['REV_GROSS'],storeIds:[43606,48767,55956,57060,78987,95683,101199],dataType:'DATA_SUMMARY_BY_STORE'})
-        }).then(function(r){return r.json();}).then(function(j){
-          var sum=0;Object.values(j.data&&j.data.REV_GROSS||{}).forEach(function(v){sum+=v;});
-          return{d:day,v:Math.round(sum)};
-        }).catch(function(){return{d:day,v:0};})
-      );
-    })(d);
-  }
-  
-  var results;
-  try{results=await Promise.all(tasks);}
-  catch(e){tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--red)">Ошибка: '+e.message+'</td></tr>';return;}
-  
-  var bestVal=0,bestIdx=-1,grand=0;
-  results.forEach(function(r,i){if(r.v>bestVal){bestVal=r.v;bestIdx=i;}grand+=r.v;});
-  
-  var h='<thead><tr><th style="text-align:left">День</th><th>Выручка</th><th>% плана</th></tr></thead><tbody>';
-  results.forEach(function(row,i){
-    var dow=new Date(y,m,row.d).getDay(),we=dow===0||dow===6;
-    var pct=totPlan>0?Math.round(row.v/totPlan*100):0,pc=col(pct);
-    var isBest=i===bestIdx&&row.v>0;
-    var lbl=(isBest?'🏆 ':'')+row.d+' '+WD[dow];
-    h+='<tr class="'+(isBest?'best':'')+'"><td style="'+(we&&!isBest?'color:var(--gold)':'')+'">'+lbl+'</td><td>'+(row.v>0?fm(row.v)+' ₽':'—')+'</td><td class="'+(row.v>0?pc:'')+'">'+( row.v>0?pct+'%':'—')+'</td></tr>';
-  });
-  var gPct=totPlan>0&&lastDay>0?Math.round((grand/lastDay)/totPlan*100):0,gPc=col(gPct);
-  h+='<tr class="sr"><td>Среднее / Итого</td><td>'+fm(Math.round(grand/lastDay))+' / '+fm(grand)+' ₽</td><td class="'+gPc+'">'+gPct+'%</td></tr></tbody>';
-  tbl.innerHTML=h;
-  _dOk=true;
-}
-
-document.getElementById('dbtn').addEventListener('click',function(){
-  var w=document.getElementById('dwrap'),open=w.style.display==='block';
-  if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}
-  else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');if(!_dOk)loadDays(_aY,_aM);}
-});
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',function(){openPM(false);});
 document.getElementById('psb').addEventListener('click',savePl);
