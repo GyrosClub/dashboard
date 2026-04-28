@@ -276,6 +276,13 @@ async function load(){
     document.getElementById('ut').textContent=n.toLocaleDateString('ru-RU')+' '+ft(n);
     chkPlan(n);
     wLoaded=false;wData=[];wIdx=-1;
+    // Reset WoW display
+    var wselEl=document.getElementById('wsel');
+    if(wselEl)wselEl.innerHTML='';
+    document.getElementById('wdates').textContent='';
+    document.getElementById('wc').innerHTML='';
+    document.getElementById('wtbl').innerHTML='';
+    document.getElementById('wg').innerHTML='';
   }catch(e){ss('r',''+e.message);}
   b.disabled=false;sp.classList.remove('on');
 }
