@@ -185,6 +185,10 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
       <div class="cards" id="acd"></div>
       <div class="sh" style="margin-top:12px">По точкам</div>
       <div class="grid" id="agd"></div>
+      <div id="arch-wow" style="margin-top:14px;display:none">
+        <div class="sh">WoW — недели месяца</div>
+        <div style="overflow-x:auto"><table class="wtbl" id="arch-wow-tbl"></table></div>
+      </div>
       <button class="dbtn" id="dbtn" onclick="var w=document.getElementById('dwrap'),open=w.style.display==='block';if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');loadDays(_aY,_aM);}">&#128197; По дням</button>
       <div id="dwrap" style="display:none;margin-top:12px">
         <div class="sh">Итого по дням месяца</div>
@@ -270,6 +274,7 @@ async function load(){
     ss('g','Данные актуальны — '+n.toLocaleDateString('ru-RU')+' '+ft(n));
     document.getElementById('ut').textContent=n.toLocaleDateString('ru-RU')+' '+ft(n);
     chkPlan(n);
+    checkNewMonth();
     wLoaded=false;wData=[];wIdx=-1;
   } catch(e){ss('r','Ошибка: '+e.message);}
   b.disabled=false;sp.classList.remove('on');
@@ -402,6 +407,7 @@ async function loadWow(){
     wIdx=wData.length-1;
     buildWsel();
     renderWow(wIdx);
+    saveWowToArchive(y,m,wData);
     ss('g','Данные актуальны');
     wLoaded=true;
   } catch(e){ss('r','Ошибка WoW: '+e.message);}
@@ -560,6 +566,7 @@ async function openArch(y,m){
     {l:'Месячный план',v:fm(tp)+' ₽',s:day+' из '+DM+' дней',c:'n'}
   ]);
   mkGrid('agd',R,PL,DM,false,{getDate:function(){return day;},getFullYear:function(){return y;},getMonth:function(){return m;},getHours:function(){return 23;},getMinutes:function(){return 59;}});
+  showArchWow(y,m);
 }
 
 function showTab(t){
@@ -704,6 +711,120 @@ async function loadDays(y,m){
 }
 
 
+
+function showArchWow(y,m){
+  var wrap=document.getElementById('arch-wow');
+  var tbl=document.getElementById('arch-wow-tbl');
+  if(!wrap||!tbl)return;
+  var key='gca_wow_'+y+'_'+m;
+  var saved=localStorage.getItem(key);
+  if(!saved){wrap.style.display='none';return;}
+  try{
+    var d=JSON.parse(saved);
+    var weeks=d.weeks||[];
+    wrap.style.display='block';
+    var h='<thead><tr><th style="text-align:left">Неделя</th>';
+    ST.forEach(function(s){h+='<th>'+s.s+'</th>';});
+    h+='<th>Итого</th><th>Ср/день</th></tr></thead><tbody>';
+    weeks.forEach(function(w,i){
+      var prev=i>0?weeks[i-1]:null;
+      var pTot=prev?prev.total:null;
+      var pct=pTot>0?Math.round((w.total-pTot)/pTot*100):null;
+      var tc=pct===null?'':pct>=0?'color:var(--green)':'color:var(--red)';
+      h+='<tr><td style="white-space:nowrap">Н'+w.w+': '+w.s.substring(5)+'-'+w.e.substring(5)+' ('+w.days+'д)</td>';
+      ST.forEach(function(s){
+        var v=Math.round(w.stores[s.id]||0);
+        h+='<td>'+fm(v)+'</td>';
+      });
+      h+='<td style="font-weight:700;color:var(--text)">'+fm(w.total)+(pct!==null?'<br><small style="'+tc+'">'+(pct>=0?'+':'')+pct+'%</small>':'')+'</td>';
+      h+='<td style="color:var(--dim)">'+fm(w.avg)+' ₽</td>';
+      h+='</tr>';
+    });
+    h+='</tbody>';
+    tbl.innerHTML=h;
+  }catch(e){wrap.style.display='none';}
+}
+
+function saveWowToArchive(y,m,weeks){
+  try{
+    var key='gca_wow_'+y+'_'+m;
+    var summary=weeks.map(function(res,i){
+      var tot=0;
+      ST.forEach(function(s){tot+=res.data[s.id]||0;});
+      var days=Math.round((res.w.e-res.w.s)/864e5)+1;
+      return{
+        w:i+1,
+        s:res.w.s.toISOString().split('T')[0],
+        e:res.w.e.toISOString().split('T')[0],
+        days:days,
+        total:Math.round(tot),
+        avg:Math.round(tot/days),
+        stores:Object.assign({},res.data)
+      };
+    });
+    localStorage.setItem(key,JSON.stringify({weeks:summary,saved:new Date().toISOString()}));
+  }catch(e){}
+}
+
+function checkNewMonth(){
+  var n=new Date(),d=n.getDate(),y=n.getFullYear(),m=n.getMonth();
+  // Check if it's 1st-5th and plan not set for this month
+  var planKey=gpk(y,m);
+  var hasPlan=!!localStorage.getItem(planKey);
+  var noticeKey='gc_notice_'+y+'_'+m;
+  var noticeDone=!!localStorage.getItem(noticeKey);
+  
+  if(d>=1&&d<=10&&!hasPlan&&!noticeDone){
+    showNewMonthModal(y,m,n);
+  }
+}
+
+function showNewMonthModal(y,m,n){
+  var prev_m=m===0?11:m-1,prev_y=m===0?y-1:y;
+  var modal=document.createElement('div');
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.innerHTML=
+    '<div style="background:var(--bg2);border:2px solid var(--gold);padding:32px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto">'+
+    '<div style="font-family:Cinzel,serif;font-size:18px;color:var(--gold);letter-spacing:.1em;margin-bottom:6px">📅 '+MN[m]+' '+y+'</div>'+
+    '<div style="font-size:13px;color:var(--text);margin-bottom:4px;font-weight:600">Новый месяц — заполните план продаж!</div>'+
+    '<div style="font-size:11px;color:var(--dim);margin-bottom:20px">Введите плановые показатели для каждой точки на '+MN[m]+'</div>'+
+    '<div id="nm-inputs">'+ST.map(function(s){
+      var prevPL=gpl(prev_y,prev_m);
+      return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+
+        '<div style="font-size:11px;color:var(--text);flex:1">'+s.s+'</div>'+
+        '<input type="number" id="nm_'+s.id+'" value="'+(prevPL[s.id]||'')+'" placeholder="0" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 9px;font-family:Jost,sans-serif;font-size:12px;outline:none;text-align:right;width:120px">'+
+        '<div style="font-size:9px;color:var(--dim);width:60px;text-align:right" id="nm_d_'+s.id+'">'+(prevPL[s.id]?Math.round(prevPL[s.id]/new Date(y,m+1,0).getDate()).toLocaleString('ru-RU')+'/д':'')+'</div>'+
+      '</div>';
+    }).join('')+'</div>'+
+    '<div style="display:flex;gap:8px;margin-top:16px">'+
+    '<button id="nm-save" style="flex:1;background:var(--gold);color:#0D0D0D;border:none;padding:12px;font-family:Jost,sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer">Сохранить план</button>'+
+    '<button id="nm-later" style="background:transparent;color:var(--dim);border:1px solid var(--border);padding:12px 16px;font-family:Jost,sans-serif;font-size:10px;cursor:pointer">Позже</button>'+
+    '</div>'+
+    '<div style="font-size:9px;color:var(--dim);margin-top:10px;text-align:center">Подсказка: суммы скопированы из прошлого месяца. Отредактируйте при необходимости.</div>'+
+    '</div>';
+  document.body.appendChild(modal);
+
+  var DM=new Date(y,m+1,0).getDate();
+  ST.forEach(function(s){
+    document.getElementById('nm_'+s.id).addEventListener('input',function(){
+      var v=parseFloat(this.value)||0;
+      document.getElementById('nm_d_'+s.id).textContent=v?Math.round(v/DM).toLocaleString('ru-RU')+'/д':'';
+    });
+  });
+
+  document.getElementById('nm-save').addEventListener('click',function(){
+    var pl={};
+    ST.forEach(function(s){pl[s.id]=parseFloat(document.getElementById('nm_'+s.id).value)||0;});
+    localStorage.setItem(gpk(y,m),JSON.stringify(pl));
+    localStorage.setItem('gc_notice_'+y+'_'+m,'1');
+    document.body.removeChild(modal);
+    load();
+  });
+
+  document.getElementById('nm-later').addEventListener('click',function(){
+    document.body.removeChild(modal);
+  });
+}
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',function(){openPM(false);});
 document.getElementById('psb').addEventListener('click',savePl);
