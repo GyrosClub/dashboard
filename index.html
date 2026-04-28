@@ -514,8 +514,19 @@ async function openArch(y,m){
   _aY=y;_aM=m;_dOk=false;
   var dw=document.getElementById('dwrap'),db=document.getElementById('dbtn'),dt=document.getElementById('dtbl');
   if(dw)dw.style.display='none';
-  if(db){db.textContent='📅 По дням';db.classList.remove('on');}
   if(dt)dt.innerHTML='';
+  if(db){
+    db.textContent='📅 По дням';
+    db.classList.remove('on');
+    var newDb=db.cloneNode(true);
+    db.parentNode.replaceChild(newDb,db);
+    newDb.addEventListener('click',function(){
+      var w=document.getElementById('dwrap');
+      var open=w.style.display==='block';
+      if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}
+      else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');loadDays(_aY,_aM);}
+    });
+  }
   _aY=y;_aM=m;_dOk=false;
   var dw=document.getElementById('dwrap'),db=document.getElementById('dbtn');
   if(dw){dw.style.display='none';}
