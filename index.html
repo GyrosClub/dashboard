@@ -241,11 +241,20 @@ function daysB(s,e){return Math.round((e-s)/864e5)+1;}
 function col(p){return p>=100?'g':p>=80?'y':'r';}
 function ss(c,x){document.getElementById('sd').className='dot '+(c==='g'?'live':c==='r'?'e':'ld');document.getElementById('st').textContent=x;}
 
-async function fbulk(df,dt){
-  var rsp=await fetch(PX+'/bulk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({dateFrom:df,dateTo:dt})});
-  var d=await rsp.json();
-  if(!d.ok)throw new Error('proxy error');
-  return d.data;
+async function fbulk(df,dt,attempt){
+  attempt=attempt||1;
+  try{
+    var rsp=await fetch(PX+'/bulk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({dateFrom:df,dateTo:dt})});
+    var d=await rsp.json();
+    if(!d.ok)throw new Error('proxy error');
+    return d.data;
+  }catch(e){
+    if(attempt<3){
+      await new Promise(function(res){setTimeout(res,1000);});
+      return fbulk(df,dt,attempt+1);
+    }
+    throw e;
+  }
 }
 
 async function load(){
