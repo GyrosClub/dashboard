@@ -200,13 +200,13 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 var PX='https://gyros-proxy.gyrosclub161.workers.dev';
 var LG='GC26',PW='gc2026/4';
 var ST=[
-  {id:43606,n:'01. Gyros Club Ворошиловский 55',s:'Ворошиловский 55'},
-  {id:48767,n:'02. Gyros Club Ленина 81/8',s:'Ленина 81/8'},
-  {id:55956,n:'03. Gyros Club Стачки 207',s:'Стачки 207'},
-  {id:57060,n:'04. Gyros Club Стачки 220',s:'Стачки 220'},
-  {id:78987,n:'06. Gyros Club Аксай',s:'Аксай'},
-  {id:95683,n:'07. Gyros Club Мануфактура',s:'Мануфактура'},
-  {id:101199,n:'08. Gyros Club Зорге 19/162',s:'Зорге 19/162'}
+  {id:43606,n:'01. Gyros Club Ворошиловский 55',s:'Ворошиловский 55',open:9,close:22},
+  {id:48767,n:'02. Gyros Club Ленина 81/8',s:'Ленина 81/8',open:10,close:23},
+  {id:55956,n:'03. Gyros Club Стачки 207',s:'Стачки 207',open:11,close:24},
+  {id:57060,n:'04. Gyros Club Стачки 220',s:'Стачки 220',open:10,close:23},
+  {id:78987,n:'06. Gyros Club Аксай',s:'Аксай',open:9,close:22},
+  {id:95683,n:'07. Gyros Club Мануфактура',s:'Мануфактура',open:10,close:23},
+  {id:101199,n:'08. Gyros Club Зорге 19/162',s:'Зорге 19/162',open:10,close:23}
 ];
 var MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 var DP={43606:1020000,48767:1560000,55956:1020000,57060:1320000,78987:1100000,95683:1800000,101199:1440000};
@@ -299,7 +299,11 @@ var el2=isDay?(nowMin2<OPEN2?0:Math.min((nowMin2-OPEN2)/WDAY2,1)):1;
     return(eb>0?fb/eb:0)-(ea>0?fa/ea:0);
   });
   document.getElementById(el).innerHTML=sorted.map(function(s){
-    var f=data[s.id]||0,pl=PL[s.id]||0,dv=pl/DM,e=Math.round(dv*(isDay?el2:day));
+    var f=data[s.id]||0,pl=PL[s.id]||0,dv=pl/DM;
+    var sOpen2=(s.open||9)*60,sWday2=((s.close||24)-(s.open||9))*60;
+    var sEl2=isDay?(nowMin2<sOpen2?0:Math.min((nowMin2-sOpen2)/sWday2,1)):1;
+    var sDp2=isDay?Math.round(sEl2*100):dp;
+    var e=Math.round(dv*(isDay?sEl2:day));
     var pt=e>0?Math.round(f/e*100):0,c2=col(pt),cl=pt>=100?'ov':pt>=80?'tr':'bh',df=Math.round(f-e);
     return '<div class="oc '+cl+'"><div class="on2">'+s.n+'</div>'+
       '<div class="r3">'+
@@ -310,7 +314,7 @@ var el2=isDay?(nowMin2<OPEN2?0:Math.min((nowMin2-OPEN2)/WDAY2,1)):1;
       '<div class="pb2"><div class="p2r"><span class="p2 '+c2+'">'+pt+'%</span>'+
         '<span class="pbd">'+(isDay?ft(n)+' • '+dp+'% дня':day+' из '+DM+' дн.')+'</span></div>'+
         '<div class="pbg"><div class="pbf '+c2+'" style="width:'+Math.min(pt,100)+'%"></div>'+
-        '<div class="pbn" style="left:'+dp+'%"></div></div></div>'+
+        '<div class="pbn" style="left:'+sDp2+'%"></div></div></div>'+
       '<div class="bdg '+c2+'">'+(df>=0?'▲':'▼')+' '+fm(Math.abs(df))+' ₽ '+(df>=0?'опережение':'отставание')+'</div>'+
     '</div>';
   }).join('');
@@ -322,7 +326,15 @@ var nowMin=n.getHours()*60+n.getMinutes();
 var el=nowMin<OPEN?0:Math.min((nowMin-OPEN)/WDAY,1);
 var dp=Math.round(el*100);
   var y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m),tf=0,te=0,td=0;
-  ST.forEach(function(s){tf+=TR[s.id]||0;var dv=PL[s.id]/DM;te+=dv*el;td+=dv;});
+  var nowMinRT=n.getHours()*60+n.getMinutes();
+  ST.forEach(function(s){
+    tf+=TR[s.id]||0;
+    var dv=PL[s.id]/DM;
+    var sOpen=s.open*60,sClose=Math.min(s.close,24)*60,sWday=sClose-sOpen;
+    var sEl=nowMinRT<sOpen?0:Math.min((nowMinRT-sOpen)/sWday,1);
+    te+=dv*sEl;td+=dv;
+  });
+  var el=nowMinRT<9*60?0:Math.min((nowMinRT-9*60)/(15*60),1);
   var p=te>0?Math.round(tf/te*100):0,c=col(p);
   mkCards('ct',[
     {l:'Факт сегодня (все точки)',v:fm(tf)+' ₽',s:'Ожидалось к '+ft(n)+': '+fm(Math.round(te))+' ₽',c:c},
@@ -574,7 +586,11 @@ async function loadDays(y,m){
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({dateFrom:dd,dateTo:dd,metricCodes:['REV_GROSS'],storeIds:[43606,48767,55956,57060,78987,95683,101199],dataType:'DATA_SUMMARY_BY_STORE'})
       }).then(function(r){return r.json();}).then(function(j){
-        var sum=0;Object.values((j.data&&j.data.REV_GROSS)||{}).forEach(function(v){sum+=v;});
+        var sum=0;if(j.data&&j.data.REV_GROSS){
+            Object.values(j.data.REV_GROSS).forEach(function(v){sum+=v;});
+          } else if(j.data&&typeof j.data==='object'){
+            Object.values(j.data).forEach(function(v){if(typeof v==='number')sum+=v;});
+          }
         return{d:day,v:Math.round(sum)};
       }).catch(function(){return{d:day,v:0};}));
     })(d);
