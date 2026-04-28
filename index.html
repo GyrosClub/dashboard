@@ -185,7 +185,7 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
       <div class="cards" id="acd"></div>
       <div class="sh" style="margin-top:12px">По точкам</div>
       <div class="grid" id="agd"></div>
-      <button class="dbtn" id="dbtn">&#128197; По дням</button>
+      <button class="dbtn" id="dbtn" onclick="var w=document.getElementById('dwrap'),open=w.style.display==='block';if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');loadDays(_aY,_aM);}">&#128197; По дням</button>
       <div id="dwrap" style="display:none;margin-top:12px">
         <div class="sh">Итого по дням месяца</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
@@ -630,19 +630,7 @@ async function loadDays(y,m){
   tbl.innerHTML=h;
   _dOk=true;
 }
-document.getElementById('dbtn').addEventListener('click',function(){
-  var w=document.getElementById('dwrap'),open=w.style.display==='block';
-  if(open){
-    w.style.display='none';
-    this.textContent='📅 По дням';
-    this.classList.remove('on');
-  } else {
-    w.style.display='block';
-    this.textContent='📅 Скрыть';
-    this.classList.add('on');
-    loadDays(_aY,_aM);
-  }
-});
+
 
 var _aY=2026,_aM=3,_dOk=false;
 
@@ -688,11 +676,7 @@ async function loadDays(y,m){
   tbl.innerHTML=h;_dOk=true;
 }
 
-document.getElementById('dbtn').addEventListener('click',function(){
-  var w=document.getElementById('dwrap'),open=w.style.display==='block';
-  if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}
-  else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');if(!_dOk)loadDays(_aY,_aM);}
-});
+
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',function(){openPM(false);});
 document.getElementById('psb').addEventListener('click',savePl);
