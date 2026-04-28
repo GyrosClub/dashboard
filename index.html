@@ -368,16 +368,23 @@ function rM(n){
 }
 
 function getWeeks(y,m){
-  var weeks=[],first=new Date(y,m,1),last=new Date(y,m+1,0),today=new Date();
-  var d=new Date(first);
-  var dow=d.getDay()===0?6:d.getDay()-1;
-  d.setDate(d.getDate()-dow);
-  while(d<=last){
-    var ws=new Date(Math.max(+d,+first));
-    var we=new Date(d);we.setDate(d.getDate()+6);
-    we=new Date(Math.min(+we,+last,+today));
-    if(ws<=we&&ws.getMonth()===m)weeks.push({s:new Date(ws),e:new Date(we)});
-    d.setDate(d.getDate()+7);
+  var weeks=[],today=new Date();
+  var first=new Date(y,m,1),last=new Date(y,m+1,0);
+  // Cap last day to today
+  if(last>today) last=new Date(today);
+  var wStart=new Date(first);
+  while(wStart<=last){
+    var wEnd=new Date(wStart);
+    // End of week = Sunday (or last day of month, or today)
+    var dow=wStart.getDay(); // 0=Sun,1=Mon...
+    var daysToSun=dow===0?6:7-dow; // days until next Sunday
+    wEnd.setDate(wStart.getDate()+daysToSun);
+    if(wEnd>last) wEnd=new Date(last);
+    weeks.push({s:new Date(wStart),e:new Date(wEnd)});
+    // Next week starts Monday
+    var next=new Date(wEnd);
+    next.setDate(next.getDate()+1);
+    wStart=next;
   }
   return weeks;
 }
