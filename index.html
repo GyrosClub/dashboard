@@ -288,7 +288,9 @@ function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
 }
 
 function mkGrid(el,data,PL,DM,isDay,n){
-  var el2=isDay?(n.getHours()*60+n.getMinutes())/(24*60):1;
+  var OPEN2=9*60,WDAY2=15*60;
+var nowMin2=isDay?n.getHours()*60+n.getMinutes():0;
+var el2=isDay?(nowMin2<OPEN2?0:Math.min((nowMin2-OPEN2)/WDAY2,1)):1;
   var day=isDay?0:n.getDate();
   var dp=isDay?Math.round(el2*100):Math.round(day/DM*100);
   var sorted=[].concat(ST).sort(function(a,b){
@@ -315,7 +317,10 @@ function mkGrid(el,data,PL,DM,isDay,n){
 }
 
 function rT(n){
-  var el=(n.getHours()*60+n.getMinutes())/(24*60),dp=Math.round(el*100);
+  var OPEN=9*60,WDAY=15*60;
+var nowMin=n.getHours()*60+n.getMinutes();
+var el=nowMin<OPEN?0:Math.min((nowMin-OPEN)/WDAY,1);
+var dp=Math.round(el*100);
   var y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m),tf=0,te=0,td=0;
   ST.forEach(function(s){tf+=TR[s.id]||0;var dv=PL[s.id]/DM;te+=dv*el;td+=dv;});
   var p=te>0?Math.round(tf/te*100):0,c=col(p);
