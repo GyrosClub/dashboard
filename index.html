@@ -248,16 +248,25 @@ function ss(c,x){document.getElementById('sd').className='dot '+(c==='g'?'live':
 async function fbulk(df,dt,attempt){
   attempt=attempt||1;
   try{
-    var rsp=await fetch(PX+'/bulk',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({dateFrom:df,dateTo:dt})});
+    var ctrl=new AbortController();
+    var tid=setTimeout(function(){ctrl.abort();},12000);
+    var rsp=await fetch(PX+'/bulk',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({dateFrom:df,dateTo:dt}),
+      signal:ctrl.signal
+    });
+    clearTimeout(tid);
     var d=await rsp.json();
-    if(!d.ok)throw new Error('proxy error');
+    if(!d.ok)throw new Error('server error');
     return d.data;
   }catch(e){
-    if(attempt<3){
-      await new Promise(function(res){setTimeout(res,1000);});
+    if(attempt<5){
+      var delay=[0,1000,2000,3000,4000][attempt]||2000;
+      await new Promise(function(res){setTimeout(res,delay);});
       return fbulk(df,dt,attempt+1);
     }
-    throw e;
+    throw new Error('Нет ответа от сервера. Нажмите Обновить.');
   }
 }
 
@@ -275,6 +284,19 @@ async function load(){
     document.getElementById('ut').textContent=n.toLocaleDateString('ru-RU')+' '+ft(n);
     chkPlan(n);
     checkNewMonth();
+    // Auto-save current month WoW in background
+    setTimeout(function(){
+      var ny=n.getFullYear(),nm=n.getMonth();
+      var wkey='gca_wow_'+ny+'_'+nm;
+      if(!localStorage.getItem(wkey)){
+        var wks=getWeeks(ny,nm);
+        Promise.all(wks.map(function(w){
+          return fbulk(fd(w.s),fd(w.e)).then(function(data){return{w:w,data:data};});
+        })).then(function(results){
+          saveWowToArchive(ny,nm,results);
+        }).catch(function(){});
+      }
+    },3000);
     wLoaded=false;wData=[];wIdx=-1;
   } catch(e){ss('r','Ошибка: '+e.message);}
   b.disabled=false;sp.classList.remove('on');
