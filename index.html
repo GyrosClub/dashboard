@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gyros Club Plan</title>
+<title>Gyros Club — План продаж</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--gold:#C9A84C;--gold-l:#E8C97A;--bg:#0D0D0D;--bg2:#141414;--bg3:#1C1C1C;--border:rgba(201,168,76,.18);--text:#F0EAD6;--dim:#8a8070;--green:#4CAF7A;--red:#E05252;--yellow:#E0B952}
@@ -91,23 +91,7 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .wtbl td:first-child{text-align:left;color:var(--text);font-weight:500;white-space:nowrap}
 .wtbl tr.cur td{background:rgba(201,168,76,.05)}
 .wtbl tr.cur td:first-child{color:var(--gold)}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-@media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.strip{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}header,main{padding:10px 12px}.cv{font-size:18px}.tv{font-size:14px}}
-@media(max-width:480px){.cards{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}.cv{font-size:16px}.tv{font-size:13px}.tv.s{font-size:11px}.fv{font-size:13px}.lsvg{height:22px}}
-
-.dbtn{background:transparent;border:1px solid var(--border);color:var(--gold);font-family:Jost,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;margin-top:14px;transition:all .2s;display:inline-block}
-.dbtn:hover,.dbtn.on{border-color:var(--gold);background:rgba(201,168,76,.08)}
-.dtbl{width:100%;border-collapse:collapse;font-size:12px;min-width:300px}
-.dtbl th{padding:6px 10px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);text-align:right;font-weight:500}
-.dtbl th:first-child{text-align:left}
-.dtbl td{padding:5px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--dim);text-align:right}
-.dtbl td:first-child{text-align:left;color:var(--text);font-weight:500}
-.dtbl tr.best td{background:rgba(76,175,122,.07)}.dtbl tr.best td:first-child{color:var(--green)}
-.dtbl tr.sr td{border-top:2px solid var(--border);background:var(--bg3);font-weight:700;color:var(--text)}
-.dtbl .g{color:var(--green)}.dtbl .y{color:var(--yellow)}.dtbl .r{color:var(--red)}
-
-.dtbl{width:100%;border-collapse:collapse;font-size:11px}
+.dtbl{width:100%;border-collapse:collapse;font-size:12px}
 .dtbl th{padding:6px 8px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);text-align:right;font-weight:500}
 .dtbl th:first-child{text-align:left}
 .dtbl td{padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--dim);text-align:right}
@@ -116,17 +100,21 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .dtbl tr.best td:first-child{color:var(--green);font-weight:700}
 .dtbl .g{color:var(--green)}.dtbl .y{color:var(--yellow)}.dtbl .r{color:var(--red)}
 .dtbl .sr td{border-top:2px solid var(--border);background:var(--bg3)!important;font-weight:700;color:var(--text)}
-.dbtn{background:transparent;border:1px solid var(--border);color:var(--gold);font-family:Jost,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;margin-top:14px;display:inline-block;transition:all .2s}
-.dbtn:hover,.dbtn.on{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.abtn{background:transparent;border:1px solid var(--border);color:var(--gold);font-family:Jost,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;margin-top:14px;display:inline-block;margin-right:8px;transition:all .2s}
+.abtn:hover,.abtn.on{border-color:var(--gold);background:rgba(201,168,76,.08)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.strip{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}header,main{padding:10px 12px}.cv{font-size:18px}.tv{font-size:14px}}
+@media(max-width:480px){.cards{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}.cv{font-size:16px}.tv{font-size:13px}.tv.s{font-size:11px}.fv{font-size:13px}.lsvg{height:22px}}
 </style>
 </head>
 <body>
 <div id="ls">
   <div class="lb2">
     <svg style="height:32px;width:auto;margin-bottom:8px" viewBox="0 0 340 50" xmlns="http://www.w3.org/2000/svg"><text x="2" y="40" font-family="Georgia,serif" font-size="40" font-weight="900" fill="#E8241A" letter-spacing="3">GYROS CLUB</text></svg>
-    <div class="lsub">plan prodazh</div>
-    <input class="lf" id="li" type="text" placeholder="Login" autocomplete="off" autocorrect="off" autocapitalize="off">
-    <input class="lf" id="lp" type="password" placeholder="Parol">
+    <div class="lsub">план продаж</div>
+    <input class="lf" id="li" type="text" placeholder="Логин" autocomplete="off" autocorrect="off" autocapitalize="off">
+    <input class="lf" id="lp" type="password" placeholder="Пароль">
     <button class="lbtn" id="lbtn">Войти</button>
     <div class="lerr" id="lerr"></div>
   </div>
@@ -166,7 +154,7 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
   <div id="vt"><div class="cards" id="ct"></div><div class="strip" id="st2"></div><div class="sh">По точкам — сегодня</div><div class="grid" id="gt"></div></div>
   <div id="vm" style="display:none"><div class="cards" id="cm"></div><div class="strip" id="sm"></div><div class="sh">По точкам — за месяц</div><div class="grid" id="gm"></div></div>
   <div id="vw" style="display:none">
-    <div class="sh">Week over Week — все недели месяца</div>
+    <div class="sh">Week over Week</div>
     <div id="wsel" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px"></div>
     <div id="wdates" style="font-size:10px;color:var(--dim);margin-bottom:12px"></div>
     <div class="cards" id="wc"></div>
@@ -185,21 +173,17 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
       <div class="cards" id="acd"></div>
       <div class="sh" style="margin-top:12px">По точкам</div>
       <div class="grid" id="agd"></div>
-      <div id="arch-wow" style="margin-top:14px;display:none">
-        <div class="sh">WoW — недели месяца</div>
-        <div style="overflow-x:auto"><table class="wtbl" id="arch-wow-tbl"></table></div>
-      </div>
-      <button class="dbtn" id="awbtn" style="margin-left:8px">&#128200; WoW недели</button>
-      <button class="dbtn" id="dbtn" onclick="var w=document.getElementById('dwrap'),open=w.style.display==='block';if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');loadDays(_aY,_aM);}">&#128197; По дням</button>
-      <div id="awrap" style="display:none;margin-top:12px">
-        <div class="sh">WoW — недели месяца</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="wtbl" id="awtbl"></table></div>
+      <div style="margin-top:14px">
+        <button class="abtn" id="dbtn">&#128197; По дням</button>
+        <button class="abtn" id="wbtn2">&#128200; WoW недели</button>
       </div>
       <div id="dwrap" style="display:none;margin-top:12px">
         <div class="sh">Итого по дням месяца</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-          <table class="dtbl" id="dtbl"></table>
-        </div>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="dtbl" id="dtbl"></table></div>
+      </div>
+      <div id="wwrap" style="display:none;margin-top:12px">
+        <div class="sh">WoW — недели месяца</div>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="wtbl" id="wwtbl"></table></div>
       </div>
     </div>
   </div>
@@ -219,8 +203,9 @@ var ST=[
 ];
 var MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 var DP={43606:1020000,48767:1560000,55956:1020000,57060:1320000,78987:1100000,95683:1800000,101199:1440000};
-var TR={},MR={},wData=[],wIdx=-1,wLoaded=false;
+var TR={},MR={},wData=[],wIdx=-1,wLoaded=false,_aY=2026,_aM=3;
 
+// AUTH
 function chk(){return sessionStorage.getItem('gc_a')==='1';}
 function doLogin(){
   var l=document.getElementById('li').value.trim(),p=document.getElementById('lp').value;
@@ -239,17 +224,19 @@ document.getElementById('lp').addEventListener('keydown',function(e){if(e.key===
 document.getElementById('li').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('lp').focus();});
 if(chk()){document.getElementById('ls').style.display='none';document.getElementById('ms').style.display='block';}
 
+// UTILS
 function gpk(y,m){return 'gcp_'+y+'_'+m;}
 function gpl(y,m){try{var s=JSON.parse(localStorage.getItem(gpk(y,m))||'{}');if(Object.keys(s).length)return s;}catch(e){}return Object.assign({},DP);}
 function sdm(y,m){return new Date(y,m+1,0).getDate();}
 function fm(n){return Math.round(n).toLocaleString('ru-RU');}
 function ft(d){return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
 function fd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-function fdate(d){return d.getDate()+' '+MN[d.getMonth()].substring(0,3);}
+function fdate(d){return d.getDate()+'.'+(d.getMonth()+1<10?'0':'')+(d.getMonth()+1);}
 function daysB(s,e){return Math.round((e-s)/864e5)+1;}
 function col(p){return p>=100?'g':p>=80?'y':'r';}
 function ss(c,x){document.getElementById('sd').className='dot '+(c==='g'?'live':c==='r'?'e':'ld');document.getElementById('st').textContent=x;}
 
+// FETCH with retry
 async function fbulk(df,dt,attempt){
   attempt=attempt||1;
   try{
@@ -267,14 +254,14 @@ async function fbulk(df,dt,attempt){
     return d.data;
   }catch(e){
     if(attempt<5){
-      var delay=[0,1000,2000,3000,4000][attempt]||2000;
-      await new Promise(function(res){setTimeout(res,delay);});
+      await new Promise(function(res){setTimeout(res,attempt*1000);});
       return fbulk(df,dt,attempt+1);
     }
     throw new Error('Нет ответа от сервера. Нажмите Обновить.');
   }
 }
 
+// MAIN LOAD
 async function load(){
   if(!chk())return;
   var b=document.getElementById('rb'),sp=document.getElementById('sp');
@@ -288,22 +275,8 @@ async function load(){
     ss('g','Данные актуальны — '+n.toLocaleDateString('ru-RU')+' '+ft(n));
     document.getElementById('ut').textContent=n.toLocaleDateString('ru-RU')+' '+ft(n);
     chkPlan(n);
-    checkNewMonth();
-    // Auto-save current month WoW in background
-    setTimeout(function(){
-      var ny=n.getFullYear(),nm=n.getMonth();
-      var wkey='gca_wow_'+ny+'_'+nm;
-      if(!localStorage.getItem(wkey)){
-        var wks=getWeeks(ny,nm);
-        Promise.all(wks.map(function(w){
-          return fbulk(fd(w.s),fd(w.e)).then(function(data){return{w:w,data:data};});
-        })).then(function(results){
-          saveWowToArchive(ny,nm,results);
-        }).catch(function(){});
-      }
-    },3000);
     wLoaded=false;wData=[];wIdx=-1;
-  } catch(e){ss('r','Ошибка: '+e.message);}
+  }catch(e){ss('r',''+e.message);}
   b.disabled=false;sp.classList.remove('on');
 }
 
@@ -312,12 +285,12 @@ function chkPlan(n){
   if(d>=1&&d<=10&&!localStorage.getItem(gpk(y,m)))setTimeout(function(){openPM(true);},800);
 }
 
+// RENDER HELPERS
 function mkCards(el,items){
   document.getElementById(el).innerHTML=items.map(function(x){
     return '<div class="card '+x.c+'"><div class="cl">'+x.l+'</div><div class="cv">'+x.v+'</div><div class="cs">'+x.s+'</div></div>';
   }).join('');
 }
-
 function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
   var dp2=String(dpct).match(/d+/);dp2=dp2?dp2[0]:'0';
   document.getElementById(el).innerHTML=
@@ -327,24 +300,25 @@ function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
     '<div class="pbw"><div class="pbr"><span class="pc '+c+'">'+pct+'%</span><span style="font-size:9px;color:var(--dim)">'+dpct+'</span></div>'+
     '<div class="pbg"><div class="pbf '+c+'" style="width:'+Math.min(pct,100)+'%"></div><div class="pbn" style="left:'+dp2+'%"></div></div></div>';
 }
-
 function mkGrid(el,data,PL,DM,isDay,n){
-  var OPEN2=9*60,WDAY2=15*60;
-var nowMin2=isDay?n.getHours()*60+n.getMinutes():0;
-var el2=isDay?(nowMin2<OPEN2?0:Math.min((nowMin2-OPEN2)/WDAY2,1)):1;
+  var nowMin2=isDay?n.getHours()*60+n.getMinutes():0;
   var day=isDay?0:n.getDate();
-  var dp=isDay?Math.round(el2*100):Math.round(day/DM*100);
+  var dp=isDay?0:Math.round(day/DM*100);
   var sorted=[].concat(ST).sort(function(a,b){
     var fa=data[a.id]||0,fb=data[b.id]||0;
-    var ea=(PL[a.id]||0)/DM*(isDay?el2:day),eb=(PL[b.id]||0)/DM*(isDay?el2:day);
+    var sOpenA=(a.open||9)*60,sWdayA=((a.close||24)-(a.open||9))*60;
+    var sOpenB=(b.open||9)*60,sWdayB=((b.close||24)-(b.open||9))*60;
+    var elA=isDay?(nowMin2<sOpenA?0:Math.min((nowMin2-sOpenA)/sWdayA,1)):1;
+    var elB=isDay?(nowMin2<sOpenB?0:Math.min((nowMin2-sOpenB)/sWdayB,1)):1;
+    var ea=(PL[a.id]||0)/DM*(isDay?elA:day),eb=(PL[b.id]||0)/DM*(isDay?elB:day);
     return(eb>0?fb/eb:0)-(ea>0?fa/ea:0);
   });
   document.getElementById(el).innerHTML=sorted.map(function(s){
     var f=data[s.id]||0,pl=PL[s.id]||0,dv=pl/DM;
-    var sOpen2=(s.open||9)*60,sWday2=((s.close||24)-(s.open||9))*60;
-    var sEl2=isDay?(nowMin2<sOpen2?0:Math.min((nowMin2-sOpen2)/sWday2,1)):1;
-    var sDp2=isDay?Math.round(sEl2*100):dp;
-    var e=Math.round(dv*(isDay?sEl2:day));
+    var sOpen=(s.open||9)*60,sWday=((s.close||24)-(s.open||9))*60;
+    var sEl=isDay?(nowMin2<sOpen?0:Math.min((nowMin2-sOpen)/sWday,1)):1;
+    var sDp=isDay?Math.round(sEl*100):dp;
+    var e=Math.round(dv*(isDay?sEl:day));
     var pt=e>0?Math.round(f/e*100):0,c2=col(pt),cl=pt>=100?'ov':pt>=80?'tr':'bh',df=Math.round(f-e);
     return '<div class="oc '+cl+'"><div class="on2">'+s.n+'</div>'+
       '<div class="r3">'+
@@ -353,34 +327,33 @@ var el2=isDay?(nowMin2<OPEN2?0:Math.min((nowMin2-OPEN2)/WDAY2,1)):1;
         '<div class="blk"><div class="bl">'+(isDay?'В день':'Мес. план')+'</div><div class="dv">'+fm(isDay?Math.round(dv):pl)+' ₽</div></div>'+
       '</div>'+
       '<div class="pb2"><div class="p2r"><span class="p2 '+c2+'">'+pt+'%</span>'+
-        '<span class="pbd">'+(isDay?ft(n)+' • '+dp+'% дня':day+' из '+DM+' дн.')+'</span></div>'+
+        '<span class="pbd">'+(isDay?ft(n)+' • '+sDp+'% дня':day+' из '+DM+' дн.')+'</span></div>'+
         '<div class="pbg"><div class="pbf '+c2+'" style="width:'+Math.min(pt,100)+'%"></div>'+
-        '<div class="pbn" style="left:'+sDp2+'%"></div></div></div>'+
+        '<div class="pbn" style="left:'+sDp+'%"></div></div></div>'+
       '<div class="bdg '+c2+'">'+(df>=0?'▲':'▼')+' '+fm(Math.abs(df))+' ₽ '+(df>=0?'опережение':'отставание')+'</div>'+
     '</div>';
   }).join('');
 }
 
 function rT(n){
-  var OPEN=9*60,WDAY=15*60;
-var nowMin=n.getHours()*60+n.getMinutes();
-var el=nowMin<OPEN?0:Math.min((nowMin-OPEN)/WDAY,1);
-var dp=Math.round(el*100);
+  var nowMin=n.getHours()*60+n.getMinutes();
   var y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m),tf=0,te=0,td=0;
-  var nowMinRT=n.getHours()*60+n.getMinutes();
   ST.forEach(function(s){
     tf+=TR[s.id]||0;
     var dv=PL[s.id]/DM;
-    var sOpen=s.open*60,sClose=Math.min(s.close,24)*60,sWday=sClose-sOpen;
-    var sEl=nowMinRT<sOpen?0:Math.min((nowMinRT-sOpen)/sWday,1);
+    var sOpen=s.open*60,sWday=(s.close-s.open)*60;
+    var sEl=nowMin<sOpen?0:Math.min((nowMin-sOpen)/sWday,1);
     te+=dv*sEl;td+=dv;
   });
-  var el=nowMinRT<9*60?0:Math.min((nowMinRT-9*60)/(15*60),1);
   var p=te>0?Math.round(tf/te*100):0,c=col(p);
+  var avgOpen=Math.round(ST.reduce(function(a,s){return a+s.open;},0)/ST.length);
+  var avgClose=Math.round(ST.reduce(function(a,s){return a+s.close;},0)/ST.length);
+  var avgEl=nowMin<avgOpen*60?0:Math.min((nowMin-avgOpen*60)/((avgClose-avgOpen)*60),1);
+  var dp=Math.round(avgEl*100);
   mkCards('ct',[
     {l:'Факт сегодня (все точки)',v:fm(tf)+' ₽',s:'Ожидалось к '+ft(n)+': '+fm(Math.round(te))+' ₽',c:c},
     {l:'Выполнение плана',v:p+'%',s:p>=100?'✓ Опережаем план':p>=80?'На верном пути':'Отстаём от плана',c:c},
-    {l:'Дневной план суммарно',v:fm(Math.round(td))+' ₽',s:dp+'% дня прошло',c:'n'}
+    {l:'Дневной план суммарно',v:fm(Math.round(td))+' ₽',s:dp+'% раб. дня прошло',c:'n'}
   ]);
   mkStrip('st2',tf,Math.round(td),Math.round(te),p,c,dp+'% дня','Дневной план');
   mkGrid('gt',TR,PL,DM,true,n);
@@ -399,23 +372,19 @@ function rM(n){
   mkGrid('gm',MR,PL,DM,false,n);
 }
 
+// WoW
 function getWeeks(y,m){
   var weeks=[],today=new Date();
   var first=new Date(y,m,1),last=new Date(y,m+1,0);
-  // Cap last day to today
-  if(last>today) last=new Date(today);
+  if(last>today)last=new Date(today);
   var wStart=new Date(first);
   while(wStart<=last){
     var wEnd=new Date(wStart);
-    // End of week = Sunday (or last day of month, or today)
-    var dow=wStart.getDay(); // 0=Sun,1=Mon...
-    var daysToSun=dow===0?6:7-dow; // days until next Sunday
+    var dow=wStart.getDay(),daysToSun=dow===0?6:7-dow;
     wEnd.setDate(wStart.getDate()+daysToSun);
-    if(wEnd>last) wEnd=new Date(last);
+    if(wEnd>last)wEnd=new Date(last);
     weeks.push({s:new Date(wStart),e:new Date(wEnd)});
-    // Next week starts Monday
-    var next=new Date(wEnd);
-    next.setDate(next.getDate()+1);
+    var next=new Date(wEnd);next.setDate(next.getDate()+1);
     wStart=next;
   }
   return weeks;
@@ -427,17 +396,13 @@ async function loadWow(){
   var n=new Date(),y=n.getFullYear(),m=n.getMonth();
   var weeks=getWeeks(y,m);
   try{
-    var tasks=weeks.map(function(w){
-      return fbulk(fd(w.s),fd(w.e)).then(function(data){return{w:w,data:data};});
-    });
+    var tasks=weeks.map(function(w){return fbulk(fd(w.s),fd(w.e)).then(function(data){return{w:w,data:data};});});
     wData=await Promise.all(tasks);
     wIdx=wData.length-1;
-    buildWsel();
-    renderWow(wIdx);
-    saveWowToArchive(y,m,wData);
+    buildWsel();renderWow(wIdx);
     ss('g','Данные актуальны');
     wLoaded=true;
-  } catch(e){ss('r','Ошибка WoW: '+e.message);}
+  }catch(e){ss('r','Ошибка WoW: '+e.message);}
 }
 
 function buildWsel(){
@@ -462,24 +427,19 @@ function renderWow(idx){
   ST.forEach(function(s){totC+=cur2.data[s.id]||0;if(prev)totP+=prev.data[s.id]||0;});
   var nC=dC>0?totC/dC:0,nP=dP>0?totP/dP:0;
   var pct=nP>0?Math.round((nC-nP)/nP*100):0,c=pct>=0?'g':'r';
-
-  document.getElementById('wdates').textContent=
-    'Текущая: '+fdate(cur2.w.s)+'-'+fdate(cur2.w.e)+' ('+dC+' дн.)'+(prev?' | Прошлая: '+fdate(prev.w.s)+'-'+fdate(prev.w.e)+' ('+dP+' дн.)':' | Начало месяца');
-
+  document.getElementById('wdates').textContent='Текущая: '+fdate(cur2.w.s)+'-'+fdate(cur2.w.e)+' ('+dC+' дн.)'+(prev?' | Прошлая: '+fdate(prev.w.s)+'-'+fdate(prev.w.e)+' ('+dP+' дн.)':' | Начало месяца');
   mkCards('wc',[
     {l:'Тек. неделя ('+dC+' дн.)',v:fm(Math.round(totC))+' ₽',s:'Среднее: '+fm(Math.round(nC))+' ₽/день',c:c},
     prev?{l:'Прош. неделя ('+dP+' дн.)',v:fm(Math.round(totP))+' ₽',s:'Среднее: '+fm(Math.round(nP))+' ₽/день',c:'n'}:{l:'Прошлая неделя',v:'-',s:'Начало месяца',c:'n'},
     {l:'Изменение (среднее/день)',v:(pct>=0?'+':'')+pct+'%',s:(Math.round(nC-nP)>=0?'▲':'▼')+' '+fm(Math.abs(Math.round(nC-nP)))+' ₽/день',c:c}
   ]);
-
-  // All weeks summary table
   var th='<thead><tr><th style="text-align:left">Неделя</th>';
   ST.forEach(function(s){th+='<th>'+s.s+'</th>';});
   th+='<th>Итого</th></tr></thead><tbody>';
   wData.forEach(function(res,i){
     var tot=0;ST.forEach(function(s){tot+=res.data[s.id]||0;});
-    var pr=i>0?wData[i-1]:null,isCur=i===idx;
-    th+='<tr class="'+(isCur?'cur':'')+'"><td>Н'+(i+1)+': '+fdate(res.w.s)+'-'+fdate(res.w.e)+(isCur?' ●':'')+'</td>';
+    var pr=i>0?wData[i-1]:null,isSel=i===idx;
+    th+='<tr class="'+(isSel?'cur':'')+'"><td>Н'+(i+1)+': '+fdate(res.w.s)+'-'+fdate(res.w.e)+(isSel?' ●':'')+'</td>';
     ST.forEach(function(s){
       var v=res.data[s.id]||0,pv=pr?pr.data[s.id]||0:null;
       var dp2=pv>0?Math.round((v-pv)/pv*100):null;
@@ -487,21 +447,17 @@ function renderWow(idx){
       th+='<td>'+fm(Math.round(v))+(dp2!==null?'<br><small style="'+clr+'">'+(dp2>=0?'+':'')+dp2+'%</small>':'')+'</td>';
     });
     var pTot=pr?Object.values(pr.data||{}).reduce(function(a,b){return a+b;},0):null;
-    var tp2=pTot>0?Math.round((tot-pTot)/pTot*100):null;
-    var tc=tp2===null?'':tp2>=0?'color:var(--green)':'color:var(--red)';
-    th+='<td style="font-weight:700;color:var(--text)">'+fm(Math.round(tot))+(tp2!==null?'<br><small style="'+tc+'">'+(tp2>=0?'+':'')+tp2+'%</small>':'')+'</td></tr>';
+    var tp=pTot>0?Math.round((tot-pTot)/pTot*100):null,tc=tp===null?'var(--text)':tp>=0?'var(--green)':'var(--red)';
+    th+='<td style="font-weight:700;color:var(--text)">'+fm(Math.round(tot))+(tp!==null?'<br><small style="color:'+tc+'">'+(tp>=0?'+':'')+tp+'%</small>':'')+'</td></tr>';
   });
   th+='</tbody>';
   document.getElementById('wtbl').innerHTML=th;
-
-  // Per-store grid
-  var sorted=[].concat(ST).sort(function(a,b){
+  document.getElementById('wg').innerHTML=[].concat(ST).sort(function(a,b){
     var wa=(cur2.data[a.id]||0)/dC,wb=(cur2.data[b.id]||0)/dC;
     var la=prev?(prev.data[a.id]||0)/dP:0,lb=prev?(prev.data[b.id]||0)/dP:0;
     var pa=la>0?(wa-la)/la*100:0,pb=lb>0?(wb-lb)/lb*100:0;
     return pb-pa;
-  });
-  document.getElementById('wg').innerHTML=sorted.map(function(s){
+  }).map(function(s){
     var w2=cur2.data[s.id]||0,l2=prev?prev.data[s.id]||0:0;
     var nw=dC>0?w2/dC:0,nl=dP>0?l2/dP:0;
     var p2=nl>0?Math.round((nw-nl)/nl*100):0,c2=p2>=0?'g':'r',df=Math.round(nw-nl);
@@ -519,6 +475,7 @@ function renderWow(idx){
   }).join('');
 }
 
+// ARCHIVE
 function rArch(){
   var n=new Date(),items=[],y=2026,m=3;
   while(y<n.getFullYear()||(y===n.getFullYear()&&m<=n.getMonth())){
@@ -544,40 +501,19 @@ async function openArch(y,m){
   document.getElementById('ag').style.display='none';
   document.getElementById('ad').style.display='block';
   document.getElementById('adt').textContent=MN[m]+' '+y;
-  _aY=y;_aM=m;_dOk=false;
-  var dw=document.getElementById('dwrap'),db=document.getElementById('dbtn'),dt=document.getElementById('dtbl');
-  if(dw)dw.style.display='none';
-  if(dt)dt.innerHTML='';
-  var aw=document.getElementById('awrap'),awb2=document.getElementById('awbtn');
-  if(aw)aw.style.display='none';
-  if(awb2){awb2.textContent='📂 WoW недели';awb2.classList.remove('on');}
-  if(db){
-    db.textContent='📅 По дням';
-    db.classList.remove('on');
-    var newDb=db.cloneNode(true);
-    db.parentNode.replaceChild(newDb,db);
-    newDb.addEventListener('click',function(){
-      var w=document.getElementById('dwrap');
-      var open=w.style.display==='block';
-      if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}
-      else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');loadDays(_aY,_aM);}
-    });
-  var awb=document.getElementById('awbtn');
-  if(awb){
-    var newAwb=awb.cloneNode(true);
-    awb.parentNode.replaceChild(newAwb,awb);
-    newAwb.addEventListener('click',function(){
-      var w=document.getElementById('awrap');
-      var open=w.style.display==='block';
-      if(open){w.style.display='none';this.textContent='📂 WoW недели';this.classList.remove('on');}
-      else{w.style.display='block';this.textContent='📂 Скрыть';this.classList.add('on');loadArchWow(_aY,_aM);}
-    });
-  }
-  }
-  _aY=y;_aM=m;_dOk=false;
-  var dw=document.getElementById('dwrap'),db=document.getElementById('dbtn');
-  if(dw){dw.style.display='none';}
-  if(db){db.textContent='📅 По дням';db.classList.remove('on');}
+  _aY=y;_aM=m;
+  // Reset all sub-panels
+  ['dwrap','wwrap'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.style.display='none';
+  });
+  document.getElementById('dtbl').innerHTML='';
+  document.getElementById('wwtbl').innerHTML='';
+  document.getElementById('dbtn').textContent='📅 По дням';
+  document.getElementById('dbtn').classList.remove('on');
+  document.getElementById('wbtn2').textContent='📂 WoW недели';
+  document.getElementById('wbtn2').classList.remove('on');
+
   var n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
   var PL=gpl(y,m),DM=sdm(y,m),day=isCur?n.getDate():DM,R={};
   if(isCur){R=MR;}
@@ -595,7 +531,7 @@ async function openArch(y,m){
         var pct2=tp2>0?Math.round(tf2/tp2*100):0;
         localStorage.setItem(k,JSON.stringify({R:R,tf:tf2,pct:pct2}));
         ss('g','Данные актуальны');
-      } catch(e){ss('r','Ошибка: '+e.message);return;}
+      }catch(e){ss('r','Ошибка: '+e.message);return;}
     }
   }
   var tf=0,tp=0,te=0;
@@ -606,10 +542,92 @@ async function openArch(y,m){
     {l:'Выполнение',v:p+'%',s:p>=100?'✓ Опережаем':p>=80?'Близко':'Отстаём',c:c},
     {l:'Месячный план',v:fm(tp)+' ₽',s:day+' из '+DM+' дней',c:'n'}
   ]);
-  mkGrid('agd',R,PL,DM,false,{getDate:function(){return day;},getFullYear:function(){return y;},getMonth:function(){return m;},getHours:function(){return 23;},getMinutes:function(){return 59;}});
-  showArchWow(y,m);
+  mkGrid('agd',R,PL,DM,false,{getDate:function(){return day;},getFullYear:function(){return y;},getMonth:function(){return m;},getHours:function(){return 23;},getMinutes:function(){return 59;},open:10,close:23});
 }
 
+// ARCHIVE: По дням
+async function loadDays(y,m){
+  var tbl=document.getElementById('dtbl');
+  var PL=gpl(y,m),DM=sdm(y,m);
+  var n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth(),lastDay=isCur?n.getDate():DM;
+  var totPlan=Math.round(ST.reduce(function(a,s){return a+(PL[s.id]||0)/DM;},0));
+  tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--dim)">Загрузка...</td></tr>';
+  var WD=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+  var tasks=[];
+  for(var d=1;d<=lastDay;d++){
+    (function(day){
+      var dd=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+      tasks.push(
+        fetch(PX+'/api/kpi/dashboard/get-data',{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({dateFrom:dd,dateTo:dd,metricCodes:['REV_GROSS'],storeIds:[43606,48767,55956,57060,78987,95683,101199],dataType:'DATA_SUMMARY_BY_STORE'})
+        }).then(function(r2){return r2.json();}).then(function(j){
+          var sum=0;
+          if(j.data&&j.data.REV_GROSS)Object.values(j.data.REV_GROSS).forEach(function(v){sum+=Number(v)||0;});
+          return{d:day,v:Math.round(sum)};
+        }).catch(function(){return{d:day,v:0};})
+      );
+    })(d);
+  }
+  var results=await Promise.all(tasks);
+  var bestVal=0,bestIdx=-1,grand=0;
+  results.forEach(function(r2,i){if(r2.v>bestVal){bestVal=r2.v;bestIdx=i;}grand+=r2.v;});
+  var h='<thead><tr><th style="text-align:left">День</th><th style="text-align:right">Выручка</th><th style="text-align:right">% плана дня</th></tr></thead><tbody>';
+  results.forEach(function(row,i){
+    var dow=new Date(y,m,row.d).getDay(),we=dow===0||dow===6;
+    var pct=totPlan>0?Math.round(row.v/totPlan*100):0,pc=col(pct),isBest=i===bestIdx&&row.v>0;
+    h+='<tr style="'+(isBest?'background:rgba(76,175,122,.08)':'')+'">'+
+      '<td style="padding:6px 8px;color:'+(isBest?'var(--green)':(we?'var(--gold)':'var(--text)'))+'">'+(isBest?'🏆 ':'')+row.d+' '+WD[dow]+'</td>'+
+      '<td style="text-align:right;padding:6px 8px;color:var(--text);font-weight:'+(isBest?700:400)+'">'+(row.v>0?fm(row.v)+' ₽':'—')+'</td>'+
+      '<td style="text-align:right;padding:6px 8px" class="'+(row.v>0?pc:'')+'">'+( row.v>0?pct+'%':'—')+'</td>'+
+    '</tr>';
+  });
+  var avgDay=lastDay>0?Math.round(grand/lastDay):0;
+  var gPct=totPlan>0?Math.round(avgDay/totPlan*100):0,gPc=col(gPct);
+  h+='<tr style="border-top:2px solid var(--border);background:var(--bg3)">'+
+    '<td style="padding:6px 8px;font-weight:700;color:var(--text)">Среднее / Итого</td>'+
+    '<td style="text-align:right;padding:6px 8px;font-weight:700;color:var(--text)">'+fm(avgDay)+' / '+fm(grand)+' ₽</td>'+
+    '<td style="text-align:right;padding:6px 8px;font-weight:700" class="'+gPc+'">'+gPct+'%</td>'+
+  '</tr></tbody>';
+  tbl.innerHTML=h;
+}
+
+// ARCHIVE: WoW недели
+async function loadArchWow(y,m){
+  var tbl=document.getElementById('wwtbl');
+  tbl.innerHTML='<tr><td colspan="4" style="text-align:center;padding:14px;color:var(--dim)">Загрузка...</td></tr>';
+  var weeks=getWeeks(y,m);
+  try{
+    var results=await Promise.all(weeks.map(function(w){
+      return fbulk(fd(w.s),fd(w.e)).then(function(data){return{w:w,data:data};});
+    }));
+    var h='<thead><tr>'+
+      '<th style="text-align:left">Неделя</th>'+
+      '<th style="text-align:right">Выручка</th>'+
+      '<th style="text-align:right">Ср/день</th>'+
+      '<th style="text-align:right">Рост</th>'+
+    '</tr></thead><tbody>';
+    results.forEach(function(res,i){
+      var tot=0;ST.forEach(function(s){tot+=res.data[s.id]||0;});
+      tot=Math.round(tot);
+      var days=daysB(res.w.s,res.w.e),avg=Math.round(tot/days);
+      var prev=i>0?results[i-1]:null;
+      var pAvg=prev?Math.round(Object.values(prev.data).reduce(function(a,b){return a+b;},0)/daysB(prev.w.s,prev.w.e)):null;
+      var pct=pAvg>0?Math.round((avg-pAvg)/pAvg*100):null;
+      var tc=pct===null?'var(--dim)':pct>=0?'var(--green)':'var(--red)';
+      h+='<tr>'+
+        '<td style="padding:6px 8px;color:var(--text);white-space:nowrap">Н'+(i+1)+': '+fdate(res.w.s)+'-'+fdate(res.w.e)+' ('+days+'д.)</td>'+
+        '<td style="text-align:right;padding:6px 8px;color:var(--text);font-weight:600">'+fm(tot)+' ₽</td>'+
+        '<td style="text-align:right;padding:6px 8px;color:var(--dim)">'+fm(avg)+' ₽</td>'+
+        '<td style="text-align:right;padding:6px 8px;color:'+tc+'">'+(pct!==null?(pct>=0?'+':'')+pct+'%':'—')+'</td>'+
+      '</tr>';
+    });
+    h+='</tbody>';
+    tbl.innerHTML=h;
+  }catch(e){tbl.innerHTML='<tr><td colspan="4" style="text-align:center;padding:14px;color:var(--red)">Ошибка: '+e.message+'</td></tr>';}
+}
+
+// TABS
 function showTab(t){
   ['t','m','w','a'].forEach(function(x){
     document.getElementById('v'+x).style.display=x===t?'block':'none';
@@ -619,6 +637,7 @@ function showTab(t){
   if(t==='w')loadWow();
 }
 
+// PLANS
 function openPM(nm){
   var n=new Date(),y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m);
   document.getElementById('pmt').textContent=(nm?'Новый месяц! ':'')+'Планы на '+MN[m]+' '+y;
@@ -636,7 +655,6 @@ function openPM(nm){
   });
   document.getElementById('pm').classList.add('show');
 }
-
 function savePl(){
   var n=new Date(),y=n.getFullYear(),m=n.getMonth(),pl={};
   ST.forEach(function(s){pl[s.id]=parseFloat(document.getElementById('pi'+s.id).value)||0;});
@@ -645,260 +663,7 @@ function savePl(){
   if(Object.keys(TR).length){rT(n);rM(n);}
 }
 
-
-var _aY=2026,_aM=3,_dOk=false;
-
-async function loadDays(y,m){
-  var tbl=document.getElementById('dtbl');
-  var PL=gpl(y,m),DM=sdm(y,m);
-  var n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
-  var lastDay=isCur?n.getDate():DM;
-  var totPlan=Math.round(ST.reduce(function(a,s){return a+(PL[s.id]||0)/DM;},0));
-  tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--dim)">Загрузка...</td></tr>';
-  var WD=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
-  var tasks=[];
-  for(var d=1;d<=lastDay;d++){
-    (function(day){
-      var dd=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
-      tasks.push(
-        fetch(PX+'/api/kpi/dashboard/get-data',{
-          method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({dateFrom:dd,dateTo:dd,metricCodes:['REV_GROSS'],storeIds:[43606,48767,55956,57060,78987,95683,101199],dataType:'DATA_SUMMARY_BY_STORE'})
-        }).then(function(r2){return r2.json();}).then(function(j){
-          var sum=0;
-          if(j.data&&j.data.REV_GROSS){
-            Object.values(j.data.REV_GROSS).forEach(function(v){sum+=Number(v)||0;});
-          }
-          return{d:day,v:Math.round(sum)};
-        }).catch(function(){return{d:day,v:0};})
-      );
-    })(d);
-  }
-  var results;
-  try{results=await Promise.all(tasks);}
-  catch(e){tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--red)">Ошибка: '+e.message+'</td></tr>';return;}
-  var bestVal=0,bestIdx=-1,grand=0;
-  results.forEach(function(r2,i){if(r2.v>bestVal){bestVal=r2.v;bestIdx=i;}grand+=r2.v;});
-  var h='<thead><tr>'+
-    '<th style="text-align:left">День</th>'+
-    '<th style="text-align:right">Выручка</th>'+
-    '<th style="text-align:right">% плана дня</th>'+
-    '</tr></thead><tbody>';
-  results.forEach(function(row,i){
-    var dow=new Date(y,m,row.d).getDay(),we=dow===0||dow===6;
-    var pct=totPlan>0?Math.round(row.v/totPlan*100):0,pc=col(pct),isBest=i===bestIdx&&row.v>0;
-    h+='<tr style="'+(isBest?'background:rgba(76,175,122,.08)':'')+'">'+
-      '<td style="padding:6px 8px;color:'+(isBest?'var(--green)':(we?'var(--gold)':'var(--text)'))+'">'+
-        (isBest?'🏆 ':'')+row.d+' '+WD[dow]+
-      '</td>'+
-      '<td style="text-align:right;padding:6px 8px;color:var(--text);font-weight:'+(isBest?'700':'400')+'">'+(row.v>0?fm(row.v)+' ₽':'—')+'</td>'+
-      '<td style="text-align:right;padding:6px 8px" class="'+(row.v>0?pc:'')+'">'+( row.v>0?pct+'%':'—')+'</td>'+
-    '</tr>';
-  });
-  var avgDay=lastDay>0?Math.round(grand/lastDay):0;
-  var gPct=totPlan>0?Math.round(avgDay/totPlan*100):0,gPc=col(gPct);
-  h+='<tr style="border-top:2px solid var(--border);background:var(--bg3)">'+
-    '<td style="padding:6px 8px;font-weight:700;color:var(--text)">Среднее / Итого</td>'+
-    '<td style="text-align:right;padding:6px 8px;font-weight:700;color:var(--text)">'+fm(avgDay)+' / '+fm(grand)+' ₽</td>'+
-    '<td style="text-align:right;padding:6px 8px;font-weight:700" class="'+gPc+'">'+gPct+'%</td>'+
-  '</tr></tbody>';
-  tbl.innerHTML=h;
-  _dOk=true;
-}
-
-
-var _aY=2026,_aM=3,_dOk=false;
-
-async function loadDays(y,m){
-  var tbl=document.getElementById('dtbl');
-  var PL=gpl(y,m),DM=sdm(y,m);
-  var n=new Date(),isCur=y===n.getFullYear()&&m===n.getMonth();
-  var lastDay=isCur?n.getDate():DM;
-  var totPlan=Math.round(ST.reduce(function(a,s){return a+(PL[s.id]||0)/DM;},0));
-  tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--dim)">Загрузка...</td></tr>';
-  var WD=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
-  var tasks=[];
-  for(var d=1;d<=lastDay;d++){
-    (function(day){
-      var dd=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
-      tasks.push(
-        fetch(PX+'/api/kpi/dashboard/get-data',{
-          method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({dateFrom:dd,dateTo:dd,metricCodes:['REV_GROSS'],storeIds:[43606,48767,55956,57060,78987,95683,101199],dataType:'DATA_SUMMARY_BY_STORE'})
-        }).then(function(r2){return r2.json();}).then(function(j){
-          var sum=0;Object.values((j.data&&j.data.REV_GROSS)||{}).forEach(function(v){sum+=v;});
-          return{d:day,v:Math.round(sum)};
-        }).catch(function(){return{d:day,v:0};})
-      );
-    })(d);
-  }
-  var results;
-  try{results=await Promise.all(tasks);}
-  catch(e){tbl.innerHTML='<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--red)">Ошибка: '+e.message+'</td></tr>';return;}
-  var bestVal=0,bestIdx=-1,grand=0;
-  results.forEach(function(r2,i){if(r2.v>bestVal){bestVal=r2.v;bestIdx=i;}grand+=r2.v;});
-  var h='<thead><tr><th style="text-align:left">День</th><th>Выручка</th><th>% плана</th></tr></thead><tbody>';
-  results.forEach(function(row,i){
-    var dow=new Date(y,m,row.d).getDay(),we=dow===0||dow===6;
-    var pct=totPlan>0?Math.round(row.v/totPlan*100):0,pc=col(pct),isBest=i===bestIdx&&row.v>0;
-    h+='<tr class="'+(isBest?'best':'')+'">'+
-      '<td style="'+(we&&!isBest?'color:var(--gold)':'')+'">'+( isBest?'🏆 ':'')+row.d+' '+WD[dow]+'</td>'+
-      '<td>'+(row.v>0?fm(row.v)+' ₽':'—')+'</td>'+
-      '<td class="'+(row.v>0?pc:'')+'">'+( row.v>0?pct+'%':'—')+'</td></tr>';
-  });
-  var gPct=totPlan>0&&lastDay>0?Math.round((grand/lastDay)/totPlan*100):0,gPc=col(gPct);
-  h+='<tr class="sr"><td>Среднее / Итого</td><td>'+fm(Math.round(grand/lastDay))+' / '+fm(grand)+' ₽</td><td class="'+gPc+'">'+gPct+'%</td></tr></tbody>';
-  tbl.innerHTML=h;_dOk=true;
-}
-
-
-
-function showArchWow(y,m){
-  var wrap=document.getElementById('arch-wow');
-  var tbl=document.getElementById('arch-wow-tbl');
-  if(!wrap||!tbl)return;
-  var key='gca_wow_'+y+'_'+m;
-  var saved=localStorage.getItem(key);
-  if(!saved){wrap.style.display='none';return;}
-  try{
-    var d=JSON.parse(saved);
-    var weeks=d.weeks||[];
-    wrap.style.display='block';
-    var h='<thead><tr><th style="text-align:left">Неделя</th>';
-    ST.forEach(function(s){h+='<th>'+s.s+'</th>';});
-    h+='<th>Итого</th><th>Ср/день</th></tr></thead><tbody>';
-    weeks.forEach(function(w,i){
-      var prev=i>0?weeks[i-1]:null;
-      var pTot=prev?prev.total:null;
-      var pct=pTot>0?Math.round((w.total-pTot)/pTot*100):null;
-      var tc=pct===null?'':pct>=0?'color:var(--green)':'color:var(--red)';
-      h+='<tr><td style="white-space:nowrap">Н'+w.w+': '+w.s.substring(5)+'-'+w.e.substring(5)+' ('+w.days+'д)</td>';
-      ST.forEach(function(s){
-        var v=Math.round(w.stores[s.id]||0);
-        h+='<td>'+fm(v)+'</td>';
-      });
-      h+='<td style="font-weight:700;color:var(--text)">'+fm(w.total)+(pct!==null?'<br><small style="'+tc+'">'+(pct>=0?'+':'')+pct+'%</small>':'')+'</td>';
-      h+='<td style="color:var(--dim)">'+fm(w.avg)+' ₽</td>';
-      h+='</tr>';
-    });
-    h+='</tbody>';
-    tbl.innerHTML=h;
-  }catch(e){wrap.style.display='none';}
-}
-
-async function loadArchWow(y,m){
-  var tbl=document.getElementById('awtbl');
-  if(!tbl)return;
-  tbl.innerHTML='<tr><td colspan="4" style="text-align:center;padding:14px;color:var(--dim)">Загрузка...</td></tr>';
-  var weeks=getWeeks(y,m);
-  try{
-    var results=await Promise.all(weeks.map(function(w){
-      return fbulk(fd(w.s),fd(w.e)).then(function(data){return{w:w,data:data};});
-    }));
-    var h='<thead><tr><th style="text-align:left">Неделя</th><th style="text-align:right">Выручка</th><th style="text-align:right">Ср/день</th><th style="text-align:right">Рост</th></tr></thead><tbody>';
-    results.forEach(function(res,i){
-      var tot=0;ST.forEach(function(s){tot+=res.data[s.id]||0;});
-      tot=Math.round(tot);
-      var days=Math.round((res.w.e-res.w.s)/864e5)+1;
-      var avg=Math.round(tot/days);
-      var prev=i>0?results[i-1]:null;
-      var pTot=prev?Object.values(prev.data).reduce(function(a,b){return a+b;},0):null;
-      var pAvg=prev?Math.round(pTot/Math.round((prev.w.e-prev.w.s)/864e5+1)):null;
-      var pct=pAvg>0?Math.round((avg-pAvg)/pAvg*100):null;
-      var tc=pct===null?'var(--dim)':pct>=0?'var(--green)':'var(--red)';
-      var fdate=function(d){return d.getDate()+'.'+(d.getMonth()+1<10?'0':'')+(d.getMonth()+1);};
-      h+='<tr>'+
-        '<td style="padding:6px 8px;color:var(--text);white-space:nowrap">Н'+(i+1)+': '+fdate(res.w.s)+'-'+fdate(res.w.e)+' ('+days+'д.)</td>'+
-        '<td style="text-align:right;padding:6px 8px;color:var(--text);font-weight:600">'+fm(tot)+' ₽</td>'+
-        '<td style="text-align:right;padding:6px 8px;color:var(--dim)">'+fm(avg)+' ₽</td>'+
-        '<td style="text-align:right;padding:6px 8px;color:'+tc+'">'+(pct!==null?(pct>=0?'+':'')+pct+'%':'—')+'</td>'+
-      '</tr>';
-    });
-    h+='</tbody>';
-    tbl.innerHTML=h;
-  }catch(e){tbl.innerHTML='<tr><td colspan="4" style="text-align:center;padding:14px;color:var(--red)">Ошибка: '+e.message+'</td></tr>';}
-}
-
-function saveWowToArchive(y,m,weeks){
-  try{
-    var key='gca_wow_'+y+'_'+m;
-    var summary=weeks.map(function(res,i){
-      var tot=0;
-      ST.forEach(function(s){tot+=res.data[s.id]||0;});
-      var days=Math.round((res.w.e-res.w.s)/864e5)+1;
-      return{
-        w:i+1,
-        s:res.w.s.toISOString().split('T')[0],
-        e:res.w.e.toISOString().split('T')[0],
-        days:days,
-        total:Math.round(tot),
-        avg:Math.round(tot/days),
-        stores:Object.assign({},res.data)
-      };
-    });
-    localStorage.setItem(key,JSON.stringify({weeks:summary,saved:new Date().toISOString()}));
-  }catch(e){}
-}
-
-function checkNewMonth(){
-  var n=new Date(),d=n.getDate(),y=n.getFullYear(),m=n.getMonth();
-  // Check if it's 1st-5th and plan not set for this month
-  var planKey=gpk(y,m);
-  var hasPlan=!!localStorage.getItem(planKey);
-  var noticeKey='gc_notice_'+y+'_'+m;
-  var noticeDone=!!localStorage.getItem(noticeKey);
-  
-  if(d>=1&&d<=10&&!hasPlan&&!noticeDone){
-    showNewMonthModal(y,m,n);
-  }
-}
-
-function showNewMonthModal(y,m,n){
-  var prev_m=m===0?11:m-1,prev_y=m===0?y-1:y;
-  var modal=document.createElement('div');
-  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px';
-  modal.innerHTML=
-    '<div style="background:var(--bg2);border:2px solid var(--gold);padding:32px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto">'+
-    '<div style="font-family:Cinzel,serif;font-size:18px;color:var(--gold);letter-spacing:.1em;margin-bottom:6px">📅 '+MN[m]+' '+y+'</div>'+
-    '<div style="font-size:13px;color:var(--text);margin-bottom:4px;font-weight:600">Новый месяц — заполните план продаж!</div>'+
-    '<div style="font-size:11px;color:var(--dim);margin-bottom:20px">Введите плановые показатели для каждой точки на '+MN[m]+'</div>'+
-    '<div id="nm-inputs">'+ST.map(function(s){
-      var prevPL=gpl(prev_y,prev_m);
-      return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+
-        '<div style="font-size:11px;color:var(--text);flex:1">'+s.s+'</div>'+
-        '<input type="number" id="nm_'+s.id+'" value="'+(prevPL[s.id]||'')+'" placeholder="0" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 9px;font-family:Jost,sans-serif;font-size:12px;outline:none;text-align:right;width:120px">'+
-        '<div style="font-size:9px;color:var(--dim);width:60px;text-align:right" id="nm_d_'+s.id+'">'+(prevPL[s.id]?Math.round(prevPL[s.id]/new Date(y,m+1,0).getDate()).toLocaleString('ru-RU')+'/д':'')+'</div>'+
-      '</div>';
-    }).join('')+'</div>'+
-    '<div style="display:flex;gap:8px;margin-top:16px">'+
-    '<button id="nm-save" style="flex:1;background:var(--gold);color:#0D0D0D;border:none;padding:12px;font-family:Jost,sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer">Сохранить план</button>'+
-    '<button id="nm-later" style="background:transparent;color:var(--dim);border:1px solid var(--border);padding:12px 16px;font-family:Jost,sans-serif;font-size:10px;cursor:pointer">Позже</button>'+
-    '</div>'+
-    '<div style="font-size:9px;color:var(--dim);margin-top:10px;text-align:center">Подсказка: суммы скопированы из прошлого месяца. Отредактируйте при необходимости.</div>'+
-    '</div>';
-  document.body.appendChild(modal);
-
-  var DM=new Date(y,m+1,0).getDate();
-  ST.forEach(function(s){
-    document.getElementById('nm_'+s.id).addEventListener('input',function(){
-      var v=parseFloat(this.value)||0;
-      document.getElementById('nm_d_'+s.id).textContent=v?Math.round(v/DM).toLocaleString('ru-RU')+'/д':'';
-    });
-  });
-
-  document.getElementById('nm-save').addEventListener('click',function(){
-    var pl={};
-    ST.forEach(function(s){pl[s.id]=parseFloat(document.getElementById('nm_'+s.id).value)||0;});
-    localStorage.setItem(gpk(y,m),JSON.stringify(pl));
-    localStorage.setItem('gc_notice_'+y+'_'+m,'1');
-    document.body.removeChild(modal);
-    load();
-  });
-
-  document.getElementById('nm-later').addEventListener('click',function(){
-    document.body.removeChild(modal);
-  });
-}
+// EVENTS
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',function(){openPM(false);});
 document.getElementById('psb').addEventListener('click',savePl);
@@ -910,6 +675,16 @@ document.getElementById('ta').addEventListener('click',function(){showTab('a');}
 document.getElementById('ab').addEventListener('click',function(){
   document.getElementById('ag').style.display='grid';
   document.getElementById('ad').style.display='none';
+});
+document.getElementById('dbtn').addEventListener('click',function(){
+  var w=document.getElementById('dwrap'),open=w.style.display==='block';
+  if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}
+  else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');loadDays(_aY,_aM);}
+});
+document.getElementById('wbtn2').addEventListener('click',function(){
+  var w=document.getElementById('wwrap'),open=w.style.display==='block';
+  if(open){w.style.display='none';this.textContent='📂 WoW недели';this.classList.remove('on');}
+  else{w.style.display='block';this.textContent='📂 Скрыть';this.classList.add('on');loadArchWow(_aY,_aM);}
 });
 
 if(chk())load();
