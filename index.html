@@ -184,6 +184,9 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
       <div id="wwrap" style="display:none;margin-top:12px">
         <div class="sh">WoW — недели месяца</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="wtbl" id="wwtbl"></table></div>
+      <div id="wwrap" style="display:none;margin-top:12px">
+        <div class="sh">WoW — недели месяца</div>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="wtbl" id="wwtbl"></table></div>
       </div>
     </div>
   </div>
@@ -693,6 +696,40 @@ document.getElementById('wbtn2').addEventListener('click',function(){
   if(open){w.style.display='none';this.textContent='📂 WoW недели';this.classList.remove('on');}
   else{w.style.display='block';this.textContent='📂 Скрыть';this.classList.add('on');loadArchWow(_aY,_aM);}
 });
+
+document.getElementById('wbtn2').addEventListener('click',function(){
+  var w=document.getElementById('wwrap'),open=w.style.display==='block';
+  if(open){w.style.display='none';this.textContent='📂 WoW недели';this.classList.remove('on');}
+  else{w.style.display='block';this.textContent='📂 Скрыть';this.classList.add('on');loadArchWow(_aY,_aM);}
+});
+
+async function loadArchWow(y,m){
+  var tbl=document.getElementById('wwtbl');
+  tbl.innerHTML='<tr><td colspan="4" style="text-align:center;padding:14px;color:var(--dim)">Загрузка...</td></tr>';
+  var weeks=getWeeks(y,m);
+  try{
+    var results=await Promise.all(weeks.map(function(w){
+      return fbulk(fd(w.s),fd(w.e)).then(function(data){return{w:w,data:data};});
+    }));
+    var h='<thead><tr><th style="text-align:left">Неделя</th><th style="text-align:right">Выручка</th><th style="text-align:right">Ср/день</th><th style="text-align:right">Рост</th></tr></thead><tbody>';
+    results.forEach(function(res,i){
+      var tot=0;ST.forEach(function(s){tot+=res.data[s.id]||0;});tot=Math.round(tot);
+      var days=daysB(res.w.s,res.w.e),avg=Math.round(tot/days);
+      var prev=i>0?results[i-1]:null;
+      var pAvg=prev?Math.round(Object.values(prev.data).reduce(function(a,b){return a+b;},0)/daysB(prev.w.s,prev.w.e)):null;
+      var pct=pAvg>0?Math.round((avg-pAvg)/pAvg*100):null;
+      var tc=pct===null?'var(--dim)':pct>=0?'var(--green)':'var(--red)';
+      h+='<tr>'+
+        '<td style="padding:6px 8px;color:var(--text);white-space:nowrap">Н'+(i+1)+': '+fdate(res.w.s)+'-'+fdate(res.w.e)+' ('+days+'д.)</td>'+
+        '<td style="text-align:right;padding:6px 8px;color:var(--text);font-weight:600">'+fm(tot)+' ₽</td>'+
+        '<td style="text-align:right;padding:6px 8px;color:var(--dim)">'+fm(avg)+' ₽</td>'+
+        '<td style="text-align:right;padding:6px 8px;color:'+tc+'">'+(pct!==null?(pct>=0?'+':'')+pct+'%':'—')+'</td>'+
+      '</tr>';
+    });
+    h+='</tbody>';
+    tbl.innerHTML=h;
+  }catch(e){tbl.innerHTML='<tr><td colspan="4" style="text-align:center;padding:14px;color:var(--red)">Ошибка: '+e.message+'</td></tr>';}
+}
 
 if(chk())load();
 </script>
