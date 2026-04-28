@@ -496,9 +496,10 @@ async function openArch(y,m){
   document.getElementById('ad').style.display='block';
   document.getElementById('adt').textContent=MN[m]+' '+y;
   _aY=y;_aM=m;_dOk=false;
-  var dw=document.getElementById('dwrap'),db=document.getElementById('dbtn');
+  var dw=document.getElementById('dwrap'),db=document.getElementById('dbtn'),dt=document.getElementById('dtbl');
   if(dw)dw.style.display='none';
   if(db){db.textContent='📅 По дням';db.classList.remove('on');}
+  if(dt)dt.innerHTML='';
   _aY=y;_aM=m;_dOk=false;
   var dw=document.getElementById('dwrap'),db=document.getElementById('dbtn');
   if(dw){dw.style.display='none';}
@@ -631,8 +632,16 @@ async function loadDays(y,m){
 }
 document.getElementById('dbtn').addEventListener('click',function(){
   var w=document.getElementById('dwrap'),open=w.style.display==='block';
-  if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}
-  else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');if(!_dOk)loadDays(_aY,_aM);}
+  if(open){
+    w.style.display='none';
+    this.textContent='📅 По дням';
+    this.classList.remove('on');
+  } else {
+    w.style.display='block';
+    this.textContent='📅 Скрыть';
+    this.classList.add('on');
+    loadDays(_aY,_aM);
+  }
 });
 
 var _aY=2026,_aM=3,_dOk=false;
