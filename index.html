@@ -174,8 +174,8 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
       <div class="sh" style="margin-top:12px">По точкам</div>
       <div class="grid" id="agd"></div>
       <div style="margin-top:14px">
-        <button class="abtn" id="dbtn">&#128197; По дням</button>
-        <button class="abtn" id="wbtn2">&#128200; WoW недели</button>
+        <button class="abtn" id="dbtn" onclick="(function(btn){var w=document.getElementById('dwrap'),open=w.style.display==='block';if(open){w.style.display='none';btn.textContent='📅 По дням';btn.classList.remove('on');}else{w.style.display='block';btn.textContent='📅 Скрыть';btn.classList.add('on');loadDays(_aY,_aM);}})(this)">📅 По дням</button>
+        <button class="abtn" id="wbtn2" onclick="(function(btn){var w=document.getElementById('wwrap'),open=w.style.display==='block';if(open){w.style.display='none';btn.textContent='📂 WoW недели';btn.classList.remove('on');}else{w.style.display='block';btn.textContent='📂 Скрыть';btn.classList.add('on');loadArchWow(_aY,_aM);}})(this)">📂 WoW недели</button>
       </div>
       <div id="dwrap" style="display:none;margin-top:12px">
         <div class="sh">Итого по дням месяца</div>
