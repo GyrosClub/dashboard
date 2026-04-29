@@ -686,22 +686,10 @@ document.getElementById('ab').addEventListener('click',function(){
   document.getElementById('ag').style.display='grid';
   document.getElementById('ad').style.display='none';
 });
-document.getElementById('dbtn').addEventListener('click',function(){
-  var w=document.getElementById('dwrap'),open=w.style.display==='block';
-  if(open){w.style.display='none';this.textContent='📅 По дням';this.classList.remove('on');}
-  else{w.style.display='block';this.textContent='📅 Скрыть';this.classList.add('on');loadDays(_aY,_aM);}
-});
-document.getElementById('wbtn2').addEventListener('click',function(){
-  var w=document.getElementById('wwrap'),open=w.style.display==='block';
-  if(open){w.style.display='none';this.textContent='📂 WoW недели';this.classList.remove('on');}
-  else{w.style.display='block';this.textContent='📂 Скрыть';this.classList.add('on');loadArchWow(_aY,_aM);}
-});
 
-document.getElementById('wbtn2').addEventListener('click',function(){
-  var w=document.getElementById('wwrap'),open=w.style.display==='block';
-  if(open){w.style.display='none';this.textContent='📂 WoW недели';this.classList.remove('on');}
-  else{w.style.display='block';this.textContent='📂 Скрыть';this.classList.add('on');loadArchWow(_aY,_aM);}
-});
+
+
+
 
 async function loadArchWow(y,m){
   var tbl=document.getElementById('wwtbl');
