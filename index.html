@@ -228,8 +228,14 @@ document.getElementById('li').addEventListener('keydown',function(e){if(e.key===
 if(chk()){document.getElementById('ls').style.display='none';document.getElementById('ms').style.display='block';}
 
 // UTILS
-function gpk(y,m){return 'gcp_'+y+'_'+m;}
-function gpl(y,m){try{var s=JSON.parse(localStorage.getItem(gpk(y,m))||'{}');if(Object.keys(s).length)return s;}catch(e){}return Object.assign({},DP);}
+function gpk(y,m){return 'gcp_'+y+'_'+m;} // legacy
+function gpl(y,m){
+  // Try server cache first, then localStorage fallback
+  var key='gcp_'+y+'_'+m;
+  try{var s=JSON.parse(sessionStorage.getItem('sv_'+key)||'{}');if(Object.keys(s).length)return s;}catch(e){}
+  try{var s2=JSON.parse(localStorage.getItem(key)||'{}');if(Object.keys(s2).length)return s2;}catch(e){}
+  return Object.assign({},DP);
+}
 function sdm(y,m){return new Date(y,m+1,0).getDate();}
 function fm(n){return Math.round(n).toLocaleString('ru-RU');}
 function ft(d){return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
@@ -279,6 +285,7 @@ async function load(){
     document.getElementById('ut').textContent=n.toLocaleDateString('ru-RU')+' '+ft(n);
     chkPlan(n);
     wLoaded=false;wData=[];wIdx=-1;
+    loadPlansFromServer(n.getFullYear(),n.getMonth(),n);
     // Reset WoW display
     var wselEl=document.getElementById('wsel');
     if(wselEl)wselEl.innerHTML='';
@@ -668,12 +675,30 @@ function openPM(nm){
 function savePl(){
   var n=new Date(),y=n.getFullYear(),m=n.getMonth(),pl={};
   ST.forEach(function(s){pl[s.id]=parseFloat(document.getElementById('pi'+s.id).value)||0;});
-  localStorage.setItem(gpk(y,m),JSON.stringify(pl));
+  // Save to server
+  fetch(PX+'/plans',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({y:y,m:m,plans:pl})})
+    .catch(function(){});
+  // Save to localStorage and sessionStorage as cache
+  var key='gcp_'+y+'_'+m;
+  localStorage.setItem(key,JSON.stringify(pl));
+  sessionStorage.setItem('sv_'+key,JSON.stringify(pl));
   document.getElementById('pm').classList.remove('show');
   if(Object.keys(TR).length){rT(n);rM(n);}
 }
 
 // EVENTS
+async function loadPlansFromServer(y,m,n){
+  try{
+    var r=await fetch(PX+'/plans?y='+y+'&m='+m);
+    var pl=await r.json();
+    if(pl&&Object.keys(pl).length){
+      var key='gcp_'+y+'_'+m;
+      sessionStorage.setItem('sv_'+key,JSON.stringify(pl));
+      localStorage.setItem(key,JSON.stringify(pl));
+      if(n){rT(n);rM(n);}
+    }
+  }catch(e){}
+}
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',function(){openPM(false);});
 document.getElementById('psb').addEventListener('click',savePl);
