@@ -106,6 +106,16 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.strip{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}header,main{padding:10px 12px}.cv{font-size:18px}.tv{font-size:14px}}
 @media(max-width:480px){.cards{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.ag{grid-template-columns:1fr 1fr}.cv{font-size:16px}.tv{font-size:13px}.tv.s{font-size:11px}.fv{font-size:13px}.lsvg{height:22px}}
+
+.ym{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.ym.show{display:flex}
+.ymb{background:var(--bg2);border:1px solid var(--border);padding:24px;width:100%;max-width:900px;margin:auto}
+.ymh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ymt{font-family:Cinzel,serif;font-size:14px;color:var(--gold);letter-spacing:.1em}
+.ymx{background:none;border:1px solid var(--border);color:var(--dim);font-family:Jost,sans-serif;font-size:11px;padding:6px 12px;cursor:pointer}
+.ymx:hover{border-color:var(--gold);color:var(--gold)}
+.card.click{cursor:pointer;transition:all .2s}
+.card.click:hover{border-color:var(--gold);transform:translateY(-1px)}
 </style>
 </head>
 <body>
@@ -191,6 +201,17 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
     </div>
   </div>
 </main>
+<div class="ym" id="ym">
+  <div class="ymb">
+    <div class="ymh">
+      <div class="ymt" id="ym-title">Вчера — итог по точкам</div>
+      <button class="ymx" onclick="document.getElementById('ym').classList.remove('show')">✕ Закрыть</button>
+    </div>
+    <div class="cards" id="ym-cards"></div>
+    <div class="sh" style="margin-top:12px">По точкам</div>
+    <div class="grid" id="ym-grid"></div>
+  </div>
+</div>
 </div>
 <script>
 var PX='https://gyros-proxy.gyrosclub161.workers.dev';
@@ -304,9 +325,14 @@ function chkPlan(n){
 
 // RENDER HELPERS
 function mkCards(el,items){
-  document.getElementById(el).innerHTML=items.map(function(x){
-    return '<div class="card '+x.c+'"><div class="cl">'+x.l+'</div><div class="cv">'+x.v+'</div><div class="cs">'+x.s+'</div></div>';
+  document.getElementById(el).innerHTML=items.map(function(x,i){
+    var cls='card '+x.c+(x.click?' click':'');
+    return '<div class="'+cls+'" '+(x.click?'onclick="__mc['+el+']['+i+']()"':'')+'>'
+      +'<div class="cl">'+x.l+'</div><div class="cv">'+x.v+'</div><div class="cs">'+x.s+'</div></div>';
   }).join('');
+  window.__mc=window.__mc||{};
+  window.__mc[el]={};
+  items.forEach(function(x,i){if(x.click)window.__mc[el][i]=x.click;});
 }
 function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
   var dp2=String(dpct).match(/d+/);dp2=dp2?dp2[0]:'0';
@@ -390,7 +416,8 @@ async function rM(n){
       var yF=0,yE=0,yP2=0;
       ST.forEach(function(s){yF+=yData[s.id]||0;yP2+=PL[s.id]||0;yE+=(PL[s.id]||0)/DM*(day-1);});
       var yPct=yE>0?Math.round(yF/yE*100):0;
-      yCard={l:'Вчера ('+String(day-1).padStart(2,'0')+'.'+String(m+1).padStart(2,'0')+') — итог',v:fm(Math.round(yF))+' ₽',s:yPct+'% плана • ожид. '+fm(Math.round(yE))+' ₽',c:col(yPct)};
+      var yLabel='Вчера ('+String(day-1).padStart(2,'0')+'.'+String(m+1).padStart(2,'0')+') — итог';
+      yCard={l:yLabel,v:fm(Math.round(yF))+' ₽',s:yPct+'% плана • ожид. '+fm(Math.round(yE))+' ₽',c:col(yPct),click:function(){showYesterday(yData,yF,yPct,yLabel,PL,DM,day-1,m,y);}};
     }catch(e){}
   }
   mkCards('cm',[
@@ -712,6 +739,22 @@ async function loadPlansFromServer(y,m,n){
       if(n){rT(n);rM(n);}
     }
   }catch(e){}
+}
+function showYesterday(data,totFact,totPct,label,PL,DM,day,m,y){
+  document.getElementById('ym-title').textContent=label;
+  var yPlan=0;ST.forEach(function(s){yPlan+=PL[s.id]||0;});
+  var yExp=Math.round(yPlan/DM*day);
+  // Summary cards
+  var c=col(totPct);
+  document.getElementById('ym-cards').innerHTML=[
+    {l:'Факт за '+day+' дней',v:fm(Math.round(totFact))+' ₽',s:'Ожидалось: '+fm(yExp)+' ₽',c:c},
+    {l:'Выполнение',v:totPct+'%',s:totPct>=100?'✓ Опережаем':totPct>=80?'Близко':'Отстаём',c:c},
+    {l:'Месячный план',v:fm(yPlan)+' ₽',s:day+' из '+DM+' дней',c:'n'}
+  ].map(function(x){return '<div class="card '+x.c+'"><div class="cl">'+x.l+'</div><div class="cv">'+x.v+'</div><div class="cs">'+x.s+'</div></div>';}).join('');
+  // Per-store grid
+  var n={getDate:function(){return day;},getFullYear:function(){return y;},getMonth:function(){return m;},getHours:function(){return 23;},getMinutes:function(){return 59;}};
+  mkGrid('ym-grid',data,PL,DM,false,n);
+  document.getElementById('ym').classList.add('show');
 }
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',function(){openPM(false);});
