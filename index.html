@@ -152,7 +152,7 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
     <button class="tab" id="ta">Архив</button>
   </div>
   <div id="vt"><div class="cards" id="ct"></div><div class="strip" id="st2"></div><div class="sh">По точкам — сегодня</div><div class="grid" id="gt"></div></div>
-  <div id="vm" style="display:none"><div class="cards" id="cm"></div><div class="strip" id="sm"></div><div class="sh">По точкам — за месяц</div><div class="grid" id="gm"></div></div>
+  <div id="vm" style="display:none"><div class="cards" id="cm" style="grid-template-columns:repeat(2,1fr)"></div><div class="strip" id="sm"></div><div class="sh">По точкам — за месяц</div><div class="grid" id="gm"></div></div>
   <div id="vw" style="display:none">
     <div class="sh">Week over Week</div>
     <div id="wsel" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px"></div>
@@ -376,14 +376,28 @@ function rT(n){
   mkGrid('gt',TR,PL,DM,true,n);
 }
 
-function rM(n){
+async function rM(n){
   var day=n.getDate(),y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m),dp=Math.round(day/DM*100),tf=0,tp=0,te=0;
   ST.forEach(function(s){tf+=MR[s.id]||0;tp+=PL[s.id]||0;te+=(PL[s.id]||0)/DM*day;});
   var p=te>0?Math.round(tf/te*100):0,c=col(p),rem=DM-day,nd=rem>0?Math.round((tp-tf)/rem):0;
+  // Fetch yesterday total
+  var yCard = {l:'Вчера — итог',v:'—',s:'первый день месяца',c:'n'};
+  if(day>1){
+    try{
+      var yStr=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day-1).padStart(2,'0');
+      var mStr=fd(new Date(y,m,1));
+      var yData=await fbulk(mStr,yStr);
+      var yF=0,yE=0,yP2=0;
+      ST.forEach(function(s){yF+=yData[s.id]||0;yP2+=PL[s.id]||0;yE+=(PL[s.id]||0)/DM*(day-1);});
+      var yPct=yE>0?Math.round(yF/yE*100):0;
+      yCard={l:'Вчера ('+String(day-1).padStart(2,'0')+'.'+String(m+1).padStart(2,'0')+') — итог',v:fm(Math.round(yF))+' ₽',s:yPct+'% плана • ожид. '+fm(Math.round(yE))+' ₽',c:col(yPct)};
+    }catch(e){}
+  }
   mkCards('cm',[
     {l:'Факт за '+day+' дней',v:fm(tf)+' ₽',s:'Ожидалось: '+fm(Math.round(te))+' ₽',c:c},
     {l:'Выполнение месяца',v:p+'%',s:p>=100?'✓ Опережаем план':p>=80?'Близко к плану':'Отстаём',c:c},
-    {l:'Нужно в день (осталось '+rem+' дн.)',v:fm(nd)+' ₽',s:'До конца: '+fm(Math.round(tp-tf))+' ₽',c:'n'}
+    {l:'Нужно в день (осталось '+rem+' дн.)',v:fm(nd)+' ₽',s:'До конца: '+fm(Math.round(tp-tf))+' ₽',c:'n'},
+    yCard
   ]);
   mkStrip('sm',tf,tp,Math.round(te),p,c,dp+'% месяца','Месячный план');
   mkGrid('gm',MR,PL,DM,false,n);
