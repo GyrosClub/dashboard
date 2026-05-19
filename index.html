@@ -325,14 +325,16 @@ function chkPlan(n){
 
 // RENDER HELPERS
 function mkCards(el,items){
-  document.getElementById(el).innerHTML=items.map(function(x,i){
+  var el2=document.getElementById(el);
+  el2.innerHTML=items.map(function(x){
     var cls='card '+x.c+(x.click?' click':'');
-    return '<div class="'+cls+'" '+(x.click?'onclick="__mc['+el+']['+i+']()"':'')+'>'
+    return '<div class="'+cls+'">'
       +'<div class="cl">'+x.l+'</div><div class="cv">'+x.v+'</div><div class="cs">'+x.s+'</div></div>';
   }).join('');
-  window.__mc=window.__mc||{};
-  window.__mc[el]={};
-  items.forEach(function(x,i){if(x.click)window.__mc[el][i]=x.click;});
+  el2.querySelectorAll('.click').forEach(function(card,i){
+    var clickItems=items.filter(function(x){return x.click;});
+    if(clickItems[i])card.addEventListener('click',clickItems[i]);
+  });
 }
 function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
   var dp2=String(dpct).match(/d+/);dp2=dp2?dp2[0]:'0';
