@@ -324,17 +324,17 @@ function chkPlan(n){
 }
 
 // RENDER HELPERS
+var _cb={};
 function mkCards(el,items){
   var el2=document.getElementById(el);
-  el2.innerHTML=items.map(function(x){
+  _cb[el]={};
+  var rows=items.map(function(x,i){
     var cls='card '+x.c+(x.click?' click':'');
-    return '<div class="'+cls+'">'
-      +'<div class="cl">'+x.l+'</div><div class="cv">'+x.v+'</div><div class="cs">'+x.s+'</div></div>';
-  }).join('');
-  el2.querySelectorAll('.click').forEach(function(card,i){
-    var clickItems=items.filter(function(x){return x.click;});
-    if(clickItems[i])card.addEventListener('click',clickItems[i]);
+    var oc='';
+    if(x.click){_cb[el][i]=x.click;oc=' onclick="_cb.'+el+'['+i+']()"';}
+    return '<div class="'+cls+'"'+oc+'><div class="cl">'+x.l+'</div><div class="cv">'+x.v+'</div><div class="cs">'+x.s+'</div></div>';
   });
+  el2.innerHTML=rows.join('');
 }
 function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
   var dp2=String(dpct).match(/d+/);dp2=dp2?dp2[0]:'0';
