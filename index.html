@@ -434,18 +434,21 @@ async function rM(n){
 
 // WoW
 function getWeeks(y,m){
-  var weeks=[],today=new Date();
-  var first=new Date(y,m,1),last=new Date(y,m+1,0);
-  if(last>today)last=new Date(today);
-  var wStart=new Date(first);
-  while(wStart<=last){
-    var wEnd=new Date(wStart);
-    var dow=wStart.getDay(),daysToSun=dow===0?6:7-dow;
-    wEnd.setDate(wStart.getDate()+daysToSun);
-    if(wEnd>last)wEnd=new Date(last);
-    weeks.push({s:new Date(wStart),e:new Date(wEnd)});
-    var next=new Date(wEnd);next.setDate(next.getDate()+1);
-    wStart=next;
+  var today=new Date();
+  var first=new Date(y,m,1);
+  var dow=first.getDay();
+  var diff=dow===0?-6:1-dow;
+  var weekStart=new Date(first);
+  weekStart.setDate(first.getDate()+diff);
+  var weeks=[],monthEnd=new Date(y,m+1,0);
+  while(weekStart<=monthEnd&&weekStart<=today){
+    var wEnd=new Date(weekStart);
+    wEnd.setDate(weekStart.getDate()+6);
+    if(wEnd>today)wEnd=new Date(today);
+    if(wEnd>monthEnd)wEnd=new Date(monthEnd);
+    weeks.push({s:new Date(weekStart),e:new Date(wEnd)});
+    weekStart=new Date(weekStart);
+    weekStart.setDate(weekStart.getDate()+7);
   }
   return weeks;
 }
