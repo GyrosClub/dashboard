@@ -349,6 +349,8 @@ async function load(){
     var res=await Promise.all([fbulk(td,td),fbulk(ms,td)]);
     TR=res[0];MR=res[1];
     rT(n);rM(n);
+    renderHero(n);
+    fetchHourly(td).then(function(h){HOURLY=h;renderHero(n);});
     ss('g','Данные актуальны — '+n.toLocaleDateString('ru-RU')+' '+ft(n));
     document.getElementById('ut').textContent=n.toLocaleDateString('ru-RU')+' '+ft(n);
     chkPlan(n);
