@@ -132,6 +132,8 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .chart-legend span{display:inline-flex;align-items:center;gap:5px}
 .lg-line{width:16px;height:2px;background:var(--gold)}
 .lg-dash{width:16px;height:0;border-top:1px dashed var(--dim)}
+
+.mini-chart{width:100%;height:46px;margin:8px 0 4px}
 </style>
 </head>
 <body>
@@ -393,6 +395,31 @@ function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
     '<div><div class="tl">Ожидалось</div><div class="tv s">'+fm(te)+' ₽</div></div>'+
     '<div class="pbw"><div class="pbr"><span class="pc '+c+'">'+pct+'%</span><span style="font-size:9px;color:var(--dim)">'+dpct+'</span></div>'+
     '<div class="pbg"><div class="pbf '+c+'" style="width:'+Math.min(pct,100)+'%"></div><div class="pbn" style="left:'+dp2+'%"></div></div></div>';
+}
+
+function miniChart(hours,openH,closeH,statusColor){
+  if(!hours)return '';
+  var W=200,H=46,pad=2;
+  var cum=0,pts=[];
+  for(var h=openH;h<=closeH;h++){
+    if(hours[h]!=null)cum+=hours[h];
+    pts.push({h:h,v:cum});
+  }
+  if(pts.length<2||cum===0)return '<div class="mini-chart"></div>';
+  var maxV=cum||1, span=closeH-openH||1;
+  function x(h){return pad+((h-openH)/span)*(W-pad*2);}
+  function y(v){return pad+(1-v/maxV)*(H-pad*2);}
+  var d='';
+  pts.forEach(function(p,i){d+=(i===0?'M ':'L ')+x(p.h).toFixed(1)+' '+y(p.v).toFixed(1)+' ';});
+  var last=pts[pts.length-1];
+  var col=statusColor==='g'?'var(--green)':statusColor==='y'?'var(--yellow)':statusColor==='r'?'var(--red)':'var(--gold)';
+  var area=d+'L '+x(last.h).toFixed(1)+' '+(H-pad)+' L '+x(openH).toFixed(1)+' '+(H-pad)+' Z';
+  return '<svg class="mini-chart" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none">'+
+    '<defs><linearGradient id="mg'+openH+statusColor+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+col+'" stop-opacity="0.22"/><stop offset="100%" stop-color="'+col+'" stop-opacity="0"/></linearGradient></defs>'+
+    '<path d="'+area+'" fill="url(#mg'+openH+statusColor+')"/>'+
+    '<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2"/>'+
+    '<circle cx="'+x(last.h).toFixed(1)+'" cy="'+y(last.v).toFixed(1)+'" r="2.5" fill="'+col+'"/>'+
+  '</svg>';
 }
 function mkGrid(el,data,PL,DM,isDay,n){
   var nowMin2=isDay?n.getHours()*60+n.getMinutes():0;
