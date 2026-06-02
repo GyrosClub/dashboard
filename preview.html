@@ -116,6 +116,22 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .ymx:hover{border-color:var(--gold);color:var(--gold)}
 .card.click{cursor:pointer;transition:all .2s}
 .card.click:hover{border-color:var(--gold);transform:translateY(-1px)}
+
+.hero{background:linear-gradient(135deg,#161412,#0f0e0c);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+.hero-fact{font-size:38px;font-weight:700;color:var(--gold);line-height:1}
+.hero-fact-l{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-top:4px}
+.hero-meta{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--dim)}
+.hero-meta b{color:var(--text);font-weight:600}
+.ring-wrap{position:relative;width:120px;height:120px;flex-shrink:0}
+.ring-pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-pct .v{font-size:26px;font-weight:700;line-height:1}
+.ring-pct .l{font-size:7px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:2px}
+.chart-box{width:100%;height:180px;position:relative}
+.chart-legend{display:flex;gap:16px;font-size:9px;color:var(--dim);margin-top:6px;letter-spacing:.05em}
+.chart-legend span{display:inline-flex;align-items:center;gap:5px}
+.lg-line{width:16px;height:2px;background:var(--gold)}
+.lg-dash{width:16px;height:0;border-top:1px dashed var(--dim)}
 </style>
 </head>
 <body>
@@ -161,7 +177,7 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
     <button class="tab" id="tw">WoW</button>
     <button class="tab" id="ta">Архив</button>
   </div>
-  <div id="vt"><div class="cards" id="ct"></div><div class="strip" id="st2"></div><div class="sh">По точкам — сегодня</div><div class="grid" id="gt"></div></div>
+  <div id="vt"><div class="hero" id="hero-today"></div><div class="cards" id="ct"></div><div class="strip" id="st2"></div><div class="sh">По точкам — сегодня</div><div class="grid" id="gt"></div></div>
   <div id="vm" style="display:none"><div class="cards" id="cm" style="grid-template-columns:repeat(2,1fr)"></div><div class="strip" id="sm"></div><div class="sh">По точкам — за месяц</div><div class="grid" id="gm"></div></div>
   <div id="vw" style="display:none">
     <div class="sh">Week over Week</div>
@@ -791,6 +807,78 @@ function showYesterday(data,totFact,totPct,label,PL,DM,day,m,y){
   var n={getDate:function(){return day;},getFullYear:function(){return y;},getMonth:function(){return m;},getHours:function(){return 23;},getMinutes:function(){return 59;}};
   mkGrid('ym-grid',data,PL,DM,false,n);
   document.getElementById('ym').classList.add('show');
+}
+
+function drawRing(pct){
+  var p=Math.min(pct,100),r=52,circ=2*Math.PI*r;
+  var off=circ*(1-p/100);
+  var color=pct>=100?'var(--green)':pct>=80?'var(--yellow)':'var(--red)';
+  return '<svg width="120" height="120" viewBox="0 0 120 120">'+
+    '<circle cx="60" cy="60" r="'+r+'" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="6"/>'+
+    '<circle cx="60" cy="60" r="'+r+'" fill="none" stroke="'+color+'" stroke-width="6" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'" transform="rotate(-90 60 60)"/>'+
+    '</svg>';
+}
+function drawChart(hourly,planTotal,openH,closeH){
+  // hourly: {hour:value}. Build cumulative fact line + linear plan dashed.
+  var W=600,H=170,padL=8,padR=8,padT=10,padB=22;
+  var hours=[];for(var h=0;h<=24;h++)hours.push(h);
+  // cumulative fact
+  var cum=0,factPts=[];
+  for(var h=openH;h<=24;h++){
+    if(hourly&&hourly[h]!=null)cum+=hourly[h];
+    factPts.push({h:h,v:cum});
+  }
+  var maxV=Math.max(planTotal,cum,1);
+  function x(h){return padL+(h/24)*(W-padL-padR);}
+  function y(v){return padT+(1-v/maxV)*(H-padT-padB);}
+  // plan dashed line: from openH(0) to closeH(planTotal)
+  var planLine='M '+x(openH)+' '+y(0)+' L '+x(closeH)+' '+y(planTotal);
+  // fact path
+  var fp='';
+  factPts.forEach(function(pt,i){fp+=(i===0?'M ':'L ')+x(pt.h)+' '+y(pt.v)+' ';});
+  // area under fact
+  var area=fp+'L '+x(factPts[factPts.length-1].h)+' '+y(0)+' L '+x(openH)+' '+y(0)+' Z';
+  var lastPt=factPts[factPts.length-1];
+  // x-axis labels
+  var labels='';[8,12,16,20,24].forEach(function(hh){
+    labels+='<text x="'+x(hh)+'" y="'+(H-6)+'" fill="var(--dim)" font-size="9" text-anchor="middle">'+(hh===24?'24:00':String(hh).padStart(2,'0')+':00')+'</text>';
+  });
+  var col=lastPt.v>=planTotal?'var(--green)':(lastPt.v>=planTotal*0.85?'var(--gold)':'var(--red)');
+  return '<svg class="chart-svg" width="100%" height="100%" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="overflow:visible">'+
+    '<defs><linearGradient id="fa" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+col+'" stop-opacity="0.25"/><stop offset="100%" stop-color="'+col+'" stop-opacity="0"/></linearGradient></defs>'+
+    '<path d="'+area+'" fill="url(#fa)"/>'+
+    '<path d="'+planLine+'" fill="none" stroke="var(--dim)" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.7"/>'+
+    '<path d="'+fp+'" fill="none" stroke="'+col+'" stroke-width="2.5"/>'+
+    '<circle cx="'+x(lastPt.h)+'" cy="'+y(lastPt.v)+'" r="4" fill="'+col+'"/>'+
+    labels+
+  '</svg>';
+}
+function renderHero(n){
+  var box=document.getElementById('hero-today');
+  if(!box)return;
+  var nowMin=n.getHours()*60+n.getMinutes();
+  var y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m);
+  var tf=0,te=0,td=0;
+  ST.forEach(function(s){
+    tf+=TR[s.id]||0;
+    var dv=PL[s.id]/DM;
+    var sOpen=s.open*60,sWday=(s.close-s.open)*60;
+    var sEl=nowMin<sOpen?0:Math.min((nowMin-sOpen)/sWday,1);
+    te+=dv*sEl;td+=dv;
+  });
+  var pct=te>0?Math.round(tf/te*100):0;
+  var avgOpen=Math.round(ST.reduce(function(a,s){return a+s.open;},0)/ST.length);
+  var avgClose=Math.round(ST.reduce(function(a,s){return a+s.close;},0)/ST.length);
+  var dayPct=nowMin<avgOpen*60?0:Math.round(Math.min((nowMin-avgOpen*60)/((avgClose-avgOpen)*60),1)*100);
+  var chartHtml=HOURLY?drawChart(HOURLY.total,Math.round(td),avgOpen,avgClose):'<div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:11px">График загружается...</div>';
+  box.innerHTML=
+    '<div class="hero-top">'+
+      '<div><div class="hero-fact">'+fm(tf)+' ₽</div><div class="hero-fact-l">Итоги за день • факт</div></div>'+
+      '<div class="hero-meta"><div>Дневной план: <b>'+fm(Math.round(td))+' ₽</b></div><div>Ожидалось: <b>'+fm(Math.round(te))+' ₽</b></div></div>'+
+      '<div class="ring-wrap">'+drawRing(pct)+'<div class="ring-pct"><div class="v" style="color:'+(pct>=100?'var(--green)':pct>=80?'var(--yellow)':'var(--red)')+'">'+pct+'%</div><div class="l">выполнено</div></div></div>'+
+    '</div>'+
+    '<div class="chart-box">'+chartHtml+'</div>'+
+    '<div class="chart-legend"><span><span class="lg-line"></span>Факт</span><span><span class="lg-dash"></span>План</span><span style="margin-left:auto;color:var(--gold)">'+dayPct+'% дня</span></div>';
 }
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',function(){openPM(false);});
