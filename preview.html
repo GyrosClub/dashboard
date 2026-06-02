@@ -291,6 +291,37 @@ async function fbulk(df,dt,attempt){
   }
 }
 
+var HOURLY=null;
+async function fetchHourly(dateStr){
+  try{
+    var r=await fetch(PX+'/api/kpi/dashboard/get-data',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({dateFrom:dateStr,dateTo:dateStr,metricCodes:['REV_GROSS'],storeIds:[43606,48767,55956,57060,78987,95683,101199],dataType:'DATA_DETAILS_BY_STORE'})
+    });
+    var d=await r.json();
+    var rev=d.data&&d.data.REV_GROSS;
+    if(!rev)return null;
+    var u2id={};
+    if(d.decoration&&d.decoration.restaurant){
+      Object.keys(d.decoration.restaurant).forEach(function(uuid){u2id[uuid]=d.decoration.restaurant[uuid].id;});
+    }
+    var cols=Object.entries(rev.columns);
+    var byStore={},totalByHour={};
+    Object.keys(rev.rows).forEach(function(uuid){
+      var sidx=rev.rows[uuid], arr=rev.data[sidx]||[], id=u2id[uuid];
+      var hb={};
+      cols.forEach(function(c){
+        var hour=parseInt(c[0].replace('D','').split(':')[0],10);
+        var val=arr[c[1]]||0;
+        hb[hour]=(hb[hour]||0)+val;
+        totalByHour[hour]=(totalByHour[hour]||0)+val;
+      });
+      byStore[id]=hb;
+    });
+    return {total:totalByHour,byStore:byStore};
+  }catch(e){return null;}
+}
+
 // MAIN LOAD
 async function load(){
   if(!chk())return;
