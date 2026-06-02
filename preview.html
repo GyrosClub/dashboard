@@ -447,6 +447,7 @@ function mkGrid(el,data,PL,DM,isDay,n){
         '<div class="blk"><div class="bl">Ожидалось</div><div class="pv">'+fm(e)+' ₽</div></div>'+
         '<div class="blk"><div class="bl">'+(isDay?'В день':'Мес. план')+'</div><div class="dv">'+fm(isDay?Math.round(dv):pl)+' ₽</div></div>'+
       '</div>'+
+      ((typeof HOURLY!=='undefined'&&HOURLY&&HOURLY.byStore&&HOURLY.byStore[s.id])?miniChart(HOURLY.byStore[s.id],s.open,s.close,c2):'')+
       '<div class="pb2"><div class="p2r"><span class="p2 '+c2+'">'+pt+'%</span>'+
         '<span class="pbd">'+(isDay?ft(n)+' • '+sDp+'% дня':day+' из '+DM+' дн.')+'</span></div>'+
         '<div class="pbg"><div class="pbf '+c2+'" style="width:'+Math.min(pt,100)+'%"></div>'+
