@@ -6,9 +6,9 @@
 <title>Gyros Club — План продаж</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#C9A84C;--gold-l:#E8C97A;--bg:#0D0D0D;--bg2:#141414;--bg3:#1C1C1C;--border:rgba(201,168,76,.18);--text:#F0EAD6;--dim:#8a8070;--green:#4CAF7A;--red:#E05252;--yellow:#E0B952}
+:root{--gold:#C9A84C;--gold-l:#F0D89A;--gold-d:#9A7A2E;--bg:#0B0A09;--bg2:#141210;--bg3:#1C1A16;--border:rgba(201,168,76,.18);--text:#F0EAD6;--dim:#8a8070;--green:#3FD17E;--red:#FF5C5C;--yellow:#E8B84B}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:Jost,sans-serif;min-height:100vh}
+body{background:radial-gradient(140% 120% at 50% -10%,#13110d 0%,#0B0A09 55%) fixed,var(--bg);color:var(--text);font-family:Jost,sans-serif;min-height:100vh}
 #ls{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
 .lb2{background:var(--bg2);border:1px solid var(--border);padding:40px 32px;width:100%;max-width:360px;text-align:center}
 .lsub{font-size:10px;color:var(--dim);letter-spacing:.2em;text-transform:uppercase;margin-bottom:28px}
@@ -33,7 +33,7 @@ header{padding:12px 20px;display:flex;align-items:center;justify-content:space-b
 main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .mb{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
 .mb.show{display:flex}
-.md{background:var(--bg2);border:1px solid var(--border);padding:26px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto}
+.md{background:linear-gradient(160deg,#16130f,#100e0c);border:1px solid var(--border);border-radius:16px;padding:26px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto}
 .mt{font-family:Cinzel,serif;font-size:14px;color:var(--gold);letter-spacing:.1em;margin-bottom:4px}
 .ms{font-size:11px;color:var(--dim);margin-bottom:16px}
 .pr{display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -41,19 +41,19 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .pi{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 9px;font-family:Jost,sans-serif;font-size:12px;outline:none;text-align:right;width:110px}
 .pi:focus{border-color:var(--gold)}
 .pd{font-size:9px;color:var(--dim);width:70px;text-align:right;flex-shrink:0}
-.sb{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);font-size:11px;color:var(--dim)}
+.sb{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:9px 14px;background:linear-gradient(160deg,#16130f,#100e0c);border:1px solid var(--border);border-radius:11px;font-size:11px;color:var(--dim)}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--dim);flex-shrink:0}
 .dot.live{background:var(--green);animation:pulse 2s infinite}.dot.e{background:var(--red)}.dot.ld{background:var(--yellow);animation:pulse .5s infinite}
 .tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:14px;overflow-x:auto}
 .tab{padding:9px 16px;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:Jost,sans-serif;white-space:nowrap;font-weight:600}
 .tab.on{color:var(--gold);border-bottom-color:var(--gold)}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
-.card{background:var(--bg2);border:1px solid var(--border);padding:14px 16px;position:relative}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:.5}
+.card{background:linear-gradient(160deg,#16130f,#100e0c);border:1px solid var(--border);border-radius:13px;padding:15px 17px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:.6}
 .card.g::before{background:var(--green)}.card.r::before{background:var(--red)}.card.y::before{background:var(--yellow)}.card.n::before{background:var(--gold);opacity:.3}
-.cl{font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
-.cv{font-size:22px;color:var(--text);font-weight:700}.cs{font-size:10px;color:var(--dim);margin-top:2px}
-.strip{background:var(--bg2);border:1px solid var(--border);padding:12px 16px;margin-bottom:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:center}
+.cl{font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.cv{font-size:24px;color:var(--text);font-weight:800;letter-spacing:-.01em}.cs{font-size:10px;color:var(--dim);margin-top:3px}
+.strip{background:linear-gradient(160deg,#16130f,#100e0c);border:1px solid var(--border);border-radius:13px;padding:13px 17px;margin-bottom:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:center}
 .tl{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:2px}
 .tv{font-size:17px;color:var(--gold);font-weight:700}.tv.s{font-size:13px;color:var(--dim);font-weight:400}
 .pbw{display:flex;flex-direction:column;gap:3px}.pbr{display:flex;justify-content:space-between}
@@ -63,8 +63,12 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .pbf.g{background:linear-gradient(90deg,#2d7a52,var(--green))}.pbf.y{background:linear-gradient(90deg,#9a7a20,var(--yellow))}.pbf.r{background:linear-gradient(90deg,#8a2020,var(--red))}
 .pbn{position:absolute;top:0;bottom:0;width:2px;background:rgba(255,255,255,.35)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}
-.oc{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--border);padding:13px;transition:border-color .2s,transform .15s}
-.oc:hover{transform:translateY(-1px)}.oc.ov{border-left-color:var(--green)}.oc.tr{border-left-color:var(--yellow)}.oc.bh{border-left-color:var(--red)}
+.oc{position:relative;background:linear-gradient(160deg,#16130f,#100e0c);border:1px solid var(--border);border-radius:13px;padding:14px 15px;overflow:hidden;transition:transform .15s}
+.oc:hover{transform:translateY(-2px)}
+.oc::after{content:'';position:absolute;top:0;right:0;width:110px;height:110px;border-radius:50%;filter:blur(34px);opacity:.15;pointer-events:none;transform:translate(35%,-35%)}
+.oc.ov{border-color:rgba(63,209,126,.3);box-shadow:0 0 22px -14px rgba(63,209,126,.5)}.oc.ov::after{background:var(--green)}
+.oc.tr{border-color:rgba(232,184,75,.32);box-shadow:0 0 22px -14px rgba(232,184,75,.5)}.oc.tr::after{background:var(--yellow)}
+.oc.bh{border-color:rgba(255,92,92,.32);box-shadow:0 0 22px -14px rgba(255,92,92,.5)}.oc.bh::after{background:var(--red)}
 .on2{font-size:11px;color:var(--text);font-weight:600;margin-bottom:8px}
 .r3{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px}
 .blk{display:flex;flex-direction:column;gap:1px}
@@ -75,10 +79,10 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .pbd{font-size:9px;color:var(--dim)}
 .bdg{display:inline-flex;font-size:9px;padding:2px 5px}
 .bdg.g{background:rgba(76,175,122,.12);color:var(--green)}.bdg.r{background:rgba(224,82,82,.12);color:var(--red)}.bdg.y{background:rgba(224,185,82,.12);color:var(--yellow)}
-.sh{font-size:8px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
-.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
-.ac{background:var(--bg2);border:1px solid var(--border);padding:13px;cursor:pointer;transition:border-color .2s,transform .15s}
-.ac:hover{border-color:var(--gold);transform:translateY(-1px)}
+.sh{font-size:12px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin:6px 0 12px;font-weight:700}
+.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:11px}
+.ac{background:linear-gradient(160deg,#16130f,#100e0c);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:border-color .2s,transform .15s}
+.ac:hover{border-color:var(--gold);transform:translateY(-2px)}
 .am{font-family:Cinzel,serif;font-size:11px;color:var(--gold);margin-bottom:5px}
 .at2{font-size:16px;color:var(--text);font-weight:700}
 .ap{font-size:10px;margin-top:2px}.ap.g{color:var(--green)}.ap.y{color:var(--yellow)}.ap.r{color:var(--red)}
@@ -109,13 +113,79 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 
 .ym{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
 .ym.show{display:flex}
-.ymb{background:var(--bg2);border:1px solid var(--border);padding:24px;width:100%;max-width:900px;margin:auto}
+.ymb{background:linear-gradient(160deg,#16130f,#100e0c);border:1px solid var(--border);border-radius:16px;padding:24px;width:100%;max-width:900px;margin:auto}
 .ymh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .ymt{font-family:Cinzel,serif;font-size:14px;color:var(--gold);letter-spacing:.1em}
 .ymx{background:none;border:1px solid var(--border);color:var(--dim);font-family:Jost,sans-serif;font-size:11px;padding:6px 12px;cursor:pointer}
 .ymx:hover{border-color:var(--gold);color:var(--gold)}
 .card.click{cursor:pointer;transition:all .2s}
 .card.click:hover{border-color:var(--gold);transform:translateY(-1px)}
+
+/* ===== HERO ===== */
+.hero{background:radial-gradient(120% 150% at 0% 0%,#1a1713 0%,#100e0b 55%,#0c0b09 100%);border:1px solid rgba(201,168,76,.22);border-radius:18px;padding:16px 22px;margin-bottom:16px;box-shadow:0 18px 46px -26px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.03)}
+.hero-cap{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;margin-bottom:6px}
+.hero-l{display:flex;flex-direction:column}
+.hero-fact{font-size:40px;font-weight:800;line-height:.92;letter-spacing:-.01em;background:linear-gradient(180deg,#F6DE9E 0%,#D9B45C 48%,#B98E33 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-fact-l{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-top:7px}
+.hero-meta{display:flex;flex-direction:column;gap:11px;padding-top:2px}
+.mrow .mv{font-size:21px;font-weight:700;color:#d8cba6}
+.mrow .ml{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:1px}
+.ring-wrap{position:relative;width:128px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.ring-svg{position:relative;width:116px;height:116px}
+.ring-pct{position:absolute;top:58px;left:0;right:0;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center}
+.ring-pct .v{font-size:28px;font-weight:800;line-height:1;color:var(--gold-l)}
+.ring-pct .l{font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-top:2px}
+.ring-day{font-size:12px;font-weight:600;color:var(--gold);letter-spacing:.04em}
+.chart-box{width:100%;height:140px;position:relative;margin-top:2px}
+.chart-legend{display:flex;gap:18px;font-size:9px;color:var(--dim);margin-top:5px;letter-spacing:.08em;text-transform:uppercase}
+.chart-legend span{display:inline-flex;align-items:center;gap:6px}
+.lg-line{width:18px;height:2px;background:var(--gold);border-radius:2px}
+.lg-dash{width:18px;height:0;border-top:1px dashed #6b6557}
+
+/* ===== SECTION HEADER ===== */
+.sh2{font-size:13px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;font-weight:700;margin:6px 0 14px}
+
+/* ===== STATION CARDS (компактная сетка) ===== */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:13px}
+.st-card{position:relative;background:linear-gradient(160deg,#16130f 0%,#100e0c 70%);border:1px solid var(--border);border-radius:14px;padding:15px 16px 13px;overflow:hidden;transition:transform .15s}
+.st-card:hover{transform:translateY(-2px)}
+.st-card::after{content:'';position:absolute;top:0;right:0;width:120px;height:120px;border-radius:50%;filter:blur(34px);opacity:.16;pointer-events:none;transform:translate(35%,-35%)}
+.st-card.ov{border-color:rgba(63,209,126,.32);box-shadow:0 0 24px -14px rgba(63,209,126,.5)}.st-card.ov::after{background:var(--green)}
+.st-card.tr{border-color:rgba(232,184,75,.34);box-shadow:0 0 24px -14px rgba(232,184,75,.5)}.st-card.tr::after{background:var(--yellow)}
+.st-card.bh{border-color:rgba(255,92,92,.34);box-shadow:0 0 24px -14px rgba(255,92,92,.5)}.st-card.bh::after{background:var(--red)}
+.st-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:12px;position:relative}
+.st-id{display:flex;align-items:baseline;gap:7px;min-width:0}
+.st-num{font-size:16px;font-weight:800;line-height:1;flex-shrink:0}
+.st-num.ov{color:var(--green)}.st-num.tr{color:var(--yellow)}.st-num.bh{color:var(--red)}
+.st-name{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st-pct{font-size:30px;font-weight:800;line-height:.85;letter-spacing:-.01em}
+.st-pct small{font-size:14px;font-weight:700}
+.st-pct.ov{color:var(--green)}.st-pct.tr{color:var(--yellow)}.st-pct.bh{color:var(--red)}
+.st-cols{display:flex;justify-content:space-between;gap:8px;margin-bottom:8px}
+.st-col{min-width:0}.st-col.r{text-align:right}
+.st-col .l{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:2px}
+.st-col .v{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap}
+.st-col .v.dim{color:var(--dim);font-weight:600}
+.st-chart{position:relative;height:58px;margin:2px 0 9px}
+.st-foot{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.st-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;white-space:nowrap}
+.st-badge.ov{color:var(--green)}.st-badge.tr{color:var(--yellow)}.st-badge.bh{color:var(--red)}
+.st-time{font-size:9px;color:var(--dim);text-align:right;white-space:nowrap}
+
+/* ===== FOOTER LEGEND ===== */
+.foot{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:10px;letter-spacing:.08em;color:var(--dim)}
+.foot .lg{display:inline-flex;align-items:center;gap:8px;text-transform:uppercase}
+.foot .ln{width:20px;height:3px;border-radius:2px}
+.foot .upd{margin-left:auto;color:#6b6557}
+.mini-chart{width:100%;height:46px;margin:8px 0 4px}
+
+@media(max-width:760px){
+  .hero-fact{font-size:38px}.mrow .mv{font-size:19px}
+  .ring-svg{width:118px;height:118px}.ring-pct{top:59px}.ring-pct .v{font-size:28px}
+  .st-grid{grid-template-columns:1fr}
+  .foot .upd{margin-left:0;width:100%}
+}
 </style>
 </head>
 <body>
@@ -161,7 +231,17 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
     <button class="tab" id="tw">WoW</button>
     <button class="tab" id="ta">Архив</button>
   </div>
-  <div id="vt"><div class="cards" id="ct"></div><div class="strip" id="st2"></div><div class="sh">По точкам — сегодня</div><div class="grid" id="gt"></div></div>
+  <div id="vt">
+    <div class="hero" id="hero-today"></div>
+    <div class="sh2">По точкам — сегодня</div>
+    <div class="st-grid" id="gt"></div>
+    <div class="foot">
+      <span class="lg"><span class="ln" style="background:var(--green)"></span>Выполнен / перевыполнен</span>
+      <span class="lg"><span class="ln" style="background:var(--yellow)"></span>Приближается к плану</span>
+      <span class="lg"><span class="ln" style="background:var(--red)"></span>Недалеко от плана</span>
+      <span class="upd">Данные обновляются каждые 5 минут</span>
+    </div>
+  </div>
   <div id="vm" style="display:none"><div class="cards" id="cm" style="grid-template-columns:repeat(2,1fr)"></div><div class="strip" id="sm"></div><div class="sh">По точкам — за месяц</div><div class="grid" id="gm"></div></div>
   <div id="vw" style="display:none">
     <div class="sh">Week over Week</div>
@@ -191,9 +271,6 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
         <div class="sh">Итого по дням месяца</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="dtbl" id="dtbl"></table></div>
       </div>
-      <div id="wwrap" style="display:none;margin-top:12px">
-        <div class="sh">WoW — недели месяца</div>
-        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="wtbl" id="wwtbl"></table></div>
       <div id="wwrap" style="display:none;margin-top:12px">
         <div class="sh">WoW — недели месяца</div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="wtbl" id="wwtbl"></table></div>
@@ -271,7 +348,8 @@ async function fbulk(df,dt,attempt){
   attempt=attempt||1;
   try{
     var ctrl=new AbortController();
-    var tid=setTimeout(function(){ctrl.abort();},12000);
+    // Worker иногда отвечает ~20-25с (холодный старт + медленный iikoweb) — иначе ретраи рвутся раньше ответа
+    var tid=setTimeout(function(){ctrl.abort();},35000);
     var rsp=await fetch(PX+'/bulk',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -291,6 +369,41 @@ async function fbulk(df,dt,attempt){
   }
 }
 
+var HOURLY=null;
+async function fetchHourly(dateStr){
+  try{
+    var ctrl=new AbortController();
+    var tid=setTimeout(function(){ctrl.abort();},35000);
+    var r=await fetch(PX+'/api/kpi/dashboard/get-data',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({dateFrom:dateStr,dateTo:dateStr,metricCodes:['REV_GROSS'],storeIds:[43606,48767,55956,57060,78987,95683,101199],dataType:'DATA_DETAILS_BY_STORE'}),
+      signal:ctrl.signal
+    });
+    clearTimeout(tid);
+    var d=await r.json();
+    var rev=d.data&&d.data.REV_GROSS;
+    if(!rev)return null;
+    var u2id={};
+    if(d.decoration&&d.decoration.restaurant){
+      Object.keys(d.decoration.restaurant).forEach(function(uuid){u2id[uuid]=d.decoration.restaurant[uuid].id;});
+    }
+    var cols=Object.entries(rev.columns);
+    var byStore={},totalByHour={};
+    Object.keys(rev.rows).forEach(function(uuid){
+      var sidx=rev.rows[uuid], arr=rev.data[sidx]||[], id=u2id[uuid];
+      var hb={};
+      cols.forEach(function(c){
+        var hour=parseInt(c[0].replace('D','').split(':')[0],10);
+        var val=arr[c[1]]||0;
+        hb[hour]=(hb[hour]||0)+val;
+        totalByHour[hour]=(totalByHour[hour]||0)+val;
+      });
+      byStore[id]=hb;
+    });
+    return {total:totalByHour,byStore:byStore};
+  }catch(e){return null;}
+}
+
 // MAIN LOAD
 async function load(){
   if(!chk())return;
@@ -299,8 +412,9 @@ async function load(){
   ss('y','Загружаю данные из iiko...');
   try{
     var n=new Date(),td=fd(n),ms=fd(new Date(n.getFullYear(),n.getMonth(),1));
-    var res=await Promise.all([fbulk(td,td),fbulk(ms,td)]);
-    TR=res[0];MR=res[1];
+    // Почасовку тянем параллельно с итогами — график рисуется сразу, без второго прохода
+    var res=await Promise.all([fbulk(td,td),fbulk(ms,td),fetchHourly(td)]);
+    TR=res[0];MR=res[1];HOURLY=res[2];
     rT(n);rM(n);
     ss('g','Данные актуальны — '+n.toLocaleDateString('ru-RU')+' '+ft(n));
     document.getElementById('ut').textContent=n.toLocaleDateString('ru-RU')+' '+ft(n);
@@ -345,6 +459,31 @@ function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
     '<div class="pbw"><div class="pbr"><span class="pc '+c+'">'+pct+'%</span><span style="font-size:9px;color:var(--dim)">'+dpct+'</span></div>'+
     '<div class="pbg"><div class="pbf '+c+'" style="width:'+Math.min(pct,100)+'%"></div><div class="pbn" style="left:'+dp2+'%"></div></div></div>';
 }
+
+function miniChart(hours,openH,closeH,statusColor){
+  if(!hours)return '';
+  var W=200,H=46,pad=2;
+  var cum=0,pts=[];
+  for(var h=openH;h<=closeH;h++){
+    if(hours[h]!=null)cum+=hours[h];
+    pts.push({h:h,v:cum});
+  }
+  if(pts.length<2||cum===0)return '<div class="mini-chart"></div>';
+  var maxV=cum||1, span=closeH-openH||1;
+  function x(h){return pad+((h-openH)/span)*(W-pad*2);}
+  function y(v){return pad+(1-v/maxV)*(H-pad*2);}
+  var d='';
+  pts.forEach(function(p,i){d+=(i===0?'M ':'L ')+x(p.h).toFixed(1)+' '+y(p.v).toFixed(1)+' ';});
+  var last=pts[pts.length-1];
+  var col=statusColor==='g'?'var(--green)':statusColor==='y'?'var(--yellow)':statusColor==='r'?'var(--red)':'var(--gold)';
+  var area=d+'L '+x(last.h).toFixed(1)+' '+(H-pad)+' L '+x(openH).toFixed(1)+' '+(H-pad)+' Z';
+  return '<svg class="mini-chart" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none">'+
+    '<defs><linearGradient id="mg'+openH+statusColor+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+col+'" stop-opacity="0.22"/><stop offset="100%" stop-color="'+col+'" stop-opacity="0"/></linearGradient></defs>'+
+    '<path d="'+area+'" fill="url(#mg'+openH+statusColor+')"/>'+
+    '<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2"/>'+
+    '<circle cx="'+x(last.h).toFixed(1)+'" cy="'+y(last.v).toFixed(1)+'" r="2.5" fill="'+col+'"/>'+
+  '</svg>';
+}
 function mkGrid(el,data,PL,DM,isDay,n){
   var nowMin2=isDay?n.getHours()*60+n.getMinutes():0;
   var day=isDay?0:n.getDate();
@@ -371,6 +510,7 @@ function mkGrid(el,data,PL,DM,isDay,n){
         '<div class="blk"><div class="bl">Ожидалось</div><div class="pv">'+fm(e)+' ₽</div></div>'+
         '<div class="blk"><div class="bl">'+(isDay?'В день':'Мес. план')+'</div><div class="dv">'+fm(isDay?Math.round(dv):pl)+' ₽</div></div>'+
       '</div>'+
+      ((typeof HOURLY!=='undefined'&&HOURLY&&HOURLY.byStore&&HOURLY.byStore[s.id])?miniChart(HOURLY.byStore[s.id],s.open,s.close,c2):'')+
       '<div class="pb2"><div class="p2r"><span class="p2 '+c2+'">'+pt+'%</span>'+
         '<span class="pbd">'+(isDay?ft(n)+' • '+sDp+'% дня':day+' из '+DM+' дн.')+'</span></div>'+
         '<div class="pbg"><div class="pbf '+c2+'" style="width:'+Math.min(pt,100)+'%"></div>'+
@@ -381,27 +521,8 @@ function mkGrid(el,data,PL,DM,isDay,n){
 }
 
 function rT(n){
-  var nowMin=n.getHours()*60+n.getMinutes();
-  var y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m),tf=0,te=0,td=0;
-  ST.forEach(function(s){
-    tf+=TR[s.id]||0;
-    var dv=PL[s.id]/DM;
-    var sOpen=s.open*60,sWday=(s.close-s.open)*60;
-    var sEl=nowMin<sOpen?0:Math.min((nowMin-sOpen)/sWday,1);
-    te+=dv*sEl;td+=dv;
-  });
-  var p=te>0?Math.round(tf/te*100):0,c=col(p);
-  var avgOpen=Math.round(ST.reduce(function(a,s){return a+s.open;},0)/ST.length);
-  var avgClose=Math.round(ST.reduce(function(a,s){return a+s.close;},0)/ST.length);
-  var avgEl=nowMin<avgOpen*60?0:Math.min((nowMin-avgOpen*60)/((avgClose-avgOpen)*60),1);
-  var dp=Math.round(avgEl*100);
-  mkCards('ct',[
-    {l:'Факт сегодня (все точки)',v:fm(tf)+' ₽',s:'Ожидалось к '+ft(n)+': '+fm(Math.round(te))+' ₽',c:c},
-    {l:'Выполнение плана',v:p+'%',s:p>=100?'✓ Опережаем план':p>=80?'На верном пути':'Отстаём от плана',c:c},
-    {l:'Дневной план суммарно',v:fm(Math.round(td))+' ₽',s:dp+'% раб. дня прошло',c:'n'}
-  ]);
-  mkStrip('st2',tf,Math.round(td),Math.round(te),p,c,dp+'% дня','Дневной план');
-  mkGrid('gt',TR,PL,DM,true,n);
+  renderHero(n);
+  renderStationsToday(n);
 }
 
 async function rM(n){
@@ -761,6 +882,131 @@ function showYesterday(data,totFact,totPct,label,PL,DM,day,m,y){
   mkGrid('ym-grid',data,PL,DM,false,n);
   document.getElementById('ym').classList.add('show');
 }
+
+// ===== Универсальный линейный график (hero + мини-графики точек) =====
+function niceStep(v){var raw=v/3;var p=Math.pow(10,Math.floor(Math.log10(raw||1)));var n=raw/p;var s=n<=1?1:n<=2?2:n<=5?5:10;return s*p;}
+function kfmt(v){return v>=1000?Math.round(v/1000)+'K':String(Math.round(v));}
+function lineChart(c){
+  var W=600,H=c.h||190,uid=c.uid||('c'+Math.round(Math.random()*1e6));
+  var padL=c.yAxis?46:8,padR=10,padT=12,padB=c.noLabels?8:22;
+  function x(h){return padL+(h/24)*(W-padL-padR);}
+  // накопительный факт до «сейчас»
+  var cum=0,fpts=[];
+  for(var h=c.openH;h<=24;h++){if(h>c.nowH)break;if(c.hourly&&c.hourly[h]!=null)cum+=c.hourly[h];fpts.push({h:h,v:cum});}
+  var hasFact=fpts.length>0;
+  if(hasFact&&c.nowH<24)fpts.push({h:Math.min(c.nowH,c.closeH),v:cum});
+  var dataMax=Math.max(c.plan,cum,1),step=c.yAxis?niceStep(dataMax):0;
+  var maxV=c.yAxis?Math.ceil(dataMax/step)*step:dataMax;
+  function y(v){return padT+(1-v/maxV)*(H-padT-padB);}
+  var isGold=!!c.gold,col=c.color,stroke=isGold?'url(#g'+uid+')':col,acc=isGold?'#E8C97A':col;
+  var grid='',ylabels='';
+  if(c.yAxis){for(var gv=0;gv<=maxV+1;gv+=step){var yy=y(gv);
+    grid+='<line x1="'+padL+'" y1="'+yy.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+yy.toFixed(1)+'" stroke="rgba(255,255,255,.05)" stroke-width="1" vector-effect="non-scaling-stroke"/>';
+    ylabels+='<span style="position:absolute;left:0;top:'+(yy/H*100).toFixed(1)+'%;transform:translateY(-50%);font-size:9px;color:var(--dim)">'+kfmt(gv)+'</span>';
+  }}
+  var planLine='M '+x(c.openH).toFixed(1)+' '+y(0).toFixed(1)+' L '+x(c.closeH).toFixed(1)+' '+y(c.plan).toFixed(1);
+  var paths='',dot='';
+  if(hasFact){
+    var fp='';fpts.forEach(function(pt,i){fp+=(i===0?'M ':'L ')+x(pt.h).toFixed(1)+' '+y(pt.v).toFixed(1)+' ';});
+    var last=fpts[fpts.length-1],lx=x(last.h).toFixed(1);
+    var area=fp+'L '+lx+' '+y(0).toFixed(1)+' L '+x(c.openH).toFixed(1)+' '+y(0).toFixed(1)+' Z';
+    var glowLine=c.glow?'<path d="'+fp+'" fill="none" stroke="'+acc+'" stroke-width="6" opacity="0.35" filter="url(#bl'+uid+')" vector-effect="non-scaling-stroke"/>':'';
+    paths='<path d="'+area+'" fill="url(#fa'+uid+')"/>'+
+      '<line x1="'+lx+'" y1="'+padT+'" x2="'+lx+'" y2="'+y(0).toFixed(1)+'" stroke="'+acc+'" stroke-width="1" stroke-dasharray="2,3" opacity="0.5" vector-effect="non-scaling-stroke"/>'+
+      glowLine+
+      '<path d="'+fp+'" fill="none" stroke="'+stroke+'" stroke-width="'+(H>120?3:2.4)+'" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>';
+    var dl=(x(last.h)/W*100),dt=(y(last.v)/H*100),ds=H>120?12:8;
+    dot='<span style="position:absolute;left:'+dl.toFixed(2)+'%;top:'+dt.toFixed(2)+'%;width:'+ds+'px;height:'+ds+'px;margin:-'+(ds/2)+'px 0 0 -'+(ds/2)+'px;border-radius:50%;background:'+(isGold?'#F0D89A':col)+';box-shadow:0 0 '+(c.glow?12:6)+'px '+acc+';pointer-events:none"></span>';
+  }
+  var defs='<defs>'+
+    (isGold?'<linearGradient id="g'+uid+'" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#C99B3C"/><stop offset="55%" stop-color="#F0D89A"/><stop offset="100%" stop-color="#E8C97A"/></linearGradient>':'')+
+    '<linearGradient id="fa'+uid+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+acc+'" stop-opacity="0.22"/><stop offset="100%" stop-color="'+acc+'" stop-opacity="0"/></linearGradient>'+
+    (c.glow?'<filter id="bl'+uid+'" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="3"/></filter>':'')+
+  '</defs>';
+  var svg='<svg width="100%" height="100%" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="display:block">'+defs+grid+
+    '<path d="'+planLine+'" fill="none" stroke="#6b6557" stroke-width="1.4" stroke-dasharray="5,4" opacity="0.8" vector-effect="non-scaling-stroke"/>'+paths+'</svg>';
+  var xl='';if(!c.noLabels){[8,12,16,20,24].forEach(function(hh){xl+='<span style="position:absolute;left:'+(x(hh)/W*100).toFixed(1)+'%;bottom:1px;transform:translateX(-50%);font-size:9px;color:var(--dim);pointer-events:none">'+(hh===24?'24:00':String(hh).padStart(2,'0')+':00')+'</span>';});}
+  return svg+'<div style="position:absolute;inset:0;pointer-events:none">'+ylabels+xl+dot+'</div>';
+}
+function drawRing(pct){
+  var p=Math.max(0,Math.min(pct,100)),r=60,circ=2*Math.PI*r;
+  var off=circ*(1-p/100);
+  var ang=-Math.PI/2+2*Math.PI*(p/100),mx=70+r*Math.cos(ang),my=70+r*Math.sin(ang);
+  var grad=pct>=80&&pct<100,base=pct>=100?'var(--green)':pct>=80?'#E8C97A':'var(--red)';
+  var st=grad?'url(#rgrad)':base,glow=pct>=100?'#3FD17E':pct>=80?'#E8C97A':'#FF5C5C';
+  return '<svg class="ring-svg" viewBox="0 0 140 140">'+
+    '<defs><filter id="rg" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.5"/></filter>'+
+    '<linearGradient id="rgrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#C99B3C"/><stop offset="100%" stop-color="#F0D89A"/></linearGradient></defs>'+
+    '<circle cx="70" cy="70" r="60" fill="none" stroke="rgba(255,255,255,.055)" stroke-width="3"/>'+
+    '<circle cx="70" cy="70" r="60" fill="none" stroke="'+st+'" stroke-width="7" stroke-linecap="round" stroke-dasharray="'+circ.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 70 70)" opacity="0.35" filter="url(#rg)"/>'+
+    '<circle cx="70" cy="70" r="60" fill="none" stroke="'+st+'" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="'+circ.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 70 70)"/>'+
+    '<circle cx="'+mx.toFixed(1)+'" cy="'+my.toFixed(1)+'" r="6" fill="'+glow+'" opacity="0.55" filter="url(#rg)"/>'+
+    '<circle cx="'+mx.toFixed(1)+'" cy="'+my.toFixed(1)+'" r="4.5" fill="#fff"/>'+
+  '</svg>';
+}
+function renderHero(n){
+  var box=document.getElementById('hero-today');if(!box)return;
+  var nowMin=n.getHours()*60+n.getMinutes();
+  var y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m);
+  var tf=0,te=0,td=0;
+  ST.forEach(function(s){tf+=TR[s.id]||0;var dv=PL[s.id]/DM;var sOpen=s.open*60,sWday=(s.close-s.open)*60;var sEl=nowMin<sOpen?0:Math.min((nowMin-sOpen)/sWday,1);te+=dv*sEl;td+=dv;});
+  var pct=te>0?Math.round(tf/te*100):0;
+  var avgOpen=Math.round(ST.reduce(function(a,s){return a+s.open;},0)/ST.length);
+  var avgClose=Math.round(ST.reduce(function(a,s){return a+s.close;},0)/ST.length);
+  var dayPct=nowMin<avgOpen*60?0:Math.round(Math.min((nowMin-avgOpen*60)/((avgClose-avgOpen)*60),1)*100);
+  var nowH=n.getHours()+n.getMinutes()/60;
+  var pcol=pct>=100?'var(--green)':pct>=80?'var(--gold-l)':'var(--red)';
+  var chart=HOURLY?lineChart({hourly:HOURLY.total,plan:Math.round(td),openH:avgOpen,closeH:avgClose,nowH:nowH,gold:true,yAxis:true,glow:true,h:190,uid:'hero'}):'<div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:11px">Почасовые данные недоступны</div>';
+  box.innerHTML=
+    '<div class="hero-cap">Итоги за день</div>'+
+    '<div class="hero-top">'+
+      '<div class="hero-l"><div class="hero-fact">'+fm(tf)+' ₽</div><div class="hero-fact-l">Факт</div></div>'+
+      '<div class="hero-meta">'+
+        '<div class="mrow"><div class="mv">'+fm(Math.round(td))+' ₽</div><div class="ml">Дневной план</div></div>'+
+        '<div class="mrow"><div class="mv">'+fm(Math.round(te))+' ₽</div><div class="ml">Ожидалось</div></div>'+
+      '</div>'+
+      '<div class="ring-wrap">'+drawRing(pct)+
+        '<div class="ring-pct"><div class="v" style="color:'+pcol+'">'+pct+'%</div><div class="l">выполнено</div></div>'+
+        '<div class="ring-day">'+dayPct+'% дня</div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="chart-box">'+chart+'</div>'+
+    '<div class="chart-legend"><span><span class="lg-line"></span>Факт</span><span><span class="lg-dash"></span>План</span></div>';
+}
+function renderStationsToday(n){
+  var el=document.getElementById('gt');if(!el)return;
+  var nowMin=n.getHours()*60+n.getMinutes(),nowH=n.getHours()+n.getMinutes()/60;
+  var y=n.getFullYear(),m=n.getMonth(),PL=gpl(y,m),DM=sdm(y,m);
+  var byStore=(HOURLY&&HOURLY.byStore)||{};
+  var rows=ST.map(function(s){
+    var f=TR[s.id]||0,pl=PL[s.id]||0,dv=pl/DM;
+    var sOpen=s.open*60,sWday=(s.close-s.open)*60,sEl=nowMin<sOpen?0:Math.min((nowMin-sOpen)/sWday,1);
+    var e=dv*sEl,pt=e>0?Math.round(f/e*100):0;
+    return {s:s,f:f,dv:dv,e:e,pt:pt,df:Math.round(f-e),sEl:sEl};
+  }).sort(function(a,b){return b.pt-a.pt;});
+  el.innerHTML=rows.map(function(r){
+    var s=r.s,cls=r.pt>=100?'ov':r.pt>=80?'tr':'bh';
+    var cv=r.pt>=100?'var(--green)':r.pt>=80?'var(--yellow)':'var(--red)';
+    var num=s.n.split('.')[0];
+    var mini=lineChart({hourly:byStore[s.id]||{},plan:Math.round(r.dv),openH:s.open,closeH:s.close,nowH:nowH,color:cv,yAxis:false,glow:false,noLabels:true,h:58,uid:'s'+s.id});
+    return '<div class="st-card '+cls+'">'+
+      '<div class="st-head">'+
+        '<div class="st-id"><span class="st-num '+cls+'">'+num+'.</span><span class="st-name">'+s.s+'</span></div>'+
+        '<div class="st-pct '+cls+'">'+r.pt+'<small>%</small></div>'+
+      '</div>'+
+      '<div class="st-cols">'+
+        '<div class="st-col"><div class="l">Факт</div><div class="v">'+fm(r.f)+' ₽</div></div>'+
+        '<div class="st-col r"><div class="l">Ожидалось</div><div class="v dim">'+fm(Math.round(r.e))+' ₽</div></div>'+
+        '<div class="st-col r"><div class="l">В день</div><div class="v dim">'+fm(Math.round(r.dv))+' ₽</div></div>'+
+      '</div>'+
+      '<div class="st-chart">'+mini+'</div>'+
+      '<div class="st-foot">'+
+        '<span class="st-badge '+cls+'">'+(r.df>=0?'▲':'▼')+' '+fm(Math.abs(r.df))+' ₽ '+(r.df>=0?'опережение':'отставание')+'</span>'+
+        '<span class="st-time">'+ft(n)+' · '+Math.round(r.sEl*100)+'% дня</span>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
 document.getElementById('rb').addEventListener('click',load);
 document.getElementById('pb').addEventListener('click',function(){openPM(false);});
 document.getElementById('psb').addEventListener('click',savePl);
@@ -773,38 +1019,6 @@ document.getElementById('ab').addEventListener('click',function(){
   document.getElementById('ag').style.display='grid';
   document.getElementById('ad').style.display='none';
 });
-
-
-
-
-
-async function loadArchWow(y,m){
-  var tbl=document.getElementById('wwtbl');
-  tbl.innerHTML='<tr><td colspan="4" style="text-align:center;padding:14px;color:var(--dim)">Загрузка...</td></tr>';
-  var weeks=getWeeks(y,m);
-  try{
-    var results=await Promise.all(weeks.map(function(w){
-      return fbulk(fd(w.s),fd(w.e)).then(function(data){return{w:w,data:data};});
-    }));
-    var h='<thead><tr><th style="text-align:left">Неделя</th><th style="text-align:right">Выручка</th><th style="text-align:right">Ср/день</th><th style="text-align:right">Рост</th></tr></thead><tbody>';
-    results.forEach(function(res,i){
-      var tot=0;ST.forEach(function(s){tot+=res.data[s.id]||0;});tot=Math.round(tot);
-      var days=daysB(res.w.s,res.w.e),avg=Math.round(tot/days);
-      var prev=i>0?results[i-1]:null;
-      var pAvg=prev?Math.round(Object.values(prev.data).reduce(function(a,b){return a+b;},0)/daysB(prev.w.s,prev.w.e)):null;
-      var pct=pAvg>0?Math.round((avg-pAvg)/pAvg*100):null;
-      var tc=pct===null?'var(--dim)':pct>=0?'var(--green)':'var(--red)';
-      h+='<tr>'+
-        '<td style="padding:6px 8px;color:var(--text);white-space:nowrap">Н'+(i+1)+': '+fdate(res.w.s)+'-'+fdate(res.w.e)+' ('+days+'д.)</td>'+
-        '<td style="text-align:right;padding:6px 8px;color:var(--text);font-weight:600">'+fm(tot)+' ₽</td>'+
-        '<td style="text-align:right;padding:6px 8px;color:var(--dim)">'+fm(avg)+' ₽</td>'+
-        '<td style="text-align:right;padding:6px 8px;color:'+tc+'">'+(pct!==null?(pct>=0?'+':'')+pct+'%':'—')+'</td>'+
-      '</tr>';
-    });
-    h+='</tbody>';
-    tbl.innerHTML=h;
-  }catch(e){tbl.innerHTML='<tr><td colspan="4" style="text-align:center;padding:14px;color:var(--red)">Ошибка: '+e.message+'</td></tr>';}
-}
 
 if(chk())load();
 </script>
