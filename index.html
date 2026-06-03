@@ -53,6 +53,7 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .card.g::before{background:var(--green)}.card.r::before{background:var(--red)}.card.y::before{background:var(--yellow)}.card.n::before{background:var(--gold);opacity:.3}
 .cl{font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
 .cv{font-size:24px;color:var(--text);font-weight:800;letter-spacing:-.01em}.cs{font-size:10px;color:var(--dim);margin-top:3px}
+.card.g .cv{color:var(--green)}.card.y .cv{color:var(--yellow)}.card.r .cv{color:var(--red)}
 .strip{background:linear-gradient(160deg,#16130f,#100e0c);border:1px solid var(--border);border-radius:13px;padding:13px 17px;margin-bottom:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:center}
 .tl{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:2px}
 .tv{font-size:17px;color:var(--gold);font-weight:700}.tv.s{font-size:13px;color:var(--dim);font-weight:400}
@@ -181,8 +182,15 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 .mini-chart{width:100%;height:46px;margin:8px 0 4px}
 
 @media(max-width:760px){
-  .hero-fact{font-size:38px}.mrow .mv{font-size:19px}
-  .ring-svg{width:118px;height:118px}.ring-pct{top:59px}.ring-pct .v{font-size:28px}
+  .hero{padding:13px 15px;border-radius:15px}
+  .hero-cap{margin-bottom:6px}
+  .hero-top{display:grid;grid-template-columns:1fr auto;grid-template-areas:"fact ring" "meta ring";column-gap:12px;row-gap:8px;margin-bottom:6px}
+  .hero-l{grid-area:fact}.hero-meta{grid-area:meta;flex-direction:row;gap:18px;padding-top:0}.ring-wrap{grid-area:ring;align-self:center}
+  .hero-fact{font-size:30px}.hero-fact-l{margin-top:3px}
+  .mrow .mv{font-size:16px}.mrow .ml{font-size:8px}
+  .ring-wrap{width:96px;gap:2px}.ring-svg{width:90px;height:90px}.ring-pct{top:45px}.ring-pct .v{font-size:21px}.ring-pct .l{font-size:6px}.ring-day{font-size:11px}
+  .chart-box{height:96px}
+  .chart-legend{margin-top:3px}
   .st-grid{grid-template-columns:1fr}
   .foot .upd{margin-left:0;width:100%}
 }
