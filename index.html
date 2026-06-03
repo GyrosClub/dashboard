@@ -237,7 +237,7 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
           <linearGradient id="gf" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#222"/><stop offset="100%" stop-color="#111"/>
           </linearGradient>
-          <linearGradient id="gt" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id="svg-gt" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stop-color="#555"/><stop offset="100%" stop-color="#333"/>
           </linearGradient>
           <linearGradient id="gs" x1="0" y1="0" x2="0" y2="1">
@@ -263,7 +263,7 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
         <g filter="url(#lshadow)">
           <!-- BAR 1: w=28, h=32, gap=8, iso dx=11 dy=-9 -->
           <path d="M4,76 L4,107 L32,107 L32,76 Z" fill="url(#gf)"/>
-          <path d="M4,76 L15,67 L43,67 L32,76 Z" fill="url(#gt)"/>
+          <path d="M4,76 L15,67 L43,67 L32,76 Z" fill="url(#svg-gt)"/>
           <path d="M4,76 L15,67 L43,67 L32,76 Z" fill="url(#gsp)"/>
           <path d="M32,76 L43,67 L43,98 L32,107 Z" fill="url(#gs)"/>
           <line x1="4" y1="76" x2="32" y2="76" stroke="rgba(255,255,255,.22)" stroke-width="1.1"/>
@@ -271,7 +271,7 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 
           <!-- BAR 2: x=47, h=55 -->
           <path d="M47,52 L47,107 L75,107 L75,52 Z" fill="url(#gf)"/>
-          <path d="M47,52 L58,43 L86,43 L75,52 Z" fill="url(#gt)"/>
+          <path d="M47,52 L58,43 L86,43 L75,52 Z" fill="url(#svg-gt)"/>
           <path d="M47,52 L58,43 L86,43 L75,52 Z" fill="url(#gsp)"/>
           <path d="M75,52 L86,43 L86,98 L75,107 Z" fill="url(#gs)"/>
           <line x1="47" y1="52" x2="75" y2="52" stroke="rgba(255,255,255,.22)" stroke-width="1.1"/>
@@ -279,7 +279,7 @@ main{padding:14px 20px;max-width:1300px;margin:0 auto}
 
           <!-- BAR 3: x=90, h=82 -->
           <path d="M90,25 L90,107 L118,107 L118,25 Z" fill="url(#gf)"/>
-          <path d="M90,25 L101,16 L129,16 L118,25 Z" fill="url(#gt)"/>
+          <path d="M90,25 L101,16 L129,16 L118,25 Z" fill="url(#svg-gt)"/>
           <path d="M90,25 L101,16 L129,16 L118,25 Z" fill="url(#gsp)"/>
           <path d="M118,25 L129,16 L129,98 L118,107 Z" fill="url(#gs)"/>
           <line x1="90" y1="25" x2="118" y2="25" stroke="rgba(255,255,255,.22)" stroke-width="1.1"/>
@@ -568,8 +568,8 @@ function mkStrip(el,tf,plan,te,pct,c,dpct,plabel){
   var dp2=String(dpct).match(/d+/);dp2=dp2?dp2[0]:'0';
   document.getElementById(el).innerHTML=
     '<div><div class="tl">Факт</div><div class="tv">'+fm(tf)+' ₽</div></div>'+
-    '<div><div class="tl">'+plabel+'</div><div class="tv s">'+fm(plan)+' ₽</div></div>'+
-    '<div><div class="tl">Ожидалось</div><div class="tv s">'+fm(te)+' ₽</div></div>'+
+    '<div><div class="tl">'+plabel+'</div><div class="tv">'+fm(plan)+' ₽</div></div>'+
+    '<div><div class="tl">Ожидалось</div><div class="tv">'+fm(te)+' ₽</div></div>'+
     '<div class="pbw"><div class="pbr"><span class="pc '+c+'">'+pct+'%</span><span style="font-size:9px;color:var(--dim)">'+dpct+'</span></div>'+
     '<div class="pbg"><div class="pbf '+c+'" style="width:'+Math.min(pct,100)+'%"></div><div class="pbn" style="left:'+dp2+'%"></div></div></div>';
 }
