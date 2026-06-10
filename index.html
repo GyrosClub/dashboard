@@ -484,7 +484,11 @@ async function fbulk(df,dt,attempt){
 }
 
 var HOURLY=null;
-async function fetchHourly(dateStr){
+async function fetchHourly(dateStr,attempt){
+  attempt=attempt||1;
+  var d;
+  // Ретраи как у fbulk: холодный Worker (~20-25с) роняет первый запрос почасовки.
+  // Без ретраев график пропадал при первом заходе и появлялся лишь после «Обновить».
   try{
     var ctrl=new AbortController();
     var tid=setTimeout(function(){ctrl.abort();},35000);
@@ -494,7 +498,16 @@ async function fetchHourly(dateStr){
       signal:ctrl.signal
     });
     clearTimeout(tid);
-    var d=await r.json();
+    if(!r.ok)throw new Error('hourly '+r.status);
+    d=await r.json();
+  }catch(e){
+    if(attempt<5){
+      await new Promise(function(res){setTimeout(res,attempt*1000);});
+      return fetchHourly(dateStr,attempt+1);
+    }
+    return null;
+  }
+  try{
     var rev=d.data&&d.data.REV_GROSS;
     if(!rev)return null;
     var u2id={};
